@@ -3,17 +3,16 @@
 #![allow(non_camel_case_types)]
 #![allow(non_upper_case_globals)]
 pub(crate) mod sqlite3ext;
-use log::{debug, trace};
-use std::convert::TryInto;
-use std::ffi::CString;
+use std::{convert::TryInto, ffi::CString};
 
+use log::{debug, trace};
 use sqlite3ext::{
     sqlite3, sqlite3_api_routines, SQLITE_ERROR, SQLITE_OK, SQLITE_OK_LOAD_PERMANENTLY,
 };
 
 /*
-** File types
-*/
+ * File types
+ */
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub enum FileType {
@@ -29,8 +28,8 @@ pub enum FileType {
 }
 
 /*
-** Stat types
-*/
+ * Stat types
+ */
 #[repr(C)]
 #[derive(Debug, Default)]
 pub struct Stats {

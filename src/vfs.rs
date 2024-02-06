@@ -1,15 +1,13 @@
 #![allow(non_snake_case)]
+use std::{convert::TryInto, pin::Pin};
+
+use log::debug;
+
 use super::sqlite3ext::{
     sqlite3_file, sqlite3_int64, sqlite3_io_methods, sqlite3_vfs, SQLITE_FCNTL_VFSNAME, SQLITE_OK,
     SQLITE_OPEN_MAIN_DB, SQLITE_OPEN_MAIN_JOURNAL, SQLITE_OPEN_MASTER_JOURNAL,
     SQLITE_OPEN_SUBJOURNAL, SQLITE_OPEN_TEMP_DB, SQLITE_OPEN_TEMP_JOURNAL, SQLITE_OPEN_WAL,
 };
-use log::debug;
-
-use std::convert::TryInto;
-
-use std::pin::Pin;
-
 use crate::{FileStats, FileType};
 
 #[repr(C)]

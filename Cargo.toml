@@ -1,17 +1,19 @@
 [package]
 name = "vfsstat_rs"
 version = "0.1.0"
-edition = "2018"
-authors = ["Manos Pitsidianakis <epilys@nessuent.xyz>"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2021"
+authors = ["Manos Pitsidianakis <manos@pitsidianak.is>"]
 
 [lib]
-crate-type = ["cdylib","staticlib"]
-
+crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-#rusqlite = { version= "0.25.3" } #, features = ["bundled", ]}
-#libsqlite3-sys = "0.22.2"
-env_logger = "0.9.0"
-log = "0.4.0"
+env_logger = { version = "0.11.1" }
+log = { version = "0.4" }
+
+[dev-dependencies]
+escargot = { version = "0.5" }
+rusqlite = { version = "0.30.0", features = ["bundled", "load_extension", "modern_sqlite", "uuid", "rusqlite-macros"] }
+tempfile = { version = "3.8" }
+uuid = { version = "1.6", features = ["v4", "fast-rng"] }
+

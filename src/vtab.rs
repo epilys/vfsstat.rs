@@ -3,7 +3,6 @@ use super::sqlite3ext::{
     sqlite3, sqlite3_context, sqlite3_index_info, sqlite3_int64, sqlite3_module, sqlite3_value,
     sqlite3_vfs, sqlite3_vtab, sqlite3_vtab_cursor, SQLITE_ERROR, SQLITE_OK,
 };
-
 use crate::{FileType, StatField};
 
 #[repr(C)]
@@ -109,9 +108,9 @@ extern "C" fn VtabClose(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int
 }
 
 /*
-** Only a full table scan is supported.  So xFilter simply rewinds to
-** the beginning.
-*/
+ * Only a full table scan is supported.  So xFilter simply rewinds to
+ * the beginning.
+ */
 #[no_mangle]
 pub extern "C" fn VtabFilter(
     arg1: *mut sqlite3_vtab_cursor,
