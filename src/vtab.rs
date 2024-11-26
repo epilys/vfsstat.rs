@@ -49,7 +49,7 @@ pub const VTAB_MODULE: sqlite3_module = sqlite3_module {
 };
 
 #[no_mangle]
-pub extern "C" fn VtabConnect(
+pub unsafe extern "C" fn VtabConnect(
     db: *mut sqlite3,
     _pAux: *mut ::std::os::raw::c_void,
     _argc: ::std::os::raw::c_int,
@@ -82,7 +82,7 @@ unsafe extern "C" fn VtabBestIndex(
 }
 
 #[no_mangle]
-pub extern "C" fn VtabDisconnect(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int {
+pub unsafe extern "C" fn VtabDisconnect(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int {
     debug_assert!(!pVTab.is_null());
     let _pNew: Box<sqlite3_vtab> = unsafe { Box::from_raw(pVTab) };
     SQLITE_OK as _
@@ -112,7 +112,7 @@ extern "C" fn VtabClose(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int
  * the beginning.
  */
 #[no_mangle]
-pub extern "C" fn VtabFilter(
+pub unsafe extern "C" fn VtabFilter(
     arg1: *mut sqlite3_vtab_cursor,
     _idxNum: ::std::os::raw::c_int,
     _idxStr: *const ::std::os::raw::c_char,
@@ -127,7 +127,7 @@ pub extern "C" fn VtabFilter(
 }
 
 #[no_mangle]
-pub extern "C" fn VtabNext(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
+pub unsafe extern "C" fn VtabNext(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
     let mut ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &mut VfsStatCursor = unsafe { ptr.as_mut() };
     match cur.field {
@@ -204,7 +204,7 @@ pub extern "C" fn VtabNext(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_
 }
 
 #[no_mangle]
-pub extern "C" fn VtabEof(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
+pub unsafe extern "C" fn VtabEof(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
     let mut ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &mut VfsStatCursor = unsafe { ptr.as_mut() };
     match (cur.filetype, cur.field) {
@@ -214,7 +214,7 @@ pub extern "C" fn VtabEof(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_i
 }
 
 #[no_mangle]
-pub extern "C" fn VtabColumn(
+pub unsafe extern "C" fn VtabColumn(
     arg1: *mut sqlite3_vtab_cursor,
     ctx: *mut sqlite3_context,
     column: ::std::os::raw::c_int,
@@ -307,7 +307,7 @@ pub extern "C" fn VtabColumn(
 }
 
 #[no_mangle]
-pub extern "C" fn VtabRowid(
+pub unsafe extern "C" fn VtabRowid(
     arg1: *mut sqlite3_vtab_cursor,
     pRowid: *mut sqlite3_int64,
 ) -> ::std::os::raw::c_int {
@@ -322,7 +322,7 @@ pub extern "C" fn VtabRowid(
 }
 
 #[no_mangle]
-pub extern "C" fn VtabUpdate(
+pub unsafe extern "C" fn VtabUpdate(
     _arg1: *mut sqlite3_vtab,
     _arg2: ::std::os::raw::c_int,
     _arg3: *mut *mut sqlite3_value,
@@ -332,7 +332,7 @@ pub extern "C" fn VtabUpdate(
 }
 
 impl VTab {
-    pub fn new(db: *mut sqlite3) -> Result<(), String> {
+    pub unsafe fn new(db: *mut sqlite3) -> Result<(), String> {
         let ret = unsafe {
             ((*crate::API).create_module.unwrap())(
                 db,
