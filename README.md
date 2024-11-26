@@ -1,5 +1,7 @@
 # Example sqlite3 Dynamic Loadable Extension in Rust - vfs and vtab modules
 
+![Rust MSRV](https://img.shields.io/badge/rust_msrv-1.60.0-blue)
+
 ## The vfs and vtab
 
 This is a port of the official [`ext/misc/vfsstat.c`](https://www.sqlite.org/src/file?name=ext/misc/vfsstat.c&ci=tip) sqlite3 extension. It implements a VFS and a virtual table that keeps IO statistics.

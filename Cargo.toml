@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Manos Pitsidianakis <manos@pitsidianak.is>"]
 publish = false
-rust-version = "1.71.1"
+rust-version = "1.60.0"
 
 [lib]
 crate-type = ["cdylib", "staticlib"]
