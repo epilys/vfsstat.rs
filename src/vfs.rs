@@ -1,20 +1,23 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use std::{convert::TryInto, pin::Pin};
+use alloc::{boxed::Box, format, string::String};
+use core::{convert::TryInto, pin::Pin};
 
 use log::debug;
 
-use super::sqlite3ext::{
-    sqlite3_file, sqlite3_int64, sqlite3_io_methods, sqlite3_vfs, SQLITE_FCNTL_VFSNAME, SQLITE_OK,
-    SQLITE_OPEN_MAIN_DB, SQLITE_OPEN_MAIN_JOURNAL, SQLITE_OPEN_MASTER_JOURNAL,
-    SQLITE_OPEN_SUBJOURNAL, SQLITE_OPEN_TEMP_DB, SQLITE_OPEN_TEMP_JOURNAL, SQLITE_OPEN_WAL,
+use crate::{
+    sqlite3ext::{
+        sqlite3_file, sqlite3_int64, sqlite3_io_methods, sqlite3_vfs, SQLITE_FCNTL_VFSNAME,
+        SQLITE_OK, SQLITE_OPEN_MAIN_DB, SQLITE_OPEN_MAIN_JOURNAL, SQLITE_OPEN_MASTER_JOURNAL,
+        SQLITE_OPEN_SUBJOURNAL, SQLITE_OPEN_TEMP_DB, SQLITE_OPEN_TEMP_JOURNAL, SQLITE_OPEN_WAL,
+    },
+    statcnt, FileStats, FileType,
 };
-use crate::{FileStats, FileType};
 
 #[repr(C)]
 pub struct Vfs {
     inner: sqlite3_vfs,
-    parent: std::ptr::NonNull<sqlite3_vfs>,
+    parent: core::ptr::NonNull<sqlite3_vfs>,
     pub file_stats: FileStats,
 }
 
@@ -26,7 +29,7 @@ impl Drop for Vfs {
 pub struct StatConn {
     base: sqlite3_file,
     filetype: FileType,
-    vfs: std::ptr::NonNull<Vfs>,
+    vfs: core::ptr::NonNull<Vfs>,
     real: sqlite3_file,
 }
 
@@ -54,9 +57,9 @@ pub static STAT_IO_METHODS: sqlite3_io_methods = sqlite3_io_methods {
 };
 
 #[no_mangle]
-pub unsafe extern "C" fn stat_close(arg1: *mut sqlite3_file) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+pub unsafe extern "C" fn stat_close(arg1: *mut sqlite3_file) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     if !stat_conn_ref.real.pMethods.is_null() {
         return ((*stat_conn_ref.real.pMethods).xClose.unwrap())(&mut stat_conn_ref.real as *mut _);
@@ -68,12 +71,12 @@ pub unsafe extern "C" fn stat_close(arg1: *mut sqlite3_file) -> ::std::os::raw::
 #[no_mangle]
 pub unsafe extern "C" fn stat_read(
     arg1: *mut sqlite3_file,
-    arg2: *mut ::std::os::raw::c_void,
-    iAmt: ::std::os::raw::c_int,
+    arg2: *mut ::core::ffi::c_void,
+    iAmt: ::core::ffi::c_int,
     iOfst: sqlite3_int64,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     *statcnt!(
         mut stat_conn_ref.vfs.as_mut().file_stats,
@@ -99,12 +102,12 @@ pub unsafe extern "C" fn stat_read(
 #[no_mangle]
 pub unsafe extern "C" fn stat_write(
     arg1: *mut sqlite3_file,
-    arg2: *const ::std::os::raw::c_void,
-    iAmt: ::std::os::raw::c_int,
+    arg2: *const ::core::ffi::c_void,
+    iAmt: ::core::ffi::c_int,
     iOfst: sqlite3_int64,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     *statcnt!(
         mut stat_conn_ref.vfs.as_mut().file_stats,
@@ -131,9 +134,9 @@ pub unsafe extern "C" fn stat_write(
 pub unsafe extern "C" fn stat_truncate(
     arg1: *mut sqlite3_file,
     size: sqlite3_int64,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xTruncate.unwrap())(&mut stat_conn_ref.real as *mut _, size)
 }
@@ -141,10 +144,10 @@ pub unsafe extern "C" fn stat_truncate(
 #[no_mangle]
 pub unsafe extern "C" fn stat_sync(
     arg1: *mut sqlite3_file,
-    flags: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    flags: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     *statcnt!(
         mut stat_conn_ref.vfs.as_mut().file_stats,
@@ -158,9 +161,9 @@ pub unsafe extern "C" fn stat_sync(
 pub unsafe extern "C" fn stat_file_size(
     arg1: *mut sqlite3_file,
     pSize: *mut sqlite3_int64,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xFileSize.unwrap())(&mut stat_conn_ref.real as *mut _, pSize)
 }
@@ -168,10 +171,10 @@ pub unsafe extern "C" fn stat_file_size(
 #[no_mangle]
 pub unsafe extern "C" fn stat_lock(
     arg1: *mut sqlite3_file,
-    arg2: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    arg2: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     *statcnt!(
         mut stat_conn_ref.vfs.as_mut().file_stats,
@@ -184,10 +187,10 @@ pub unsafe extern "C" fn stat_lock(
 #[no_mangle]
 pub unsafe extern "C" fn stat_unlock(
     arg1: *mut sqlite3_file,
-    arg2: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    arg2: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     *statcnt!(
         mut stat_conn_ref.vfs.as_mut().file_stats,
@@ -200,10 +203,10 @@ pub unsafe extern "C" fn stat_unlock(
 #[no_mangle]
 pub unsafe extern "C" fn stat_check_reserved_lock(
     arg1: *mut sqlite3_file,
-    pResOut: *mut ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    pResOut: *mut ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     *statcnt!(
         mut stat_conn_ref.vfs.as_mut().file_stats,
@@ -219,11 +222,11 @@ pub unsafe extern "C" fn stat_check_reserved_lock(
 #[no_mangle]
 pub unsafe extern "C" fn stat_file_control(
     arg1: *mut sqlite3_file,
-    op: ::std::os::raw::c_int,
-    pArg: *mut ::std::os::raw::c_void,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    op: ::core::ffi::c_int,
+    pArg: *mut ::core::ffi::c_void,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     let rc = ((*stat_conn_ref.real.pMethods).xFileControl.unwrap())(
         &mut stat_conn_ref.real as *mut _,
@@ -239,16 +242,16 @@ pub unsafe extern "C" fn stat_file_control(
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn stat_sector_size(arg1: *mut sqlite3_file) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+pub unsafe extern "C" fn stat_sector_size(arg1: *mut sqlite3_file) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xSectorSize.unwrap())(&mut stat_conn_ref.real as *mut _)
 }
 
-unsafe extern "C" fn stat_device_characteristics(arg1: *mut sqlite3_file) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+unsafe extern "C" fn stat_device_characteristics(arg1: *mut sqlite3_file) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods)
         .xDeviceCharacteristics
@@ -257,13 +260,13 @@ unsafe extern "C" fn stat_device_characteristics(arg1: *mut sqlite3_file) -> ::s
 
 unsafe extern "C" fn stat_shm_map(
     arg1: *mut sqlite3_file,
-    iPg: ::std::os::raw::c_int,
-    pgsz: ::std::os::raw::c_int,
-    arg2: ::std::os::raw::c_int,
-    arg3: *mut *mut ::std::os::raw::c_void,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    iPg: ::core::ffi::c_int,
+    pgsz: ::core::ffi::c_int,
+    arg2: ::core::ffi::c_int,
+    arg3: *mut *mut ::core::ffi::c_void,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xShmMap.unwrap())(
         &mut stat_conn_ref.real as *mut _,
@@ -276,12 +279,12 @@ unsafe extern "C" fn stat_shm_map(
 
 unsafe extern "C" fn stat_shm_lock(
     arg1: *mut sqlite3_file,
-    offset: ::std::os::raw::c_int,
-    n: ::std::os::raw::c_int,
-    flags: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    offset: ::core::ffi::c_int,
+    n: ::core::ffi::c_int,
+    flags: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xShmLock.unwrap())(
         &mut stat_conn_ref.real as *mut _,
@@ -292,17 +295,17 @@ unsafe extern "C" fn stat_shm_lock(
 }
 
 unsafe extern "C" fn stat_shm_barrier(arg1: *mut sqlite3_file) {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xShmBarrier.unwrap())(&mut stat_conn_ref.real as *mut _)
 }
 unsafe extern "C" fn stat_shm_unmap(
     arg1: *mut sqlite3_file,
-    deleteFlag: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    deleteFlag: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xShmUnmap.unwrap())(
         &mut stat_conn_ref.real as *mut _,
@@ -313,11 +316,11 @@ unsafe extern "C" fn stat_shm_unmap(
 unsafe extern "C" fn stat_fetch(
     arg1: *mut sqlite3_file,
     iOfst: sqlite3_int64,
-    iAmt: ::std::os::raw::c_int,
-    pp: *mut *mut ::std::os::raw::c_void,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    iAmt: ::core::ffi::c_int,
+    pp: *mut *mut ::core::ffi::c_void,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xFetch.unwrap())(
         &mut stat_conn_ref.real as *mut _,
@@ -330,10 +333,10 @@ unsafe extern "C" fn stat_fetch(
 unsafe extern "C" fn stat_unfetch(
     arg1: *mut sqlite3_file,
     iOfst: sqlite3_int64,
-    p: *mut ::std::os::raw::c_void,
-) -> ::std::os::raw::c_int {
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
+    p: *mut ::core::ffi::c_void,
+) -> ::core::ffi::c_int {
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(arg1 as *mut StatConn).expect("null file_ptr in stat_unfetch");
     let stat_conn_ref = stat_conn.as_mut();
     ((*stat_conn_ref.real.pMethods).xUnfetch.unwrap())(&mut stat_conn_ref.real as *mut _, iOfst, p)
 }
@@ -341,24 +344,24 @@ unsafe extern "C" fn stat_unfetch(
 #[no_mangle]
 pub unsafe extern "C" fn stat_open(
     vfs: *mut sqlite3_vfs,
-    zPath: *const ::std::os::raw::c_char,
+    zPath: *const ::core::ffi::c_char,
     file_ptr: *mut sqlite3_file,
-    flags: ::std::os::raw::c_int,
-    pOutFlags: *mut ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(vfs) {
+    flags: ::core::ffi::c_int,
+    pOutFlags: *mut ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(vfs) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
 
-    let mut stat_conn: std::ptr::NonNull<StatConn> =
-        std::ptr::NonNull::new(file_ptr as *mut StatConn).expect("null file_ptr in stat_open");
+    let mut stat_conn: core::ptr::NonNull<StatConn> =
+        core::ptr::NonNull::new(file_ptr as *mut StatConn).expect("null file_ptr in stat_open");
     let stat_conn_ref = stat_conn.as_mut();
     let parent_open = (vfs_.parent.as_ref().xOpen.unwrap())(
         vfs_.parent.as_ptr() as _,
@@ -389,7 +392,7 @@ pub unsafe extern "C" fn stat_open(
     if parent_open == SQLITE_OK as _ {
         stat_conn_ref.base.pMethods = &STAT_IO_METHODS;
     } else {
-        stat_conn_ref.base.pMethods = std::ptr::null_mut();
+        stat_conn_ref.base.pMethods = core::ptr::null_mut();
     }
     stat_conn_ref.vfs = vfs_ptr;
     parent_open
@@ -398,17 +401,17 @@ pub unsafe extern "C" fn stat_open(
 #[no_mangle]
 pub unsafe extern "C" fn stat_delete(
     vfs: *mut sqlite3_vfs,
-    zName: *const ::std::os::raw::c_char,
-    syncDir: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(vfs) {
+    zName: *const ::core::ffi::c_char,
+    syncDir: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(vfs) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
 
@@ -419,18 +422,18 @@ pub unsafe extern "C" fn stat_delete(
 #[no_mangle]
 pub unsafe extern "C" fn stat_access(
     vfs: *mut sqlite3_vfs,
-    zName: *const ::std::os::raw::c_char,
-    flags: ::std::os::raw::c_int,
-    pResOut: *mut ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(vfs) {
+    zName: *const ::core::ffi::c_char,
+    flags: ::core::ffi::c_int,
+    pResOut: *mut ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(vfs) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     *statcnt!(mut vfs_.file_stats, FileType::Any, Access) += 1;
@@ -439,18 +442,18 @@ pub unsafe extern "C" fn stat_access(
 
 unsafe extern "C" fn stat_full_pathname(
     arg1: *mut sqlite3_vfs,
-    zName: *const ::std::os::raw::c_char,
-    nOut: ::std::os::raw::c_int,
-    zOut: *mut ::std::os::raw::c_char,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    zName: *const ::core::ffi::c_char,
+    nOut: ::core::ffi::c_int,
+    zOut: *mut ::core::ffi::c_char,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     *statcnt!(mut vfs_.file_stats, FileType::Any, FullPath) += 1;
@@ -459,16 +462,16 @@ unsafe extern "C" fn stat_full_pathname(
 
 unsafe extern "C" fn stat_dlopen(
     arg1: *mut sqlite3_vfs,
-    zFilename: *const ::std::os::raw::c_char,
-) -> *mut ::std::os::raw::c_void {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    zFilename: *const ::core::ffi::c_char,
+) -> *mut ::core::ffi::c_void {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     (vfs_.parent.as_ref().xDlOpen.unwrap())(vfs_.parent.as_ptr() as _, zFilename)
@@ -476,17 +479,17 @@ unsafe extern "C" fn stat_dlopen(
 
 unsafe extern "C" fn stat_dlerror(
     arg1: *mut sqlite3_vfs,
-    nByte: ::std::os::raw::c_int,
-    zErrMsg: *mut ::std::os::raw::c_char,
+    nByte: ::core::ffi::c_int,
+    zErrMsg: *mut ::core::ffi::c_char,
 ) {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     (vfs_.parent.as_ref().xDlError.unwrap())(vfs_.parent.as_ptr() as _, nByte, zErrMsg)
@@ -494,37 +497,37 @@ unsafe extern "C" fn stat_dlerror(
 
 unsafe extern "C" fn stat_dlsym(
     arg1: *mut sqlite3_vfs,
-    arg2: *mut ::std::os::raw::c_void,
-    zSymbol: *const ::std::os::raw::c_char,
-) -> ::std::option::Option<
+    arg2: *mut ::core::ffi::c_void,
+    zSymbol: *const ::core::ffi::c_char,
+) -> ::core::option::Option<
     unsafe extern "C" fn(
         arg1: *mut sqlite3_vfs,
-        arg2: *mut ::std::os::raw::c_void,
-        zSymbol: *const ::std::os::raw::c_char,
+        arg2: *mut ::core::ffi::c_void,
+        zSymbol: *const ::core::ffi::c_char,
     ),
 > {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     (vfs_.parent.as_ref().xDlSym.unwrap())(vfs_.parent.as_ptr() as _, arg2, zSymbol)
 }
 
-unsafe extern "C" fn stat_dlclose(arg1: *mut sqlite3_vfs, arg2: *mut ::std::os::raw::c_void) {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+unsafe extern "C" fn stat_dlclose(arg1: *mut sqlite3_vfs, arg2: *mut ::core::ffi::c_void) {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     (vfs_.parent.as_ref().xDlClose.unwrap())(vfs_.parent.as_ptr() as _, arg2)
@@ -532,17 +535,17 @@ unsafe extern "C" fn stat_dlclose(arg1: *mut sqlite3_vfs, arg2: *mut ::std::os::
 
 unsafe extern "C" fn stat_randomness(
     arg1: *mut sqlite3_vfs,
-    nByte: ::std::os::raw::c_int,
-    zOut: *mut ::std::os::raw::c_char,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    nByte: ::core::ffi::c_int,
+    zOut: *mut ::core::ffi::c_char,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     *statcnt!(mut vfs_.file_stats, FileType::Any, Random) += 1;
@@ -551,16 +554,16 @@ unsafe extern "C" fn stat_randomness(
 
 unsafe extern "C" fn stat_sleep(
     arg1: *mut sqlite3_vfs,
-    microseconds: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    microseconds: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     *statcnt!(mut vfs_.file_stats, FileType::Any, Sleep) += 1;
@@ -570,15 +573,15 @@ unsafe extern "C" fn stat_sleep(
 unsafe extern "C" fn stat_current_time(
     arg1: *mut sqlite3_vfs,
     arg2: *mut f64,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     *statcnt!(mut vfs_.file_stats, FileType::Any, CurrentTime) += 1;
@@ -587,17 +590,17 @@ unsafe extern "C" fn stat_current_time(
 
 unsafe extern "C" fn stat_get_last_error(
     arg1: *mut sqlite3_vfs,
-    arg2: ::std::os::raw::c_int,
-    arg3: *mut ::std::os::raw::c_char,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+    arg2: ::core::ffi::c_int,
+    arg3: *mut ::core::ffi::c_char,
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     (vfs_.parent.as_ref().xGetLastError.unwrap())(vfs_.parent.as_ptr() as _, arg2, arg3)
@@ -606,15 +609,15 @@ unsafe extern "C" fn stat_get_last_error(
 unsafe extern "C" fn stat_current_time_int64(
     arg1: *mut sqlite3_vfs,
     arg2: *mut sqlite3_int64,
-) -> ::std::os::raw::c_int {
-    let mut vfs_ptr = if let Some(ptr) = std::ptr::NonNull::new(arg1) {
+) -> ::core::ffi::c_int {
+    let mut vfs_ptr = if let Some(ptr) = core::ptr::NonNull::new(arg1) {
         ptr
     } else {
         panic!("Could not find default sqlite3 vfs");
     };
     let sqlite_vfs: &mut sqlite3_vfs = vfs_ptr.as_mut();
-    let mut vfs_ptr: std::ptr::NonNull<Vfs> =
-        std::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
+    let mut vfs_ptr: core::ptr::NonNull<Vfs> =
+        core::ptr::NonNull::new(sqlite_vfs.pAppData as *mut Vfs)
             .expect("pAppData of stat vfs is null");
     let vfs_ = vfs_ptr.as_mut();
     *statcnt!(mut vfs_.file_stats, FileType::Any, CurrentTime) += 1;
@@ -625,8 +628,8 @@ pub const VFS_NAME: &[u8] = b"vfsstat_rs\0";
 
 impl Vfs {
     pub fn new() -> Result<Pin<Box<Self>>, String> {
-        let default_ptr = unsafe { ((*crate::API).vfs_find.unwrap())(std::ptr::null()) };
-        let default = if let Some(default) = std::ptr::NonNull::new(default_ptr) {
+        let default_ptr = unsafe { ((*crate::API).vfs_find.unwrap())(core::ptr::null()) };
+        let default = if let Some(default) = core::ptr::NonNull::new(default_ptr) {
             default
         } else {
             return Err("Could not find default sqlite3 vfs".into());
@@ -636,12 +639,12 @@ impl Vfs {
         let mut inner = *default_ref;
         debug!(
             "default vfs name: {:?} ",
-            unsafe { std::ffi::CStr::from_ptr(inner.zName) }.to_str()
+            unsafe { core::ffi::CStr::from_ptr(inner.zName) }.to_str()
         );
         inner.iVersion = 2;
         inner.zName = VFS_NAME.as_ptr() as _;
-        inner.pNext = std::ptr::null_mut();
-        inner.pAppData = std::ptr::null_mut();
+        inner.pNext = core::ptr::null_mut();
+        inner.pAppData = core::ptr::null_mut();
         inner.xOpen = Some(stat_open);
         inner.xDelete = Some(stat_delete);
         inner.xAccess = Some(stat_access);
@@ -655,7 +658,7 @@ impl Vfs {
         inner.xCurrentTime = Some(stat_current_time);
         inner.xCurrentTimeInt64 = Some(stat_current_time_int64);
         inner.xGetLastError = Some(stat_get_last_error);
-        let fsize: i32 = std::mem::size_of::<StatConn>()
+        let fsize: i32 = core::mem::size_of::<StatConn>()
             .try_into()
             .expect("Could not convert VFS file size from usize to i32");
         inner.szOsFile += fsize;
@@ -666,7 +669,7 @@ impl Vfs {
             file_stats: FileStats::default(),
         });
         self_.inner.pAppData =
-            unsafe { std::mem::transmute((self_.as_ref().get_ref()) as *const _) };
+            unsafe { core::mem::transmute((self_.as_ref().get_ref()) as *const _) };
         let ret = unsafe { ((*crate::API).vfs_register.unwrap())(&mut self_.inner, 1) };
         if ret != SQLITE_OK as _ {
             return Err(format!("Vfs::new() sqlite3_vfs_register returned {}", ret,));

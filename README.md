@@ -1,6 +1,6 @@
 # Example sqlite3 Dynamic Loadable Extension in Rust - vfs and vtab modules
 
-![Rust MSRV](https://img.shields.io/badge/rust_msrv-1.60.0-blue)
+![Rust MSRV](https://img.shields.io/badge/rust_msrv-1.64.0-blue)
 
 ## The vfs and vtab
 

@@ -1,19 +1,94 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+// Uncomment to compile without `std`, but be aware this has consequences for
+// panicking (see panic handler later in this file)
+//
+// #![no_std]
 #![allow(
     non_snake_case,
     dead_code,
     non_camel_case_types,
-    non_upper_case_globals,
-    clippy::type_complexity
+    non_upper_case_globals
 )]
+
+extern crate alloc;
+
+#[allow(clippy::type_complexity)]
 pub(crate) mod sqlite3ext;
-use std::{convert::TryInto, ffi::CString};
+
+use alloc::{ffi::CString, string::String};
+use core::convert::TryInto;
 
 use log::{debug, trace};
 use sqlite3ext::{
     sqlite3, sqlite3_api_routines, SQLITE_ERROR, SQLITE_OK, SQLITE_OK_LOAD_PERMANENTLY,
 };
+
+pub mod vfs;
+pub mod vtab;
+
+static mut API: *mut sqlite3_api_routines = core::ptr::null_mut();
+
+// If you build with no_std, you can use the following panic handler and global
+// allocator definitions.
+//
+// Be aware that core is built with unwinding panicking, so you have to compile
+// core yourself too if you don't include std in your cdylib. Otherwise you will
+// get many "symbols missing" errors. Such is life.
+//
+// extern "C" {
+//     fn printf(fmt: *const core::ffi::c_char, ...) -> core::ffi::c_int;
+// }
+//
+// #[panic_handler]
+// fn panic(info: &core::panic::PanicInfo) -> ! {
+//     let error = alloc::format!("{}", info);
+//     if let Ok(err_c_s) = CString::new(error) {
+//         const FMT_STRING: &[core::ffi::c_char] = &[
+//             '%' as core::ffi::c_char,
+//             's' as core::ffi::c_char,
+//             '\n' as core::ffi::c_char,
+//         ];
+//         unsafe { printf(FMT_STRING.as_ptr(), err_c_s.as_ptr()) };
+//     }
+
+//     loop {}
+// }
+
+// #[repr(C)]
+// struct Sqlite3Allocator {
+//     _unused: [u8; 0],
+// }
+
+// #[global_allocator]
+// static ALLOCATOR: Sqlite3Allocator = Sqlite3Allocator { _unused: [0; 0] };
+
+// unsafe impl Sync for Sqlite3Allocator {}
+
+// unsafe impl core::alloc::GlobalAlloc for Sqlite3Allocator {
+//     unsafe fn alloc(&self, layout: core::alloc::Layout) -> *mut u8 {
+//         let size = layout.size();
+//         #[cfg(target_pointer_width = "32")]
+//         {
+//             crate::sqlite3ext::sqlite3_malloc(
+//                 size.try_into()
+//                     .expect("Cannot fit allocation size into i32"),
+//             )
+//             .cast()
+//         }
+//         #[cfg(not(target_pointer_width = "32"))]
+//         {
+//             crate::sqlite3ext::sqlite3_malloc64(
+//                 size.try_into()
+//                     .expect("Cannot fit allocation size into u64"),
+//             )
+//             .cast()
+//         }
+//     }
+//     unsafe fn dealloc(&self, ptr: *mut u8, _layout: core::alloc::Layout) {
+//         crate::sqlite3ext::sqlite3_free(ptr.cast());
+//     }
+// }
 
 /// File types
 #[repr(C)]
@@ -39,25 +114,36 @@ pub enum FileType {
     Any = 8,
 }
 
-/*
- * Stat types
- */
+/// Stat types
 #[repr(C)]
 #[derive(Debug, Default)]
 pub struct Stats {
-    BytesIn: u64,     //     0,   /* Bytes read in */
-    BytesOut: u64,    //    1,   /* Bytes written out */
-    Read: u64,        //        2,   /* Read requests */
-    Write: u64,       //       3,   /* Write requests */
-    Sync: u64,        //        4,   /* Syncs */
-    Open: u64,        //        5,   /* File opens */
-    Lock: u64,        //        6,   /* Lock requests */
-    Access: u64,      //      7,   /* xAccess calls.  filetype==ANY only */
-    Delete: u64,      //      8,   /* xDelete calls.  filetype==ANY only */
-    FullPath: u64,    //    9,   /* xFullPathname calls.  ANY only */
-    Random: u64,      //      10,   /* xRandomness calls.    ANY only */
-    Sleep: u64,       //       11,   /* xSleep calls.         ANY only */
-    CurrentTime: u64, //     12,   /* xCurrentTime calls.   ANY only */
+    /// 0,   Bytes read in
+    BytesIn: u64,
+    /// 1,   Bytes written out
+    BytesOut: u64,
+    /// 2,   Read requests
+    Read: u64,
+    /// 3,   Write requests
+    Write: u64,
+    /// 4,   Syncs
+    Sync: u64,
+    /// 5,   File opens
+    Open: u64,
+    /// 6,   Lock requests
+    Lock: u64,
+    /// 7,   xAccess calls.  filetype==ANY only
+    Access: u64,
+    /// 8,   xDelete calls.  filetype==ANY only
+    Delete: u64,
+    /// 9,   xFullPathname calls.  ANY only
+    FullPath: u64,
+    /// 10,   xRandomness calls.    ANY only
+    Random: u64,
+    /// 11,   xSleep calls.         ANY only
+    Sleep: u64,
+    /// 12,   xCurrentTime calls.   ANY only
+    CurrentTime: u64,
 }
 
 #[repr(C)]
@@ -114,9 +200,9 @@ pub struct FileStats {
     any: Stats,
 }
 
+#[macro_export]
 macro_rules! statcnt {
     (mut $filestats:expr, $filetype:expr, $field:ident) => {{
-        //std::dbg!(&$filestats);
         match $filetype {
             FileType::Main => &mut $filestats.main.$field,
             FileType::Journal => &mut $filestats.journal.$field,
@@ -130,7 +216,6 @@ macro_rules! statcnt {
         }
     }};
     ($filestats:expr, $filetype:expr, $field:ident) => {{
-        //std::dbg!(&$filestats);
         match $filetype {
             FileType::Main => &$filestats.main.$field,
             FileType::Journal => &$filestats.journal.$field,
@@ -145,16 +230,13 @@ macro_rules! statcnt {
     }};
 }
 
-pub mod vfs;
-pub mod vtab;
-
-fn err_to_sqlite3_str(err: String) -> Option<*mut ::std::os::raw::c_char> {
+fn err_to_sqlite3_str(err: String) -> Option<*mut ::core::ffi::c_char> {
     let err_s = CString::new(err).ok()?;
     let len = err_s.as_bytes_with_nul().len();
-    let ptr: *mut ::std::os::raw::c_char =
+    let ptr: *mut ::core::ffi::c_char =
         unsafe { ((*API).malloc.unwrap())(len.try_into().ok()?) } as _;
     if !ptr.is_null() {
-        unsafe { std::ptr::copy_nonoverlapping(err_s.as_ptr(), ptr, len) };
+        unsafe { core::ptr::copy_nonoverlapping(err_s.as_ptr(), ptr, len) };
         Some(ptr)
     } else {
         debug!("err_to_sqlite3_str(): sqlite3_malloc returned null");
@@ -162,14 +244,12 @@ fn err_to_sqlite3_str(err: String) -> Option<*mut ::std::os::raw::c_char> {
     }
 }
 
-static mut API: *mut sqlite3_api_routines = std::ptr::null_mut();
-
 #[no_mangle]
 pub unsafe extern "C" fn vtab_register(
     db: *mut sqlite3,
-    pzErrMsg: *mut *mut ::std::os::raw::c_char,
+    pzErrMsg: *mut *mut ::core::ffi::c_char,
     _pApi: *mut sqlite3_api_routines,
-) -> ::std::os::raw::c_int {
+) -> ::core::ffi::c_int {
     if let Err(err) = vtab::VTab::create(db) {
         debug!("vtab::new() returned: {}", &err);
         if let Some(ptr) = err_to_sqlite3_str(err) {
@@ -183,19 +263,9 @@ pub unsafe extern "C" fn vtab_register(
 #[no_mangle]
 pub unsafe extern "C" fn sqlite3_vfsstatrs_init(
     db: *mut sqlite3,
-    pzErrMsg: *mut *mut ::std::os::raw::c_char,
+    pzErrMsg: *mut *mut ::core::ffi::c_char,
     pApi: *mut sqlite3_api_routines,
-) -> ::std::os::raw::c_int {
-    // use log::LevelFilter;
-    // #[cfg(debug_assertions)]
-    // let log_level = LevelFilter::Trace;
-    // #[cfg(not(debug_assertions))]
-    // let log_level = LevelFilter::Error;
-    // let _ = env_logger::builder()
-    //     .format_timestamp_nanos()
-    //     .filter_level(log_level)
-    //     .try_init();
-
+) -> ::core::ffi::c_int {
     trace!("sqlite3_vfsstat_rs_init");
     API = pApi;
 
@@ -209,12 +279,12 @@ pub unsafe extern "C" fn sqlite3_vfsstatrs_init(
         }
         Ok(v) => v,
     };
-    std::mem::forget(vfs);
+    core::mem::forget(vfs);
     let ret = vtab_register(db, pzErrMsg, pApi);
     if ret != SQLITE_OK as _ {
         return ret;
     } else {
-        let ret = ((*pApi).auto_extension.unwrap())(Some(std::mem::transmute::<
+        let ret = ((*pApi).auto_extension.unwrap())(Some(core::mem::transmute::<
             *const (),
             unsafe extern "C" fn(),
         >(vtab_register as *const ())));

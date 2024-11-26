@@ -454,66 +454,64 @@ pub const FTS5_TOKEN_COLOCATED: u32 = 1;
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
 extern "C" {
-    pub static mut sqlite3_version: [::std::os::raw::c_char; 0usize];
+    pub static mut sqlite3_version: [::core::ffi::c_char; 0usize];
 }
 extern "C" {
-    pub fn sqlite3_libversion() -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_libversion() -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_sourceid() -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_sourceid() -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_libversion_number() -> ::std::os::raw::c_int;
+    pub fn sqlite3_libversion_number() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_compileoption_used(
-        zOptName: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+    pub fn sqlite3_compileoption_used(zOptName: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_compileoption_get(N: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_compileoption_get(N: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_threadsafe() -> ::std::os::raw::c_int;
+    pub fn sqlite3_threadsafe() -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3 {
     _unused: [u8; 0],
 }
-pub type sqlite_int64 = ::std::os::raw::c_longlong;
-pub type sqlite_uint64 = ::std::os::raw::c_ulonglong;
+pub type sqlite_int64 = ::core::ffi::c_longlong;
+pub type sqlite_uint64 = ::core::ffi::c_ulonglong;
 pub type sqlite3_int64 = sqlite_int64;
 pub type sqlite3_uint64 = sqlite_uint64;
 extern "C" {
-    pub fn sqlite3_close(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_close(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_close_v2(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_close_v2(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
-pub type sqlite3_callback = ::std::option::Option<
+pub type sqlite3_callback = ::core::option::Option<
     unsafe extern "C" fn(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut *mut ::std::os::raw::c_char,
-        arg4: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int,
+        arg1: *mut ::core::ffi::c_void,
+        arg2: ::core::ffi::c_int,
+        arg3: *mut *mut ::core::ffi::c_char,
+        arg4: *mut *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int,
 >;
 extern "C" {
     pub fn sqlite3_exec(
         arg1: *mut sqlite3,
-        sql: *const ::std::os::raw::c_char,
-        callback: ::std::option::Option<
+        sql: *const ::core::ffi::c_char,
+        callback: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-                arg3: *mut *mut ::std::os::raw::c_char,
-                arg4: *mut *mut ::std::os::raw::c_char,
-            ) -> ::std::os::raw::c_int,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+                arg3: *mut *mut ::core::ffi::c_char,
+                arg4: *mut *mut ::core::ffi::c_char,
+            ) -> ::core::ffi::c_int,
         >,
-        arg2: *mut ::std::os::raw::c_void,
-        errmsg: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        arg2: *mut ::core::ffi::c_void,
+        errmsg: *mut *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -523,17 +521,17 @@ pub struct sqlite3_file {
 #[test]
 fn bindgen_test_layout_sqlite3_file() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_file>(),
+        ::core::mem::size_of::<sqlite3_file>(),
         8usize,
         concat!("Size of: ", stringify!(sqlite3_file))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_file>(),
+        ::core::mem::align_of::<sqlite3_file>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_file))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_file>())).pMethods as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_file>())).pMethods as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -546,126 +544,123 @@ fn bindgen_test_layout_sqlite3_file() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_io_methods {
-    pub iVersion: ::std::os::raw::c_int,
-    pub xClose: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_file) -> ::std::os::raw::c_int,
-    >,
-    pub xRead: ::std::option::Option<
+    pub iVersion: ::core::ffi::c_int,
+    pub xClose:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_file) -> ::core::ffi::c_int>,
+    pub xRead: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            arg2: *mut ::std::os::raw::c_void,
-            iAmt: ::std::os::raw::c_int,
+            arg2: *mut ::core::ffi::c_void,
+            iAmt: ::core::ffi::c_int,
             iOfst: sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xWrite: ::std::option::Option<
+    pub xWrite: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            arg2: *const ::std::os::raw::c_void,
-            iAmt: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_void,
+            iAmt: ::core::ffi::c_int,
             iOfst: sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xTruncate: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_file, size: sqlite3_int64) -> ::std::os::raw::c_int,
+    pub xTruncate: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_file, size: sqlite3_int64) -> ::core::ffi::c_int,
     >,
-    pub xSync: ::std::option::Option<
+    pub xSync: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            flags: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            flags: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xFileSize: ::std::option::Option<
+    pub xFileSize: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
             pSize: *mut sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xLock: ::std::option::Option<
+    pub xLock: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xUnlock: ::std::option::Option<
+    pub xUnlock: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xCheckReservedLock: ::std::option::Option<
+    pub xCheckReservedLock: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            pResOut: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            pResOut: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xFileControl: ::std::option::Option<
+    pub xFileControl: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            op: ::std::os::raw::c_int,
-            pArg: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            op: ::core::ffi::c_int,
+            pArg: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xSectorSize: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_file) -> ::std::os::raw::c_int,
-    >,
-    pub xDeviceCharacteristics: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_file) -> ::std::os::raw::c_int,
-    >,
-    pub xShmMap: ::std::option::Option<
+    pub xSectorSize:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_file) -> ::core::ffi::c_int>,
+    pub xDeviceCharacteristics:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_file) -> ::core::ffi::c_int>,
+    pub xShmMap: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            iPg: ::std::os::raw::c_int,
-            pgsz: ::std::os::raw::c_int,
-            arg2: ::std::os::raw::c_int,
-            arg3: *mut *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            iPg: ::core::ffi::c_int,
+            pgsz: ::core::ffi::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *mut *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xShmLock: ::std::option::Option<
+    pub xShmLock: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            offset: ::std::os::raw::c_int,
-            n: ::std::os::raw::c_int,
-            flags: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            offset: ::core::ffi::c_int,
+            n: ::core::ffi::c_int,
+            flags: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xShmBarrier: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_file)>,
-    pub xShmUnmap: ::std::option::Option<
+    pub xShmBarrier: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_file)>,
+    pub xShmUnmap: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
-            deleteFlag: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            deleteFlag: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xFetch: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3_file,
-            iOfst: sqlite3_int64,
-            iAmt: ::std::os::raw::c_int,
-            pp: *mut *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub xUnfetch: ::std::option::Option<
+    pub xFetch: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_file,
             iOfst: sqlite3_int64,
-            p: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            iAmt: ::core::ffi::c_int,
+            pp: *mut *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
+    >,
+    pub xUnfetch: ::core::option::Option<
+        unsafe extern "C" fn(
+            arg1: *mut sqlite3_file,
+            iOfst: sqlite3_int64,
+            p: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_io_methods() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_io_methods>(),
+        ::core::mem::size_of::<sqlite3_io_methods>(),
         152usize,
         concat!("Size of: ", stringify!(sqlite3_io_methods))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_io_methods>(),
+        ::core::mem::align_of::<sqlite3_io_methods>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_io_methods))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).iVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).iVersion as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -675,7 +670,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xClose as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xClose as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -685,7 +680,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xRead as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xRead as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -695,7 +690,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xWrite as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xWrite as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -705,7 +700,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xTruncate as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xTruncate as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -715,7 +710,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xSync as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xSync as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -725,7 +720,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xFileSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xFileSize as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -735,7 +730,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xLock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xLock as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -745,7 +740,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xUnlock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xUnlock as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -756,7 +751,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_io_methods>())).xCheckReservedLock as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_io_methods>())).xCheckReservedLock as *const _ as usize
         },
         72usize,
         concat!(
@@ -767,7 +762,9 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xFileControl as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_io_methods>())).xFileControl as *const _ as usize
+        },
         80usize,
         concat!(
             "Offset of field: ",
@@ -777,7 +774,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xSectorSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xSectorSize as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -788,7 +785,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_io_methods>())).xDeviceCharacteristics as *const _
+            &(*(::core::ptr::null::<sqlite3_io_methods>())).xDeviceCharacteristics as *const _
                 as usize
         },
         96usize,
@@ -800,7 +797,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xShmMap as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xShmMap as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -810,7 +807,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xShmLock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xShmLock as *const _ as usize },
         112usize,
         concat!(
             "Offset of field: ",
@@ -820,7 +817,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xShmBarrier as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xShmBarrier as *const _ as usize },
         120usize,
         concat!(
             "Offset of field: ",
@@ -830,7 +827,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xShmUnmap as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xShmUnmap as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -840,7 +837,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xFetch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xFetch as *const _ as usize },
         136usize,
         concat!(
             "Offset of field: ",
@@ -850,7 +847,7 @@ fn bindgen_test_layout_sqlite3_io_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_io_methods>())).xUnfetch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_io_methods>())).xUnfetch as *const _ as usize },
         144usize,
         concat!(
             "Offset of field: ",
@@ -865,140 +862,140 @@ fn bindgen_test_layout_sqlite3_io_methods() {
 pub struct sqlite3_mutex {
     _unused: [u8; 0],
 }
-pub type sqlite3_syscall_ptr = ::std::option::Option<unsafe extern "C" fn()>;
+pub type sqlite3_syscall_ptr = ::core::option::Option<unsafe extern "C" fn()>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_vfs {
-    pub iVersion: ::std::os::raw::c_int,
-    pub szOsFile: ::std::os::raw::c_int,
-    pub mxPathname: ::std::os::raw::c_int,
+    pub iVersion: ::core::ffi::c_int,
+    pub szOsFile: ::core::ffi::c_int,
+    pub mxPathname: ::core::ffi::c_int,
     pub pNext: *mut sqlite3_vfs,
-    pub zName: *const ::std::os::raw::c_char,
-    pub pAppData: *mut ::std::os::raw::c_void,
-    pub xOpen: ::std::option::Option<
+    pub zName: *const ::core::ffi::c_char,
+    pub pAppData: *mut ::core::ffi::c_void,
+    pub xOpen: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
+            zName: *const ::core::ffi::c_char,
             arg2: *mut sqlite3_file,
-            flags: ::std::os::raw::c_int,
-            pOutFlags: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            flags: ::core::ffi::c_int,
+            pOutFlags: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xDelete: ::std::option::Option<
+    pub xDelete: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
-            syncDir: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            zName: *const ::core::ffi::c_char,
+            syncDir: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xAccess: ::std::option::Option<
+    pub xAccess: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
-            flags: ::std::os::raw::c_int,
-            pResOut: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            zName: *const ::core::ffi::c_char,
+            flags: ::core::ffi::c_int,
+            pResOut: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xFullPathname: ::std::option::Option<
+    pub xFullPathname: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
-            nOut: ::std::os::raw::c_int,
-            zOut: *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            zName: *const ::core::ffi::c_char,
+            nOut: ::core::ffi::c_int,
+            zOut: *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xDlOpen: ::std::option::Option<
+    pub xDlOpen: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zFilename: *const ::std::os::raw::c_char,
-        ) -> *mut ::std::os::raw::c_void,
+            zFilename: *const ::core::ffi::c_char,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub xDlError: ::std::option::Option<
+    pub xDlError: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            nByte: ::std::os::raw::c_int,
-            zErrMsg: *mut ::std::os::raw::c_char,
+            nByte: ::core::ffi::c_int,
+            zErrMsg: *mut ::core::ffi::c_char,
         ),
     >,
-    pub xDlSym: ::std::option::Option<
+    pub xDlSym: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            arg2: *mut ::std::os::raw::c_void,
-            zSymbol: *const ::std::os::raw::c_char,
-        ) -> ::std::option::Option<
+            arg2: *mut ::core::ffi::c_void,
+            zSymbol: *const ::core::ffi::c_char,
+        ) -> ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_vfs,
-                arg2: *mut ::std::os::raw::c_void,
-                zSymbol: *const ::std::os::raw::c_char,
+                arg2: *mut ::core::ffi::c_void,
+                zSymbol: *const ::core::ffi::c_char,
             ),
         >,
     >,
-    pub xDlClose: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_vfs, arg2: *mut ::std::os::raw::c_void),
+    pub xDlClose: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_vfs, arg2: *mut ::core::ffi::c_void),
     >,
-    pub xRandomness: ::std::option::Option<
+    pub xRandomness: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            nByte: ::std::os::raw::c_int,
-            zOut: *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            nByte: ::core::ffi::c_int,
+            zOut: *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xSleep: ::std::option::Option<
+    pub xSleep: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            microseconds: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            microseconds: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xCurrentTime: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_vfs, arg2: *mut f64) -> ::std::os::raw::c_int,
+    pub xCurrentTime: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_vfs, arg2: *mut f64) -> ::core::ffi::c_int,
     >,
-    pub xGetLastError: ::std::option::Option<
+    pub xGetLastError: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            arg2: ::std::os::raw::c_int,
-            arg3: *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xCurrentTimeInt64: ::std::option::Option<
+    pub xCurrentTimeInt64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
             arg2: *mut sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xSetSystemCall: ::std::option::Option<
+    pub xSetSystemCall: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
+            zName: *const ::core::ffi::c_char,
             arg2: sqlite3_syscall_ptr,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xGetSystemCall: ::std::option::Option<
+    pub xGetSystemCall: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
+            zName: *const ::core::ffi::c_char,
         ) -> sqlite3_syscall_ptr,
     >,
-    pub xNextSystemCall: ::std::option::Option<
+    pub xNextSystemCall: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            zName: *const ::std::os::raw::c_char,
-        ) -> *const ::std::os::raw::c_char,
+            zName: *const ::core::ffi::c_char,
+        ) -> *const ::core::ffi::c_char,
     >,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_vfs() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_vfs>(),
+        ::core::mem::size_of::<sqlite3_vfs>(),
         168usize,
         concat!("Size of: ", stringify!(sqlite3_vfs))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_vfs>(),
+        ::core::mem::align_of::<sqlite3_vfs>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_vfs))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).iVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).iVersion as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1008,7 +1005,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).szOsFile as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).szOsFile as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -1018,7 +1015,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).mxPathname as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).mxPathname as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1028,7 +1025,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).pNext as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).pNext as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1038,7 +1035,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).zName as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).zName as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -1048,7 +1045,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).pAppData as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).pAppData as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -1058,7 +1055,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xOpen as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xOpen as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -1068,7 +1065,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xDelete as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xDelete as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -1078,7 +1075,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xAccess as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xAccess as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -1088,7 +1085,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xFullPathname as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xFullPathname as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -1098,7 +1095,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xDlOpen as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xDlOpen as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -1108,7 +1105,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xDlError as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xDlError as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -1118,7 +1115,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xDlSym as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xDlSym as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -1128,7 +1125,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xDlClose as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xDlClose as *const _ as usize },
         96usize,
         concat!(
             "Offset of field: ",
@@ -1138,7 +1135,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xRandomness as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xRandomness as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -1148,7 +1145,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xSleep as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xSleep as *const _ as usize },
         112usize,
         concat!(
             "Offset of field: ",
@@ -1158,7 +1155,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xCurrentTime as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xCurrentTime as *const _ as usize },
         120usize,
         concat!(
             "Offset of field: ",
@@ -1168,7 +1165,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xGetLastError as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xGetLastError as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -1178,7 +1175,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xCurrentTimeInt64 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xCurrentTimeInt64 as *const _ as usize },
         136usize,
         concat!(
             "Offset of field: ",
@@ -1188,7 +1185,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xSetSystemCall as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xSetSystemCall as *const _ as usize },
         144usize,
         concat!(
             "Offset of field: ",
@@ -1198,7 +1195,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xGetSystemCall as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xGetSystemCall as *const _ as usize },
         152usize,
         concat!(
             "Offset of field: ",
@@ -1208,7 +1205,7 @@ fn bindgen_test_layout_sqlite3_vfs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vfs>())).xNextSystemCall as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vfs>())).xNextSystemCall as *const _ as usize },
         160usize,
         concat!(
             "Offset of field: ",
@@ -1219,66 +1216,63 @@ fn bindgen_test_layout_sqlite3_vfs() {
     );
 }
 extern "C" {
-    pub fn sqlite3_initialize() -> ::std::os::raw::c_int;
+    pub fn sqlite3_initialize() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_shutdown() -> ::std::os::raw::c_int;
+    pub fn sqlite3_shutdown() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_os_init() -> ::std::os::raw::c_int;
+    pub fn sqlite3_os_init() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_os_end() -> ::std::os::raw::c_int;
+    pub fn sqlite3_os_end() -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_config(arg1: ::std::os::raw::c_int, ...) -> ::std::os::raw::c_int;
+    pub fn sqlite3_config(arg1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_db_config(
-        arg1: *mut sqlite3,
-        op: ::std::os::raw::c_int,
-        ...
-    ) -> ::std::os::raw::c_int;
+    pub fn sqlite3_db_config(arg1: *mut sqlite3, op: ::core::ffi::c_int, ...)
+        -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_mem_methods {
-    pub xMalloc: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_void,
+    pub xMalloc: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> *mut ::core::ffi::c_void,
     >,
-    pub xFree: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    pub xRealloc: ::std::option::Option<
+    pub xFree: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    pub xRealloc: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            arg2: ::std::os::raw::c_int,
-        ) -> *mut ::std::os::raw::c_void,
+            arg1: *mut ::core::ffi::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub xSize: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+    pub xSize: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
     >,
-    pub xRoundup: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+    pub xRoundup: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int,
     >,
-    pub xInit: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+    pub xInit: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
     >,
-    pub xShutdown: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    pub pAppData: *mut ::std::os::raw::c_void,
+    pub xShutdown: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    pub pAppData: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_mem_methods() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_mem_methods>(),
+        ::core::mem::size_of::<sqlite3_mem_methods>(),
         64usize,
         concat!("Size of: ", stringify!(sqlite3_mem_methods))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_mem_methods>(),
+        ::core::mem::align_of::<sqlite3_mem_methods>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_mem_methods))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xMalloc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xMalloc as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1288,7 +1282,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xFree as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xFree as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1298,7 +1292,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xRealloc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xRealloc as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1308,7 +1302,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xSize as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -1318,7 +1312,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xRoundup as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xRoundup as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -1328,7 +1322,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xInit as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xInit as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -1338,7 +1332,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).xShutdown as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).xShutdown as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -1348,7 +1342,7 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mem_methods>())).pAppData as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_mem_methods>())).pAppData as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -1361,8 +1355,8 @@ fn bindgen_test_layout_sqlite3_mem_methods() {
 extern "C" {
     pub fn sqlite3_extended_result_codes(
         arg1: *mut sqlite3,
-        onoff: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        onoff: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_last_insert_rowid(arg1: *mut sqlite3) -> sqlite3_int64;
@@ -1371,266 +1365,256 @@ extern "C" {
     pub fn sqlite3_set_last_insert_rowid(arg1: *mut sqlite3, arg2: sqlite3_int64);
 }
 extern "C" {
-    pub fn sqlite3_changes(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_changes(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_total_changes(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_total_changes(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_interrupt(arg1: *mut sqlite3);
 }
 extern "C" {
-    pub fn sqlite3_complete(sql: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int;
+    pub fn sqlite3_complete(sql: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_complete16(sql: *const ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn sqlite3_complete16(sql: *const ::core::ffi::c_void) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_busy_handler(
         arg1: *mut sqlite3,
-        arg2: ::std::option::Option<
+        arg2: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-            ) -> ::std::os::raw::c_int,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+            ) -> ::core::ffi::c_int,
         >,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        arg3: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_busy_timeout(
-        arg1: *mut sqlite3,
-        ms: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn sqlite3_busy_timeout(arg1: *mut sqlite3, ms: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_get_table(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_char,
-        pazResult: *mut *mut *mut ::std::os::raw::c_char,
-        pnRow: *mut ::std::os::raw::c_int,
-        pnColumn: *mut ::std::os::raw::c_int,
-        pzErrmsg: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zSql: *const ::core::ffi::c_char,
+        pazResult: *mut *mut *mut ::core::ffi::c_char,
+        pnRow: *mut ::core::ffi::c_int,
+        pnColumn: *mut ::core::ffi::c_int,
+        pzErrmsg: *mut *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_free_table(result: *mut *mut ::std::os::raw::c_char);
+    pub fn sqlite3_free_table(result: *mut *mut ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn sqlite3_mprintf(arg1: *const ::std::os::raw::c_char, ...)
-        -> *mut ::std::os::raw::c_char;
+    pub fn sqlite3_mprintf(arg1: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_vmprintf(
-        arg1: *const ::std::os::raw::c_char,
+        arg1: *const ::core::ffi::c_char,
         arg2: *mut __va_list_tag,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_snprintf(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_char,
-        arg3: *const ::std::os::raw::c_char,
+        arg1: ::core::ffi::c_int,
+        arg2: *mut ::core::ffi::c_char,
+        arg3: *const ::core::ffi::c_char,
         ...
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_vsnprintf(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_char,
-        arg3: *const ::std::os::raw::c_char,
+        arg1: ::core::ffi::c_int,
+        arg2: *mut ::core::ffi::c_char,
+        arg3: *const ::core::ffi::c_char,
         arg4: *mut __va_list_tag,
-    ) -> *mut ::std::os::raw::c_char;
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_malloc(arg1: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_void;
+    pub fn sqlite3_malloc(arg1: ::core::ffi::c_int) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_malloc64(arg1: sqlite3_uint64) -> *mut ::std::os::raw::c_void;
+    pub fn sqlite3_malloc64(arg1: sqlite3_uint64) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_realloc(
-        arg1: *mut ::std::os::raw::c_void,
-        arg2: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_void;
+        arg1: *mut ::core::ffi::c_void,
+        arg2: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_realloc64(
-        arg1: *mut ::std::os::raw::c_void,
+        arg1: *mut ::core::ffi::c_void,
         arg2: sqlite3_uint64,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_free(arg1: *mut ::std::os::raw::c_void);
+    pub fn sqlite3_free(arg1: *mut ::core::ffi::c_void);
 }
 extern "C" {
-    pub fn sqlite3_msize(arg1: *mut ::std::os::raw::c_void) -> sqlite3_uint64;
+    pub fn sqlite3_msize(arg1: *mut ::core::ffi::c_void) -> sqlite3_uint64;
 }
 extern "C" {
     pub fn sqlite3_memory_used() -> sqlite3_int64;
 }
 extern "C" {
-    pub fn sqlite3_memory_highwater(resetFlag: ::std::os::raw::c_int) -> sqlite3_int64;
+    pub fn sqlite3_memory_highwater(resetFlag: ::core::ffi::c_int) -> sqlite3_int64;
 }
 extern "C" {
-    pub fn sqlite3_randomness(N: ::std::os::raw::c_int, P: *mut ::std::os::raw::c_void);
+    pub fn sqlite3_randomness(N: ::core::ffi::c_int, P: *mut ::core::ffi::c_void);
 }
 extern "C" {
     pub fn sqlite3_set_authorizer(
         arg1: *mut sqlite3,
-        xAuth: ::std::option::Option<
+        xAuth: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_char,
-                arg4: *const ::std::os::raw::c_char,
-                arg5: *const ::std::os::raw::c_char,
-                arg6: *const ::std::os::raw::c_char,
-            ) -> ::std::os::raw::c_int,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_char,
+                arg4: *const ::core::ffi::c_char,
+                arg5: *const ::core::ffi::c_char,
+                arg6: *const ::core::ffi::c_char,
+            ) -> ::core::ffi::c_int,
         >,
-        pUserData: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pUserData: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_trace(
         arg1: *mut sqlite3,
-        xTrace: ::std::option::Option<
-            unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_char,
-            ),
+        xTrace: ::core::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void, arg2: *const ::core::ffi::c_char),
         >,
-        arg2: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
+        arg2: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_profile(
         arg1: *mut sqlite3,
-        xProfile: ::std::option::Option<
+        xProfile: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: *const ::std::os::raw::c_char,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: *const ::core::ffi::c_char,
                 arg3: sqlite3_uint64,
             ),
         >,
-        arg2: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
+        arg2: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_trace_v2(
         arg1: *mut sqlite3,
-        uMask: ::std::os::raw::c_uint,
-        xCallback: ::std::option::Option<
+        uMask: ::core::ffi::c_uint,
+        xCallback: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: ::std::os::raw::c_uint,
-                arg2: *mut ::std::os::raw::c_void,
-                arg3: *mut ::std::os::raw::c_void,
-                arg4: *mut ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
+                arg1: ::core::ffi::c_uint,
+                arg2: *mut ::core::ffi::c_void,
+                arg3: *mut ::core::ffi::c_void,
+                arg4: *mut ::core::ffi::c_void,
+            ) -> ::core::ffi::c_int,
         >,
-        pCtx: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pCtx: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_progress_handler(
         arg1: *mut sqlite3,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::option::Option<
-            unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+        arg2: ::core::ffi::c_int,
+        arg3: ::core::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
         >,
-        arg4: *mut ::std::os::raw::c_void,
+        arg4: *mut ::core::ffi::c_void,
     );
 }
 extern "C" {
     pub fn sqlite3_open(
-        filename: *const ::std::os::raw::c_char,
+        filename: *const ::core::ffi::c_char,
         ppDb: *mut *mut sqlite3,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_open16(
-        filename: *const ::std::os::raw::c_void,
+        filename: *const ::core::ffi::c_void,
         ppDb: *mut *mut sqlite3,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_open_v2(
-        filename: *const ::std::os::raw::c_char,
+        filename: *const ::core::ffi::c_char,
         ppDb: *mut *mut sqlite3,
-        flags: ::std::os::raw::c_int,
-        zVfs: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        flags: ::core::ffi::c_int,
+        zVfs: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_uri_parameter(
-        zFilename: *const ::std::os::raw::c_char,
-        zParam: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
+        zFilename: *const ::core::ffi::c_char,
+        zParam: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_uri_boolean(
-        zFile: *const ::std::os::raw::c_char,
-        zParam: *const ::std::os::raw::c_char,
-        bDefault: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        zFile: *const ::core::ffi::c_char,
+        zParam: *const ::core::ffi::c_char,
+        bDefault: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_uri_int64(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
+        arg1: *const ::core::ffi::c_char,
+        arg2: *const ::core::ffi::c_char,
         arg3: sqlite3_int64,
     ) -> sqlite3_int64;
 }
 extern "C" {
     pub fn sqlite3_uri_key(
-        zFilename: *const ::std::os::raw::c_char,
-        N: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        zFilename: *const ::core::ffi::c_char,
+        N: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_filename_database(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
+        arg1: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_filename_journal(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_filename_journal(arg1: *const ::core::ffi::c_char)
+        -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_filename_wal(
-        arg1: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_filename_wal(arg1: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_database_file_object(arg1: *const ::std::os::raw::c_char) -> *mut sqlite3_file;
+    pub fn sqlite3_database_file_object(arg1: *const ::core::ffi::c_char) -> *mut sqlite3_file;
 }
 extern "C" {
     pub fn sqlite3_create_filename(
-        zDatabase: *const ::std::os::raw::c_char,
-        zJournal: *const ::std::os::raw::c_char,
-        zWal: *const ::std::os::raw::c_char,
-        nParam: ::std::os::raw::c_int,
-        azParam: *mut *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_char;
+        zDatabase: *const ::core::ffi::c_char,
+        zJournal: *const ::core::ffi::c_char,
+        zWal: *const ::core::ffi::c_char,
+        nParam: ::core::ffi::c_int,
+        azParam: *mut *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_free_filename(arg1: *mut ::std::os::raw::c_char);
+    pub fn sqlite3_free_filename(arg1: *mut ::core::ffi::c_char);
 }
 extern "C" {
-    pub fn sqlite3_errcode(db: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_errcode(db: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_extended_errcode(db: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_extended_errcode(db: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_errmsg(arg1: *mut sqlite3) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_errmsg(arg1: *mut sqlite3) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_errmsg16(arg1: *mut sqlite3) -> *const ::std::os::raw::c_void;
+    pub fn sqlite3_errmsg16(arg1: *mut sqlite3) -> *const ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_errstr(arg1: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_errstr(arg1: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1640,83 +1624,83 @@ pub struct sqlite3_stmt {
 extern "C" {
     pub fn sqlite3_limit(
         arg1: *mut sqlite3,
-        id: ::std::os::raw::c_int,
-        newVal: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        id: ::core::ffi::c_int,
+        newVal: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_prepare(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_char,
-        nByte: ::std::os::raw::c_int,
+        zSql: *const ::core::ffi::c_char,
+        nByte: ::core::ffi::c_int,
         ppStmt: *mut *mut sqlite3_stmt,
-        pzTail: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        pzTail: *mut *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_prepare_v2(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_char,
-        nByte: ::std::os::raw::c_int,
+        zSql: *const ::core::ffi::c_char,
+        nByte: ::core::ffi::c_int,
         ppStmt: *mut *mut sqlite3_stmt,
-        pzTail: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        pzTail: *mut *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_prepare_v3(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_char,
-        nByte: ::std::os::raw::c_int,
-        prepFlags: ::std::os::raw::c_uint,
+        zSql: *const ::core::ffi::c_char,
+        nByte: ::core::ffi::c_int,
+        prepFlags: ::core::ffi::c_uint,
         ppStmt: *mut *mut sqlite3_stmt,
-        pzTail: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        pzTail: *mut *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_prepare16(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_void,
-        nByte: ::std::os::raw::c_int,
+        zSql: *const ::core::ffi::c_void,
+        nByte: ::core::ffi::c_int,
         ppStmt: *mut *mut sqlite3_stmt,
-        pzTail: *mut *const ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pzTail: *mut *const ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_prepare16_v2(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_void,
-        nByte: ::std::os::raw::c_int,
+        zSql: *const ::core::ffi::c_void,
+        nByte: ::core::ffi::c_int,
         ppStmt: *mut *mut sqlite3_stmt,
-        pzTail: *mut *const ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pzTail: *mut *const ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_prepare16_v3(
         db: *mut sqlite3,
-        zSql: *const ::std::os::raw::c_void,
-        nByte: ::std::os::raw::c_int,
-        prepFlags: ::std::os::raw::c_uint,
+        zSql: *const ::core::ffi::c_void,
+        nByte: ::core::ffi::c_int,
+        prepFlags: ::core::ffi::c_uint,
         ppStmt: *mut *mut sqlite3_stmt,
-        pzTail: *mut *const ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pzTail: *mut *const ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_sql(pStmt: *mut sqlite3_stmt) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_sql(pStmt: *mut sqlite3_stmt) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_expanded_sql(pStmt: *mut sqlite3_stmt) -> *mut ::std::os::raw::c_char;
+    pub fn sqlite3_expanded_sql(pStmt: *mut sqlite3_stmt) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_normalized_sql(pStmt: *mut sqlite3_stmt) -> *const ::std::os::raw::c_char;
+    pub fn sqlite3_normalized_sql(pStmt: *mut sqlite3_stmt) -> *const ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_stmt_readonly(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_stmt_readonly(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_stmt_isexplain(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_stmt_isexplain(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_stmt_busy(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_stmt_busy(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1731,394 +1715,392 @@ pub struct sqlite3_context {
 extern "C" {
     pub fn sqlite3_bind_blob(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: *const ::std::os::raw::c_void,
-        n: ::std::os::raw::c_int,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+        arg3: *const ::core::ffi::c_void,
+        n: ::core::ffi::c_int,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_blob64(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: *const ::std::os::raw::c_void,
+        arg2: ::core::ffi::c_int,
+        arg3: *const ::core::ffi::c_void,
         arg4: sqlite3_uint64,
-        arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_double(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
+        arg2: ::core::ffi::c_int,
         arg3: f64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_int(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+        arg3: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_int64(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
+        arg2: ::core::ffi::c_int,
         arg3: sqlite3_int64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_null(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_text(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: *const ::std::os::raw::c_char,
-        arg4: ::std::os::raw::c_int,
-        arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+        arg3: *const ::core::ffi::c_char,
+        arg4: ::core::ffi::c_int,
+        arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_text16(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: *const ::std::os::raw::c_void,
-        arg4: ::std::os::raw::c_int,
-        arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+        arg3: *const ::core::ffi::c_void,
+        arg4: ::core::ffi::c_int,
+        arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_text64(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: *const ::std::os::raw::c_char,
+        arg2: ::core::ffi::c_int,
+        arg3: *const ::core::ffi::c_char,
         arg4: sqlite3_uint64,
-        arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        encoding: ::std::os::raw::c_uchar,
-    ) -> ::std::os::raw::c_int;
+        arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        encoding: ::core::ffi::c_uchar,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_value(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
+        arg2: ::core::ffi::c_int,
         arg3: *const sqlite3_value,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_pointer(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        arg3: *mut ::std::os::raw::c_void,
-        arg4: *const ::std::os::raw::c_char,
-        arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+        arg3: *mut ::core::ffi::c_void,
+        arg4: *const ::core::ffi::c_char,
+        arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_zeroblob(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-        n: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        arg2: ::core::ffi::c_int,
+        n: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_zeroblob64(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
+        arg2: ::core::ffi::c_int,
         arg3: sqlite3_uint64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_bind_parameter_count(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_bind_parameter_count(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_bind_parameter_name(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_bind_parameter_index(
         arg1: *mut sqlite3_stmt,
-        zName: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zName: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_clear_bindings(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_clear_bindings(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_column_count(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_column_count(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_column_name(
         arg1: *mut sqlite3_stmt,
-        N: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        N: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_column_name16(
         arg1: *mut sqlite3_stmt,
-        N: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        N: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_column_database_name(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_column_database_name16(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_column_table_name(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_column_table_name16(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_column_origin_name(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_column_origin_name16(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_column_decltype(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_column_decltype16(
         arg1: *mut sqlite3_stmt,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_step(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_step(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_data_count(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_data_count(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_column_blob(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        iCol: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_column_double(arg1: *mut sqlite3_stmt, iCol: ::std::os::raw::c_int) -> f64;
+    pub fn sqlite3_column_double(arg1: *mut sqlite3_stmt, iCol: ::core::ffi::c_int) -> f64;
 }
 extern "C" {
     pub fn sqlite3_column_int(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        iCol: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_column_int64(
-        arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> sqlite3_int64;
+    pub fn sqlite3_column_int64(arg1: *mut sqlite3_stmt, iCol: ::core::ffi::c_int)
+        -> sqlite3_int64;
 }
 extern "C" {
     pub fn sqlite3_column_text(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_uchar;
+        iCol: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_uchar;
 }
 extern "C" {
     pub fn sqlite3_column_text16(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_void;
+        iCol: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_column_value(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
+        iCol: ::core::ffi::c_int,
     ) -> *mut sqlite3_value;
 }
 extern "C" {
     pub fn sqlite3_column_bytes(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        iCol: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_column_bytes16(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        iCol: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_column_type(
         arg1: *mut sqlite3_stmt,
-        iCol: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        iCol: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_finalize(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_finalize(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_reset(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_reset(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_function(
         db: *mut sqlite3,
-        zFunctionName: *const ::std::os::raw::c_char,
-        nArg: ::std::os::raw::c_int,
-        eTextRep: ::std::os::raw::c_int,
-        pApp: *mut ::std::os::raw::c_void,
-        xFunc: ::std::option::Option<
+        zFunctionName: *const ::core::ffi::c_char,
+        nArg: ::core::ffi::c_int,
+        eTextRep: ::core::ffi::c_int,
+        pApp: *mut ::core::ffi::c_void,
+        xFunc: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xStep: ::std::option::Option<
+        xStep: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-    ) -> ::std::os::raw::c_int;
+        xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_function16(
         db: *mut sqlite3,
-        zFunctionName: *const ::std::os::raw::c_void,
-        nArg: ::std::os::raw::c_int,
-        eTextRep: ::std::os::raw::c_int,
-        pApp: *mut ::std::os::raw::c_void,
-        xFunc: ::std::option::Option<
+        zFunctionName: *const ::core::ffi::c_void,
+        nArg: ::core::ffi::c_int,
+        eTextRep: ::core::ffi::c_int,
+        pApp: *mut ::core::ffi::c_void,
+        xFunc: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xStep: ::std::option::Option<
+        xStep: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-    ) -> ::std::os::raw::c_int;
+        xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_function_v2(
         db: *mut sqlite3,
-        zFunctionName: *const ::std::os::raw::c_char,
-        nArg: ::std::os::raw::c_int,
-        eTextRep: ::std::os::raw::c_int,
-        pApp: *mut ::std::os::raw::c_void,
-        xFunc: ::std::option::Option<
+        zFunctionName: *const ::core::ffi::c_char,
+        nArg: ::core::ffi::c_int,
+        eTextRep: ::core::ffi::c_int,
+        pApp: *mut ::core::ffi::c_void,
+        xFunc: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xStep: ::std::option::Option<
+        xStep: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-        xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+        xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_window_function(
         db: *mut sqlite3,
-        zFunctionName: *const ::std::os::raw::c_char,
-        nArg: ::std::os::raw::c_int,
-        eTextRep: ::std::os::raw::c_int,
-        pApp: *mut ::std::os::raw::c_void,
-        xStep: ::std::option::Option<
+        zFunctionName: *const ::core::ffi::c_char,
+        nArg: ::core::ffi::c_int,
+        eTextRep: ::core::ffi::c_int,
+        pApp: *mut ::core::ffi::c_void,
+        xStep: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-        xValue: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-        xInverse: ::std::option::Option<
+        xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+        xValue: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+        xInverse: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_context,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut *mut sqlite3_value,
             ),
         >,
-        xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_aggregate_count(arg1: *mut sqlite3_context) -> ::std::os::raw::c_int;
+    pub fn sqlite3_aggregate_count(arg1: *mut sqlite3_context) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_expired(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int;
+    pub fn sqlite3_expired(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_transfer_bindings(
         arg1: *mut sqlite3_stmt,
         arg2: *mut sqlite3_stmt,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_global_recover() -> ::std::os::raw::c_int;
+    pub fn sqlite3_global_recover() -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_thread_cleanup();
 }
 extern "C" {
     pub fn sqlite3_memory_alarm(
-        arg1: ::std::option::Option<
+        arg1: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
+                arg1: *mut ::core::ffi::c_void,
                 arg2: sqlite3_int64,
-                arg3: ::std::os::raw::c_int,
+                arg3: ::core::ffi::c_int,
             ),
         >,
-        arg2: *mut ::std::os::raw::c_void,
+        arg2: *mut ::core::ffi::c_void,
         arg3: sqlite3_int64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_blob(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void;
+    pub fn sqlite3_value_blob(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_value_double(arg1: *mut sqlite3_value) -> f64;
 }
 extern "C" {
-    pub fn sqlite3_value_int(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_int(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_value_int64(arg1: *mut sqlite3_value) -> sqlite3_int64;
@@ -2126,41 +2108,41 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_value_pointer(
         arg1: *mut sqlite3_value,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> *mut ::std::os::raw::c_void;
+        arg2: *const ::core::ffi::c_char,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_value_text(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_uchar;
+    pub fn sqlite3_value_text(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_uchar;
 }
 extern "C" {
-    pub fn sqlite3_value_text16(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void;
+    pub fn sqlite3_value_text16(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_value_text16le(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void;
+    pub fn sqlite3_value_text16le(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_value_text16be(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void;
+    pub fn sqlite3_value_text16be(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_value_bytes(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_bytes(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_bytes16(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_bytes16(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_type(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_type(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_numeric_type(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_numeric_type(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_nochange(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_nochange(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_frombind(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int;
+    pub fn sqlite3_value_frombind(arg1: *mut sqlite3_value) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_value_subtype(arg1: *mut sqlite3_value) -> ::std::os::raw::c_uint;
+    pub fn sqlite3_value_subtype(arg1: *mut sqlite3_value) -> ::core::ffi::c_uint;
 }
 extern "C" {
     pub fn sqlite3_value_dup(arg1: *const sqlite3_value) -> *mut sqlite3_value;
@@ -2171,11 +2153,11 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_aggregate_context(
         arg1: *mut sqlite3_context,
-        nBytes: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_void;
+        nBytes: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_user_data(arg1: *mut sqlite3_context) -> *mut ::std::os::raw::c_void;
+    pub fn sqlite3_user_data(arg1: *mut sqlite3_context) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_context_db_handle(arg1: *mut sqlite3_context) -> *mut sqlite3;
@@ -2183,33 +2165,33 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_get_auxdata(
         arg1: *mut sqlite3_context,
-        N: ::std::os::raw::c_int,
-    ) -> *mut ::std::os::raw::c_void;
+        N: ::core::ffi::c_int,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_set_auxdata(
         arg1: *mut sqlite3_context,
-        N: ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_void,
-        arg3: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        N: ::core::ffi::c_int,
+        arg2: *mut ::core::ffi::c_void,
+        arg3: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 pub type sqlite3_destructor_type =
-    ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>;
+    ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>;
 extern "C" {
     pub fn sqlite3_result_blob(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg2: *const ::core::ffi::c_void,
+        arg3: ::core::ffi::c_int,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
     pub fn sqlite3_result_blob64(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_void,
+        arg2: *const ::core::ffi::c_void,
         arg3: sqlite3_uint64,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
@@ -2218,15 +2200,15 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_result_error(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
+        arg2: *const ::core::ffi::c_char,
+        arg3: ::core::ffi::c_int,
     );
 }
 extern "C" {
     pub fn sqlite3_result_error16(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
+        arg2: *const ::core::ffi::c_void,
+        arg3: ::core::ffi::c_int,
     );
 }
 extern "C" {
@@ -2236,10 +2218,10 @@ extern "C" {
     pub fn sqlite3_result_error_nomem(arg1: *mut sqlite3_context);
 }
 extern "C" {
-    pub fn sqlite3_result_error_code(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_int);
+    pub fn sqlite3_result_error_code(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_int);
 }
 extern "C" {
-    pub fn sqlite3_result_int(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_int);
+    pub fn sqlite3_result_int(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn sqlite3_result_int64(arg1: *mut sqlite3_context, arg2: sqlite3_int64);
@@ -2250,42 +2232,42 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_result_text(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg2: *const ::core::ffi::c_char,
+        arg3: ::core::ffi::c_int,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
     pub fn sqlite3_result_text64(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_char,
+        arg2: *const ::core::ffi::c_char,
         arg3: sqlite3_uint64,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        encoding: ::std::os::raw::c_uchar,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        encoding: ::core::ffi::c_uchar,
     );
 }
 extern "C" {
     pub fn sqlite3_result_text16(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg2: *const ::core::ffi::c_void,
+        arg3: ::core::ffi::c_int,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
     pub fn sqlite3_result_text16le(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg2: *const ::core::ffi::c_void,
+        arg3: ::core::ffi::c_int,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
     pub fn sqlite3_result_text16be(
         arg1: *mut sqlite3_context,
-        arg2: *const ::std::os::raw::c_void,
-        arg3: ::std::os::raw::c_int,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg2: *const ::core::ffi::c_void,
+        arg3: ::core::ffi::c_int,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
@@ -2294,132 +2276,132 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_result_pointer(
         arg1: *mut sqlite3_context,
-        arg2: *mut ::std::os::raw::c_void,
-        arg3: *const ::std::os::raw::c_char,
-        arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+        arg2: *mut ::core::ffi::c_void,
+        arg3: *const ::core::ffi::c_char,
+        arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     );
 }
 extern "C" {
-    pub fn sqlite3_result_zeroblob(arg1: *mut sqlite3_context, n: ::std::os::raw::c_int);
+    pub fn sqlite3_result_zeroblob(arg1: *mut sqlite3_context, n: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn sqlite3_result_zeroblob64(
         arg1: *mut sqlite3_context,
         n: sqlite3_uint64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_result_subtype(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_uint);
+    pub fn sqlite3_result_subtype(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_uint);
 }
 extern "C" {
     pub fn sqlite3_create_collation(
         arg1: *mut sqlite3,
-        zName: *const ::std::os::raw::c_char,
-        eTextRep: ::std::os::raw::c_int,
-        pArg: *mut ::std::os::raw::c_void,
-        xCompare: ::std::option::Option<
+        zName: *const ::core::ffi::c_char,
+        eTextRep: ::core::ffi::c_int,
+        pArg: *mut ::core::ffi::c_void,
+        xCompare: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_void,
-                arg4: ::std::os::raw::c_int,
-                arg5: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_void,
+                arg4: ::core::ffi::c_int,
+                arg5: *const ::core::ffi::c_void,
+            ) -> ::core::ffi::c_int,
         >,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_collation_v2(
         arg1: *mut sqlite3,
-        zName: *const ::std::os::raw::c_char,
-        eTextRep: ::std::os::raw::c_int,
-        pArg: *mut ::std::os::raw::c_void,
-        xCompare: ::std::option::Option<
+        zName: *const ::core::ffi::c_char,
+        eTextRep: ::core::ffi::c_int,
+        pArg: *mut ::core::ffi::c_void,
+        xCompare: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_void,
-                arg4: ::std::os::raw::c_int,
-                arg5: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_void,
+                arg4: ::core::ffi::c_int,
+                arg5: *const ::core::ffi::c_void,
+            ) -> ::core::ffi::c_int,
         >,
-        xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_collation16(
         arg1: *mut sqlite3,
-        zName: *const ::std::os::raw::c_void,
-        eTextRep: ::std::os::raw::c_int,
-        pArg: *mut ::std::os::raw::c_void,
-        xCompare: ::std::option::Option<
+        zName: *const ::core::ffi::c_void,
+        eTextRep: ::core::ffi::c_int,
+        pArg: *mut ::core::ffi::c_void,
+        xCompare: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_void,
-                arg4: ::std::os::raw::c_int,
-                arg5: *const ::std::os::raw::c_void,
-            ) -> ::std::os::raw::c_int,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_void,
+                arg4: ::core::ffi::c_int,
+                arg5: *const ::core::ffi::c_void,
+            ) -> ::core::ffi::c_int,
         >,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_collation_needed(
         arg1: *mut sqlite3,
-        arg2: *mut ::std::os::raw::c_void,
-        arg3: ::std::option::Option<
+        arg2: *mut ::core::ffi::c_void,
+        arg3: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
+                arg1: *mut ::core::ffi::c_void,
                 arg2: *mut sqlite3,
-                eTextRep: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_char,
+                eTextRep: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_char,
             ),
         >,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_collation_needed16(
         arg1: *mut sqlite3,
-        arg2: *mut ::std::os::raw::c_void,
-        arg3: ::std::option::Option<
+        arg2: *mut ::core::ffi::c_void,
+        arg3: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
+                arg1: *mut ::core::ffi::c_void,
                 arg2: *mut sqlite3,
-                eTextRep: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_void,
+                eTextRep: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_void,
             ),
         >,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_sleep(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sqlite3_sleep(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub static mut sqlite3_temp_directory: *mut ::std::os::raw::c_char;
+    pub static mut sqlite3_temp_directory: *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub static mut sqlite3_data_directory: *mut ::std::os::raw::c_char;
+    pub static mut sqlite3_data_directory: *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_win32_set_directory(
-        type_: ::std::os::raw::c_ulong,
-        zValue: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        type_: ::core::ffi::c_ulong,
+        zValue: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_win32_set_directory8(
-        type_: ::std::os::raw::c_ulong,
-        zValue: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        type_: ::core::ffi::c_ulong,
+        zValue: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_win32_set_directory16(
-        type_: ::std::os::raw::c_ulong,
-        zValue: *const ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        type_: ::core::ffi::c_ulong,
+        zValue: *const ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_get_autocommit(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_get_autocommit(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_db_handle(arg1: *mut sqlite3_stmt) -> *mut sqlite3;
@@ -2427,20 +2409,20 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_db_filename(
         db: *mut sqlite3,
-        zDbName: *const ::std::os::raw::c_char,
-    ) -> *const ::std::os::raw::c_char;
+        zDbName: *const ::core::ffi::c_char,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_db_readonly(
         db: *mut sqlite3,
-        zDbName: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zDbName: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_txn_state(
         arg1: *mut sqlite3,
-        zSchema: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zSchema: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_next_stmt(pDb: *mut sqlite3, pStmt: *mut sqlite3_stmt) -> *mut sqlite3_stmt;
@@ -2448,42 +2430,42 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_commit_hook(
         arg1: *mut sqlite3,
-        arg2: ::std::option::Option<
-            unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+        arg2: ::core::option::Option<
+            unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
         >,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
+        arg3: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_rollback_hook(
         arg1: *mut sqlite3,
-        arg2: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
+        arg2: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        arg3: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_update_hook(
         arg1: *mut sqlite3,
-        arg2: ::std::option::Option<
+        arg2: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
-                arg2: ::std::os::raw::c_int,
-                arg3: *const ::std::os::raw::c_char,
-                arg4: *const ::std::os::raw::c_char,
+                arg1: *mut ::core::ffi::c_void,
+                arg2: ::core::ffi::c_int,
+                arg3: *const ::core::ffi::c_char,
+                arg4: *const ::core::ffi::c_char,
                 arg5: sqlite3_int64,
             ),
         >,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
+        arg3: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn sqlite3_enable_shared_cache(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sqlite3_enable_shared_cache(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_release_memory(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn sqlite3_release_memory(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_db_release_memory(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_db_release_memory(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_soft_heap_limit64(N: sqlite3_int64) -> sqlite3_int64;
@@ -2492,44 +2474,44 @@ extern "C" {
     pub fn sqlite3_hard_heap_limit64(N: sqlite3_int64) -> sqlite3_int64;
 }
 extern "C" {
-    pub fn sqlite3_soft_heap_limit(N: ::std::os::raw::c_int);
+    pub fn sqlite3_soft_heap_limit(N: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn sqlite3_table_column_metadata(
         db: *mut sqlite3,
-        zDbName: *const ::std::os::raw::c_char,
-        zTableName: *const ::std::os::raw::c_char,
-        zColumnName: *const ::std::os::raw::c_char,
-        pzDataType: *mut *const ::std::os::raw::c_char,
-        pzCollSeq: *mut *const ::std::os::raw::c_char,
-        pNotNull: *mut ::std::os::raw::c_int,
-        pPrimaryKey: *mut ::std::os::raw::c_int,
-        pAutoinc: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        zDbName: *const ::core::ffi::c_char,
+        zTableName: *const ::core::ffi::c_char,
+        zColumnName: *const ::core::ffi::c_char,
+        pzDataType: *mut *const ::core::ffi::c_char,
+        pzCollSeq: *mut *const ::core::ffi::c_char,
+        pNotNull: *mut ::core::ffi::c_int,
+        pPrimaryKey: *mut ::core::ffi::c_int,
+        pAutoinc: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_load_extension(
         db: *mut sqlite3,
-        zFile: *const ::std::os::raw::c_char,
-        zProc: *const ::std::os::raw::c_char,
-        pzErrMsg: *mut *mut ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zFile: *const ::core::ffi::c_char,
+        zProc: *const ::core::ffi::c_char,
+        pzErrMsg: *mut *mut ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_enable_load_extension(
         db: *mut sqlite3,
-        onoff: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        onoff: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_auto_extension(
-        xEntryPoint: ::std::option::Option<unsafe extern "C" fn()>,
-    ) -> ::std::os::raw::c_int;
+        xEntryPoint: ::core::option::Option<unsafe extern "C" fn()>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_cancel_auto_extension(
-        xEntryPoint: ::std::option::Option<unsafe extern "C" fn()>,
-    ) -> ::std::os::raw::c_int;
+        xEntryPoint: ::core::option::Option<unsafe extern "C" fn()>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_reset_auto_extension();
@@ -2537,153 +2519,153 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_module {
-    pub iVersion: ::std::os::raw::c_int,
-    pub xCreate: ::std::option::Option<
+    pub iVersion: ::core::ffi::c_int,
+    pub xCreate: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            pAux: *mut ::std::os::raw::c_void,
-            argc: ::std::os::raw::c_int,
-            argv: *const *const ::std::os::raw::c_char,
+            pAux: *mut ::core::ffi::c_void,
+            argc: ::core::ffi::c_int,
+            argv: *const *const ::core::ffi::c_char,
             ppVTab: *mut *mut sqlite3_vtab,
-            arg2: *mut *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *mut *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xConnect: ::std::option::Option<
+    pub xConnect: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            pAux: *mut ::std::os::raw::c_void,
-            argc: ::std::os::raw::c_int,
-            argv: *const *const ::std::os::raw::c_char,
+            pAux: *mut ::core::ffi::c_void,
+            argc: ::core::ffi::c_int,
+            argv: *const *const ::core::ffi::c_char,
             ppVTab: *mut *mut sqlite3_vtab,
-            arg2: *mut *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *mut *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xBestIndex: ::std::option::Option<
+    pub xBestIndex: ::core::option::Option<
         unsafe extern "C" fn(
             pVTab: *mut sqlite3_vtab,
             arg1: *mut sqlite3_index_info,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xDisconnect: ::std::option::Option<
-        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int,
+    pub xDisconnect: ::core::option::Option<
+        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int,
     >,
-    pub xDestroy: ::std::option::Option<
-        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int,
+    pub xDestroy: ::core::option::Option<
+        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int,
     >,
-    pub xOpen: ::std::option::Option<
+    pub xOpen: ::core::option::Option<
         unsafe extern "C" fn(
             pVTab: *mut sqlite3_vtab,
             ppCursor: *mut *mut sqlite3_vtab_cursor,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xClose: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int,
+    pub xClose: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_vtab_cursor) -> ::core::ffi::c_int,
     >,
-    pub xFilter: ::std::option::Option<
+    pub xFilter: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vtab_cursor,
-            idxNum: ::std::os::raw::c_int,
-            idxStr: *const ::std::os::raw::c_char,
-            argc: ::std::os::raw::c_int,
+            idxNum: ::core::ffi::c_int,
+            idxStr: *const ::core::ffi::c_char,
+            argc: ::core::ffi::c_int,
             argv: *mut *mut sqlite3_value,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xNext: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int,
+    pub xNext: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_vtab_cursor) -> ::core::ffi::c_int,
     >,
-    pub xEof: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int,
+    pub xEof: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_vtab_cursor) -> ::core::ffi::c_int,
     >,
-    pub xColumn: ::std::option::Option<
+    pub xColumn: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vtab_cursor,
             arg2: *mut sqlite3_context,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xRowid: ::std::option::Option<
+    pub xRowid: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vtab_cursor,
             pRowid: *mut sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xUpdate: ::std::option::Option<
+    pub xUpdate: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vtab,
-            arg2: ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
             arg3: *mut *mut sqlite3_value,
             arg4: *mut sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xBegin: ::std::option::Option<
-        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int,
+    pub xBegin: ::core::option::Option<
+        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int,
     >,
-    pub xSync: ::std::option::Option<
-        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int,
+    pub xSync: ::core::option::Option<
+        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int,
     >,
-    pub xCommit: ::std::option::Option<
-        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int,
+    pub xCommit: ::core::option::Option<
+        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int,
     >,
-    pub xRollback: ::std::option::Option<
-        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int,
+    pub xRollback: ::core::option::Option<
+        unsafe extern "C" fn(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int,
     >,
-    pub xFindFunction: ::std::option::Option<
+    pub xFindFunction: ::core::option::Option<
         unsafe extern "C" fn(
             pVtab: *mut sqlite3_vtab,
-            nArg: ::std::os::raw::c_int,
-            zName: *const ::std::os::raw::c_char,
-            pxFunc: *mut ::std::option::Option<
+            nArg: ::core::ffi::c_int,
+            zName: *const ::core::ffi::c_char,
+            pxFunc: *mut ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            ppArg: *mut *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            ppArg: *mut *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xRename: ::std::option::Option<
+    pub xRename: ::core::option::Option<
         unsafe extern "C" fn(
             pVtab: *mut sqlite3_vtab,
-            zNew: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            zNew: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xSavepoint: ::std::option::Option<
+    pub xSavepoint: ::core::option::Option<
         unsafe extern "C" fn(
             pVTab: *mut sqlite3_vtab,
-            arg1: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xRelease: ::std::option::Option<
+    pub xRelease: ::core::option::Option<
         unsafe extern "C" fn(
             pVTab: *mut sqlite3_vtab,
-            arg1: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xRollbackTo: ::std::option::Option<
+    pub xRollbackTo: ::core::option::Option<
         unsafe extern "C" fn(
             pVTab: *mut sqlite3_vtab,
-            arg1: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xShadowName: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int,
+    pub xShadowName: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> ::core::ffi::c_int,
     >,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_module() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_module>(),
+        ::core::mem::size_of::<sqlite3_module>(),
         192usize,
         concat!("Size of: ", stringify!(sqlite3_module))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_module>(),
+        ::core::mem::align_of::<sqlite3_module>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_module))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).iVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).iVersion as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2693,7 +2675,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xCreate as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xCreate as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2703,7 +2685,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xConnect as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xConnect as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -2713,7 +2695,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xBestIndex as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xBestIndex as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -2723,7 +2705,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xDisconnect as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xDisconnect as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -2733,7 +2715,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xDestroy as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xDestroy as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -2743,7 +2725,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xOpen as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xOpen as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -2753,7 +2735,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xClose as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xClose as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -2763,7 +2745,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xFilter as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xFilter as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -2773,7 +2755,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xNext as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xNext as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -2783,7 +2765,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xEof as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xEof as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -2793,7 +2775,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xColumn as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xColumn as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -2803,7 +2785,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xRowid as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xRowid as *const _ as usize },
         96usize,
         concat!(
             "Offset of field: ",
@@ -2813,7 +2795,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xUpdate as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xUpdate as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -2823,7 +2805,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xBegin as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xBegin as *const _ as usize },
         112usize,
         concat!(
             "Offset of field: ",
@@ -2833,7 +2815,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xSync as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xSync as *const _ as usize },
         120usize,
         concat!(
             "Offset of field: ",
@@ -2843,7 +2825,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xCommit as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xCommit as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -2853,7 +2835,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xRollback as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xRollback as *const _ as usize },
         136usize,
         concat!(
             "Offset of field: ",
@@ -2863,7 +2845,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xFindFunction as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xFindFunction as *const _ as usize },
         144usize,
         concat!(
             "Offset of field: ",
@@ -2873,7 +2855,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xRename as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xRename as *const _ as usize },
         152usize,
         concat!(
             "Offset of field: ",
@@ -2883,7 +2865,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xSavepoint as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xSavepoint as *const _ as usize },
         160usize,
         concat!(
             "Offset of field: ",
@@ -2893,7 +2875,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xRelease as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xRelease as *const _ as usize },
         168usize,
         concat!(
             "Offset of field: ",
@@ -2903,7 +2885,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xRollbackTo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xRollbackTo as *const _ as usize },
         176usize,
         concat!(
             "Offset of field: ",
@@ -2913,7 +2895,7 @@ fn bindgen_test_layout_sqlite3_module() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_module>())).xShadowName as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_module>())).xShadowName as *const _ as usize },
         184usize,
         concat!(
             "Offset of field: ",
@@ -2926,32 +2908,32 @@ fn bindgen_test_layout_sqlite3_module() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_index_info {
-    pub nConstraint: ::std::os::raw::c_int,
+    pub nConstraint: ::core::ffi::c_int,
     pub aConstraint: *mut sqlite3_index_info_sqlite3_index_constraint,
-    pub nOrderBy: ::std::os::raw::c_int,
+    pub nOrderBy: ::core::ffi::c_int,
     pub aOrderBy: *mut sqlite3_index_info_sqlite3_index_orderby,
     pub aConstraintUsage: *mut sqlite3_index_info_sqlite3_index_constraint_usage,
-    pub idxNum: ::std::os::raw::c_int,
-    pub idxStr: *mut ::std::os::raw::c_char,
-    pub needToFreeIdxStr: ::std::os::raw::c_int,
-    pub orderByConsumed: ::std::os::raw::c_int,
+    pub idxNum: ::core::ffi::c_int,
+    pub idxStr: *mut ::core::ffi::c_char,
+    pub needToFreeIdxStr: ::core::ffi::c_int,
+    pub orderByConsumed: ::core::ffi::c_int,
     pub estimatedCost: f64,
     pub estimatedRows: sqlite3_int64,
-    pub idxFlags: ::std::os::raw::c_int,
+    pub idxFlags: ::core::ffi::c_int,
     pub colUsed: sqlite3_uint64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_index_info_sqlite3_index_constraint {
-    pub iColumn: ::std::os::raw::c_int,
-    pub op: ::std::os::raw::c_uchar,
-    pub usable: ::std::os::raw::c_uchar,
-    pub iTermOffset: ::std::os::raw::c_int,
+    pub iColumn: ::core::ffi::c_int,
+    pub op: ::core::ffi::c_uchar,
+    pub usable: ::core::ffi::c_uchar,
+    pub iTermOffset: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_index_info_sqlite3_index_constraint>(),
+        ::core::mem::size_of::<sqlite3_index_info_sqlite3_index_constraint>(),
         12usize,
         concat!(
             "Size of: ",
@@ -2959,7 +2941,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_index_info_sqlite3_index_constraint>(),
+        ::core::mem::align_of::<sqlite3_index_info_sqlite3_index_constraint>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -2968,7 +2950,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).iColumn
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).iColumn
                 as *const _ as usize
         },
         0usize,
@@ -2981,7 +2963,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).op as *const _
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).op as *const _
                 as usize
         },
         4usize,
@@ -2994,7 +2976,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).usable
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).usable
                 as *const _ as usize
         },
         5usize,
@@ -3007,7 +2989,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).iTermOffset
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_constraint>())).iTermOffset
                 as *const _ as usize
         },
         8usize,
@@ -3022,13 +3004,13 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_index_info_sqlite3_index_orderby {
-    pub iColumn: ::std::os::raw::c_int,
-    pub desc: ::std::os::raw::c_uchar,
+    pub iColumn: ::core::ffi::c_int,
+    pub desc: ::core::ffi::c_uchar,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_orderby() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_index_info_sqlite3_index_orderby>(),
+        ::core::mem::size_of::<sqlite3_index_info_sqlite3_index_orderby>(),
         8usize,
         concat!(
             "Size of: ",
@@ -3036,7 +3018,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_orderby() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_index_info_sqlite3_index_orderby>(),
+        ::core::mem::align_of::<sqlite3_index_info_sqlite3_index_orderby>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -3045,8 +3027,8 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_orderby() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_orderby>())).iColumn as *const _
-                as usize
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_orderby>())).iColumn
+                as *const _ as usize
         },
         0usize,
         concat!(
@@ -3058,7 +3040,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_orderby() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_orderby>())).desc as *const _
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_orderby>())).desc as *const _
                 as usize
         },
         4usize,
@@ -3073,13 +3055,13 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_orderby() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_index_info_sqlite3_index_constraint_usage {
-    pub argvIndex: ::std::os::raw::c_int,
-    pub omit: ::std::os::raw::c_uchar,
+    pub argvIndex: ::core::ffi::c_int,
+    pub omit: ::core::ffi::c_uchar,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint_usage() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_index_info_sqlite3_index_constraint_usage>(),
+        ::core::mem::size_of::<sqlite3_index_info_sqlite3_index_constraint_usage>(),
         8usize,
         concat!(
             "Size of: ",
@@ -3087,7 +3069,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint_usage() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_index_info_sqlite3_index_constraint_usage>(),
+        ::core::mem::align_of::<sqlite3_index_info_sqlite3_index_constraint_usage>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -3096,7 +3078,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint_usage() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_constraint_usage>())).argvIndex
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_constraint_usage>())).argvIndex
                 as *const _ as usize
         },
         0usize,
@@ -3109,7 +3091,7 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint_usage() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info_sqlite3_index_constraint_usage>())).omit
+            &(*(::core::ptr::null::<sqlite3_index_info_sqlite3_index_constraint_usage>())).omit
                 as *const _ as usize
         },
         4usize,
@@ -3124,17 +3106,17 @@ fn bindgen_test_layout_sqlite3_index_info_sqlite3_index_constraint_usage() {
 #[test]
 fn bindgen_test_layout_sqlite3_index_info() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_index_info>(),
+        ::core::mem::size_of::<sqlite3_index_info>(),
         96usize,
         concat!("Size of: ", stringify!(sqlite3_index_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_index_info>(),
+        ::core::mem::align_of::<sqlite3_index_info>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_index_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).nConstraint as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).nConstraint as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3144,7 +3126,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).aConstraint as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).aConstraint as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3154,7 +3136,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).nOrderBy as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).nOrderBy as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3164,7 +3146,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).aOrderBy as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).aOrderBy as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -3175,7 +3157,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info>())).aConstraintUsage as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_index_info>())).aConstraintUsage as *const _ as usize
         },
         32usize,
         concat!(
@@ -3186,7 +3168,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).idxNum as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).idxNum as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -3196,7 +3178,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).idxStr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).idxStr as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -3207,7 +3189,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info>())).needToFreeIdxStr as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_index_info>())).needToFreeIdxStr as *const _ as usize
         },
         56usize,
         concat!(
@@ -3219,7 +3201,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info>())).orderByConsumed as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_index_info>())).orderByConsumed as *const _ as usize
         },
         60usize,
         concat!(
@@ -3231,7 +3213,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info>())).estimatedCost as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_index_info>())).estimatedCost as *const _ as usize
         },
         64usize,
         concat!(
@@ -3243,7 +3225,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_index_info>())).estimatedRows as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_index_info>())).estimatedRows as *const _ as usize
         },
         72usize,
         concat!(
@@ -3254,7 +3236,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).idxFlags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).idxFlags as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -3264,7 +3246,7 @@ fn bindgen_test_layout_sqlite3_index_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_index_info>())).colUsed as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_index_info>())).colUsed as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -3277,47 +3259,47 @@ fn bindgen_test_layout_sqlite3_index_info() {
 extern "C" {
     pub fn sqlite3_create_module(
         db: *mut sqlite3,
-        zName: *const ::std::os::raw::c_char,
+        zName: *const ::core::ffi::c_char,
         p: *const sqlite3_module,
-        pClientData: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pClientData: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_create_module_v2(
         db: *mut sqlite3,
-        zName: *const ::std::os::raw::c_char,
+        zName: *const ::core::ffi::c_char,
         p: *const sqlite3_module,
-        pClientData: *mut ::std::os::raw::c_void,
-        xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        pClientData: *mut ::core::ffi::c_void,
+        xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_drop_modules(
         db: *mut sqlite3,
-        azKeep: *mut *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        azKeep: *mut *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_vtab {
     pub pModule: *const sqlite3_module,
-    pub nRef: ::std::os::raw::c_int,
-    pub zErrMsg: *mut ::std::os::raw::c_char,
+    pub nRef: ::core::ffi::c_int,
+    pub zErrMsg: *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_vtab() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_vtab>(),
+        ::core::mem::size_of::<sqlite3_vtab>(),
         24usize,
         concat!("Size of: ", stringify!(sqlite3_vtab))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_vtab>(),
+        ::core::mem::align_of::<sqlite3_vtab>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_vtab))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vtab>())).pModule as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vtab>())).pModule as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3327,7 +3309,7 @@ fn bindgen_test_layout_sqlite3_vtab() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vtab>())).nRef as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vtab>())).nRef as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3337,7 +3319,7 @@ fn bindgen_test_layout_sqlite3_vtab() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vtab>())).zErrMsg as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vtab>())).zErrMsg as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3355,17 +3337,17 @@ pub struct sqlite3_vtab_cursor {
 #[test]
 fn bindgen_test_layout_sqlite3_vtab_cursor() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_vtab_cursor>(),
+        ::core::mem::size_of::<sqlite3_vtab_cursor>(),
         8usize,
         concat!("Size of: ", stringify!(sqlite3_vtab_cursor))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_vtab_cursor>(),
+        ::core::mem::align_of::<sqlite3_vtab_cursor>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_vtab_cursor))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_vtab_cursor>())).pVtab as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_vtab_cursor>())).pVtab as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3378,15 +3360,15 @@ fn bindgen_test_layout_sqlite3_vtab_cursor() {
 extern "C" {
     pub fn sqlite3_declare_vtab(
         arg1: *mut sqlite3,
-        zSQL: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zSQL: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_overload_function(
         arg1: *mut sqlite3,
-        zFuncName: *const ::std::os::raw::c_char,
-        nArg: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        zFuncName: *const ::core::ffi::c_char,
+        nArg: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3396,56 +3378,53 @@ pub struct sqlite3_blob {
 extern "C" {
     pub fn sqlite3_blob_open(
         arg1: *mut sqlite3,
-        zDb: *const ::std::os::raw::c_char,
-        zTable: *const ::std::os::raw::c_char,
-        zColumn: *const ::std::os::raw::c_char,
+        zDb: *const ::core::ffi::c_char,
+        zTable: *const ::core::ffi::c_char,
+        zColumn: *const ::core::ffi::c_char,
         iRow: sqlite3_int64,
-        flags: ::std::os::raw::c_int,
+        flags: ::core::ffi::c_int,
         ppBlob: *mut *mut sqlite3_blob,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_blob_reopen(
-        arg1: *mut sqlite3_blob,
-        arg2: sqlite3_int64,
-    ) -> ::std::os::raw::c_int;
+    pub fn sqlite3_blob_reopen(arg1: *mut sqlite3_blob, arg2: sqlite3_int64) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_blob_close(arg1: *mut sqlite3_blob) -> ::std::os::raw::c_int;
+    pub fn sqlite3_blob_close(arg1: *mut sqlite3_blob) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_blob_bytes(arg1: *mut sqlite3_blob) -> ::std::os::raw::c_int;
+    pub fn sqlite3_blob_bytes(arg1: *mut sqlite3_blob) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_blob_read(
         arg1: *mut sqlite3_blob,
-        Z: *mut ::std::os::raw::c_void,
-        N: ::std::os::raw::c_int,
-        iOffset: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        Z: *mut ::core::ffi::c_void,
+        N: ::core::ffi::c_int,
+        iOffset: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_blob_write(
         arg1: *mut sqlite3_blob,
-        z: *const ::std::os::raw::c_void,
-        n: ::std::os::raw::c_int,
-        iOffset: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        z: *const ::core::ffi::c_void,
+        n: ::core::ffi::c_int,
+        iOffset: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_vfs_find(zVfsName: *const ::std::os::raw::c_char) -> *mut sqlite3_vfs;
+    pub fn sqlite3_vfs_find(zVfsName: *const ::core::ffi::c_char) -> *mut sqlite3_vfs;
 }
 extern "C" {
     pub fn sqlite3_vfs_register(
         arg1: *mut sqlite3_vfs,
-        makeDflt: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        makeDflt: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_vfs_unregister(arg1: *mut sqlite3_vfs) -> ::std::os::raw::c_int;
+    pub fn sqlite3_vfs_unregister(arg1: *mut sqlite3_vfs) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_mutex_alloc(arg1: ::std::os::raw::c_int) -> *mut sqlite3_mutex;
+    pub fn sqlite3_mutex_alloc(arg1: ::core::ffi::c_int) -> *mut sqlite3_mutex;
 }
 extern "C" {
     pub fn sqlite3_mutex_free(arg1: *mut sqlite3_mutex);
@@ -3454,7 +3433,7 @@ extern "C" {
     pub fn sqlite3_mutex_enter(arg1: *mut sqlite3_mutex);
 }
 extern "C" {
-    pub fn sqlite3_mutex_try(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int;
+    pub fn sqlite3_mutex_try(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_mutex_leave(arg1: *mut sqlite3_mutex);
@@ -3462,39 +3441,39 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_mutex_methods {
-    pub xMutexInit: ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>,
-    pub xMutexEnd: ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>,
-    pub xMutexAlloc: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> *mut sqlite3_mutex,
+    pub xMutexInit: ::core::option::Option<unsafe extern "C" fn() -> ::core::ffi::c_int>,
+    pub xMutexEnd: ::core::option::Option<unsafe extern "C" fn() -> ::core::ffi::c_int>,
+    pub xMutexAlloc: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> *mut sqlite3_mutex,
     >,
-    pub xMutexFree: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
-    pub xMutexEnter: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
-    pub xMutexTry: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int,
+    pub xMutexFree: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
+    pub xMutexEnter: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
+    pub xMutexTry: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int,
     >,
-    pub xMutexLeave: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
-    pub xMutexHeld: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int,
+    pub xMutexLeave: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
+    pub xMutexHeld: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int,
     >,
-    pub xMutexNotheld: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int,
+    pub xMutexNotheld: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int,
     >,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_mutex_methods() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_mutex_methods>(),
+        ::core::mem::size_of::<sqlite3_mutex_methods>(),
         72usize,
         concat!("Size of: ", stringify!(sqlite3_mutex_methods))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_mutex_methods>(),
+        ::core::mem::align_of::<sqlite3_mutex_methods>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_mutex_methods))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexInit as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexInit as *const _ as usize
         },
         0usize,
         concat!(
@@ -3505,7 +3484,9 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexEnd as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexEnd as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3516,7 +3497,7 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexAlloc as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexAlloc as *const _ as usize
         },
         16usize,
         concat!(
@@ -3528,7 +3509,7 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexFree as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexFree as *const _ as usize
         },
         24usize,
         concat!(
@@ -3540,7 +3521,7 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexEnter as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexEnter as *const _ as usize
         },
         32usize,
         concat!(
@@ -3551,7 +3532,9 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexTry as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexTry as *const _ as usize
+        },
         40usize,
         concat!(
             "Offset of field: ",
@@ -3562,7 +3545,7 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexLeave as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexLeave as *const _ as usize
         },
         48usize,
         concat!(
@@ -3574,7 +3557,7 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexHeld as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexHeld as *const _ as usize
         },
         56usize,
         concat!(
@@ -3586,7 +3569,7 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_mutex_methods>())).xMutexNotheld as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_mutex_methods>())).xMutexNotheld as *const _ as usize
         },
         64usize,
         concat!(
@@ -3598,10 +3581,10 @@ fn bindgen_test_layout_sqlite3_mutex_methods() {
     );
 }
 extern "C" {
-    pub fn sqlite3_mutex_held(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int;
+    pub fn sqlite3_mutex_held(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_mutex_notheld(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int;
+    pub fn sqlite3_mutex_notheld(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_db_mutex(arg1: *mut sqlite3) -> *mut sqlite3_mutex;
@@ -3609,29 +3592,29 @@ extern "C" {
 extern "C" {
     pub fn sqlite3_file_control(
         arg1: *mut sqlite3,
-        zDbName: *const ::std::os::raw::c_char,
-        op: ::std::os::raw::c_int,
-        arg2: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        zDbName: *const ::core::ffi::c_char,
+        op: ::core::ffi::c_int,
+        arg2: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_test_control(op: ::std::os::raw::c_int, ...) -> ::std::os::raw::c_int;
+    pub fn sqlite3_test_control(op: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_keyword_count() -> ::std::os::raw::c_int;
+    pub fn sqlite3_keyword_count() -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_keyword_name(
-        arg1: ::std::os::raw::c_int,
-        arg2: *mut *const ::std::os::raw::c_char,
-        arg3: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        arg1: ::core::ffi::c_int,
+        arg2: *mut *const ::core::ffi::c_char,
+        arg3: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_keyword_check(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        arg1: *const ::core::ffi::c_char,
+        arg2: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3642,78 +3625,78 @@ extern "C" {
     pub fn sqlite3_str_new(arg1: *mut sqlite3) -> *mut sqlite3_str;
 }
 extern "C" {
-    pub fn sqlite3_str_finish(arg1: *mut sqlite3_str) -> *mut ::std::os::raw::c_char;
+    pub fn sqlite3_str_finish(arg1: *mut sqlite3_str) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn sqlite3_str_appendf(arg1: *mut sqlite3_str, zFormat: *const ::std::os::raw::c_char, ...);
+    pub fn sqlite3_str_appendf(arg1: *mut sqlite3_str, zFormat: *const ::core::ffi::c_char, ...);
 }
 extern "C" {
     pub fn sqlite3_str_vappendf(
         arg1: *mut sqlite3_str,
-        zFormat: *const ::std::os::raw::c_char,
+        zFormat: *const ::core::ffi::c_char,
         arg2: *mut __va_list_tag,
     );
 }
 extern "C" {
     pub fn sqlite3_str_append(
         arg1: *mut sqlite3_str,
-        zIn: *const ::std::os::raw::c_char,
-        N: ::std::os::raw::c_int,
+        zIn: *const ::core::ffi::c_char,
+        N: ::core::ffi::c_int,
     );
 }
 extern "C" {
-    pub fn sqlite3_str_appendall(arg1: *mut sqlite3_str, zIn: *const ::std::os::raw::c_char);
+    pub fn sqlite3_str_appendall(arg1: *mut sqlite3_str, zIn: *const ::core::ffi::c_char);
 }
 extern "C" {
     pub fn sqlite3_str_appendchar(
         arg1: *mut sqlite3_str,
-        N: ::std::os::raw::c_int,
-        C: ::std::os::raw::c_char,
+        N: ::core::ffi::c_int,
+        C: ::core::ffi::c_char,
     );
 }
 extern "C" {
     pub fn sqlite3_str_reset(arg1: *mut sqlite3_str);
 }
 extern "C" {
-    pub fn sqlite3_str_errcode(arg1: *mut sqlite3_str) -> ::std::os::raw::c_int;
+    pub fn sqlite3_str_errcode(arg1: *mut sqlite3_str) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_str_length(arg1: *mut sqlite3_str) -> ::std::os::raw::c_int;
+    pub fn sqlite3_str_length(arg1: *mut sqlite3_str) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_str_value(arg1: *mut sqlite3_str) -> *mut ::std::os::raw::c_char;
+    pub fn sqlite3_str_value(arg1: *mut sqlite3_str) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_status(
-        op: ::std::os::raw::c_int,
-        pCurrent: *mut ::std::os::raw::c_int,
-        pHighwater: *mut ::std::os::raw::c_int,
-        resetFlag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        op: ::core::ffi::c_int,
+        pCurrent: *mut ::core::ffi::c_int,
+        pHighwater: *mut ::core::ffi::c_int,
+        resetFlag: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_status64(
-        op: ::std::os::raw::c_int,
+        op: ::core::ffi::c_int,
         pCurrent: *mut sqlite3_int64,
         pHighwater: *mut sqlite3_int64,
-        resetFlag: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        resetFlag: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_db_status(
         arg1: *mut sqlite3,
-        op: ::std::os::raw::c_int,
-        pCur: *mut ::std::os::raw::c_int,
-        pHiwtr: *mut ::std::os::raw::c_int,
-        resetFlg: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        op: ::core::ffi::c_int,
+        pCur: *mut ::core::ffi::c_int,
+        pHiwtr: *mut ::core::ffi::c_int,
+        resetFlg: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_stmt_status(
         arg1: *mut sqlite3_stmt,
-        op: ::std::os::raw::c_int,
-        resetFlg: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        op: ::core::ffi::c_int,
+        resetFlg: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3723,23 +3706,23 @@ pub struct sqlite3_pcache {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_pcache_page {
-    pub pBuf: *mut ::std::os::raw::c_void,
-    pub pExtra: *mut ::std::os::raw::c_void,
+    pub pBuf: *mut ::core::ffi::c_void,
+    pub pExtra: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_pcache_page() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_pcache_page>(),
+        ::core::mem::size_of::<sqlite3_pcache_page>(),
         16usize,
         concat!("Size of: ", stringify!(sqlite3_pcache_page))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_pcache_page>(),
+        ::core::mem::align_of::<sqlite3_pcache_page>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_pcache_page))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_page>())).pBuf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_page>())).pBuf as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3749,7 +3732,7 @@ fn bindgen_test_layout_sqlite3_pcache_page() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_page>())).pExtra as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_page>())).pExtra as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3762,68 +3745,68 @@ fn bindgen_test_layout_sqlite3_pcache_page() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_pcache_methods2 {
-    pub iVersion: ::std::os::raw::c_int,
-    pub pArg: *mut ::std::os::raw::c_void,
-    pub xInit: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+    pub iVersion: ::core::ffi::c_int,
+    pub pArg: *mut ::core::ffi::c_void,
+    pub xInit: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
     >,
-    pub xShutdown: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    pub xCreate: ::std::option::Option<
+    pub xShutdown: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    pub xCreate: ::core::option::Option<
         unsafe extern "C" fn(
-            szPage: ::std::os::raw::c_int,
-            szExtra: ::std::os::raw::c_int,
-            bPurgeable: ::std::os::raw::c_int,
+            szPage: ::core::ffi::c_int,
+            szExtra: ::core::ffi::c_int,
+            bPurgeable: ::core::ffi::c_int,
         ) -> *mut sqlite3_pcache,
     >,
-    pub xCachesize: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, nCachesize: ::std::os::raw::c_int),
+    pub xCachesize: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, nCachesize: ::core::ffi::c_int),
     >,
-    pub xPagecount: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_pcache) -> ::std::os::raw::c_int,
+    pub xPagecount: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_pcache) -> ::core::ffi::c_int,
     >,
-    pub xFetch: ::std::option::Option<
+    pub xFetch: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_pcache,
-            key: ::std::os::raw::c_uint,
-            createFlag: ::std::os::raw::c_int,
+            key: ::core::ffi::c_uint,
+            createFlag: ::core::ffi::c_int,
         ) -> *mut sqlite3_pcache_page,
     >,
-    pub xUnpin: ::std::option::Option<
+    pub xUnpin: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_pcache,
             arg2: *mut sqlite3_pcache_page,
-            discard: ::std::os::raw::c_int,
+            discard: ::core::ffi::c_int,
         ),
     >,
-    pub xRekey: ::std::option::Option<
+    pub xRekey: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_pcache,
             arg2: *mut sqlite3_pcache_page,
-            oldKey: ::std::os::raw::c_uint,
-            newKey: ::std::os::raw::c_uint,
+            oldKey: ::core::ffi::c_uint,
+            newKey: ::core::ffi::c_uint,
         ),
     >,
-    pub xTruncate: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, iLimit: ::std::os::raw::c_uint),
+    pub xTruncate: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, iLimit: ::core::ffi::c_uint),
     >,
-    pub xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_pcache)>,
-    pub xShrink: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_pcache)>,
+    pub xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_pcache)>,
+    pub xShrink: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_pcache)>,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_pcache_methods2() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_pcache_methods2>(),
+        ::core::mem::size_of::<sqlite3_pcache_methods2>(),
         104usize,
         concat!("Size of: ", stringify!(sqlite3_pcache_methods2))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_pcache_methods2>(),
+        ::core::mem::align_of::<sqlite3_pcache_methods2>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_pcache_methods2))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).iVersion as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).iVersion as *const _ as usize
         },
         0usize,
         concat!(
@@ -3834,7 +3817,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).pArg as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).pArg as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3844,7 +3827,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xInit as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xInit as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3855,7 +3838,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xShutdown as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xShutdown as *const _ as usize
         },
         24usize,
         concat!(
@@ -3866,7 +3849,9 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xCreate as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xCreate as *const _ as usize
+        },
         32usize,
         concat!(
             "Offset of field: ",
@@ -3877,7 +3862,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xCachesize as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xCachesize as *const _ as usize
         },
         40usize,
         concat!(
@@ -3889,7 +3874,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xPagecount as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xPagecount as *const _ as usize
         },
         48usize,
         concat!(
@@ -3900,7 +3885,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xFetch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xFetch as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -3910,7 +3895,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xUnpin as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xUnpin as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -3920,7 +3905,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xRekey as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xRekey as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -3931,7 +3916,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xTruncate as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xTruncate as *const _ as usize
         },
         80usize,
         concat!(
@@ -3943,7 +3928,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xDestroy as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xDestroy as *const _ as usize
         },
         88usize,
         concat!(
@@ -3954,7 +3939,9 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods2>())).xShrink as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_pcache_methods2>())).xShrink as *const _ as usize
+        },
         96usize,
         concat!(
             "Offset of field: ",
@@ -3967,64 +3954,64 @@ fn bindgen_test_layout_sqlite3_pcache_methods2() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_pcache_methods {
-    pub pArg: *mut ::std::os::raw::c_void,
-    pub xInit: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+    pub pArg: *mut ::core::ffi::c_void,
+    pub xInit: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
     >,
-    pub xShutdown: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    pub xCreate: ::std::option::Option<
+    pub xShutdown: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    pub xCreate: ::core::option::Option<
         unsafe extern "C" fn(
-            szPage: ::std::os::raw::c_int,
-            bPurgeable: ::std::os::raw::c_int,
+            szPage: ::core::ffi::c_int,
+            bPurgeable: ::core::ffi::c_int,
         ) -> *mut sqlite3_pcache,
     >,
-    pub xCachesize: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, nCachesize: ::std::os::raw::c_int),
+    pub xCachesize: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, nCachesize: ::core::ffi::c_int),
     >,
-    pub xPagecount: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_pcache) -> ::std::os::raw::c_int,
+    pub xPagecount: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_pcache) -> ::core::ffi::c_int,
     >,
-    pub xFetch: ::std::option::Option<
+    pub xFetch: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_pcache,
-            key: ::std::os::raw::c_uint,
-            createFlag: ::std::os::raw::c_int,
-        ) -> *mut ::std::os::raw::c_void,
+            key: ::core::ffi::c_uint,
+            createFlag: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub xUnpin: ::std::option::Option<
+    pub xUnpin: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_pcache,
-            arg2: *mut ::std::os::raw::c_void,
-            discard: ::std::os::raw::c_int,
+            arg2: *mut ::core::ffi::c_void,
+            discard: ::core::ffi::c_int,
         ),
     >,
-    pub xRekey: ::std::option::Option<
+    pub xRekey: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_pcache,
-            arg2: *mut ::std::os::raw::c_void,
-            oldKey: ::std::os::raw::c_uint,
-            newKey: ::std::os::raw::c_uint,
+            arg2: *mut ::core::ffi::c_void,
+            oldKey: ::core::ffi::c_uint,
+            newKey: ::core::ffi::c_uint,
         ),
     >,
-    pub xTruncate: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, iLimit: ::std::os::raw::c_uint),
+    pub xTruncate: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_pcache, iLimit: ::core::ffi::c_uint),
     >,
-    pub xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_pcache)>,
+    pub xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_pcache)>,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_pcache_methods() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_pcache_methods>(),
+        ::core::mem::size_of::<sqlite3_pcache_methods>(),
         88usize,
         concat!("Size of: ", stringify!(sqlite3_pcache_methods))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_pcache_methods>(),
+        ::core::mem::align_of::<sqlite3_pcache_methods>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_pcache_methods))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).pArg as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods>())).pArg as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4034,7 +4021,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xInit as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xInit as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4045,7 +4032,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xShutdown as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xShutdown as *const _ as usize
         },
         16usize,
         concat!(
@@ -4056,7 +4043,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xCreate as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xCreate as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4067,7 +4054,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xCachesize as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xCachesize as *const _ as usize
         },
         32usize,
         concat!(
@@ -4079,7 +4066,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xPagecount as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xPagecount as *const _ as usize
         },
         40usize,
         concat!(
@@ -4090,7 +4077,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xFetch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xFetch as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -4100,7 +4087,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xUnpin as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xUnpin as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -4110,7 +4097,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xRekey as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xRekey as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -4121,7 +4108,7 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xTruncate as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xTruncate as *const _ as usize
         },
         72usize,
         concat!(
@@ -4132,7 +4119,9 @@ fn bindgen_test_layout_sqlite3_pcache_methods() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_pcache_methods>())).xDestroy as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_pcache_methods>())).xDestroy as *const _ as usize
+        },
         80usize,
         concat!(
             "Offset of field: ",
@@ -4150,161 +4139,154 @@ pub struct sqlite3_backup {
 extern "C" {
     pub fn sqlite3_backup_init(
         pDest: *mut sqlite3,
-        zDestName: *const ::std::os::raw::c_char,
+        zDestName: *const ::core::ffi::c_char,
         pSource: *mut sqlite3,
-        zSourceName: *const ::std::os::raw::c_char,
+        zSourceName: *const ::core::ffi::c_char,
     ) -> *mut sqlite3_backup;
 }
 extern "C" {
     pub fn sqlite3_backup_step(
         p: *mut sqlite3_backup,
-        nPage: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        nPage: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_backup_finish(p: *mut sqlite3_backup) -> ::std::os::raw::c_int;
+    pub fn sqlite3_backup_finish(p: *mut sqlite3_backup) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_backup_remaining(p: *mut sqlite3_backup) -> ::std::os::raw::c_int;
+    pub fn sqlite3_backup_remaining(p: *mut sqlite3_backup) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_backup_pagecount(p: *mut sqlite3_backup) -> ::std::os::raw::c_int;
+    pub fn sqlite3_backup_pagecount(p: *mut sqlite3_backup) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_unlock_notify(
         pBlocked: *mut sqlite3,
-        xNotify: ::std::option::Option<
-            unsafe extern "C" fn(
-                apArg: *mut *mut ::std::os::raw::c_void,
-                nArg: ::std::os::raw::c_int,
-            ),
+        xNotify: ::core::option::Option<
+            unsafe extern "C" fn(apArg: *mut *mut ::core::ffi::c_void, nArg: ::core::ffi::c_int),
         >,
-        pNotifyArg: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pNotifyArg: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_stricmp(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        arg1: *const ::core::ffi::c_char,
+        arg2: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_strnicmp(
-        arg1: *const ::std::os::raw::c_char,
-        arg2: *const ::std::os::raw::c_char,
-        arg3: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        arg1: *const ::core::ffi::c_char,
+        arg2: *const ::core::ffi::c_char,
+        arg3: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_strglob(
-        zGlob: *const ::std::os::raw::c_char,
-        zStr: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zGlob: *const ::core::ffi::c_char,
+        zStr: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_strlike(
-        zGlob: *const ::std::os::raw::c_char,
-        zStr: *const ::std::os::raw::c_char,
-        cEsc: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
+        zGlob: *const ::core::ffi::c_char,
+        zStr: *const ::core::ffi::c_char,
+        cEsc: ::core::ffi::c_uint,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_log(
-        iErrCode: ::std::os::raw::c_int,
-        zFormat: *const ::std::os::raw::c_char,
-        ...
-    );
+    pub fn sqlite3_log(iErrCode: ::core::ffi::c_int, zFormat: *const ::core::ffi::c_char, ...);
 }
 extern "C" {
     pub fn sqlite3_wal_hook(
         arg1: *mut sqlite3,
-        arg2: ::std::option::Option<
+        arg2: ::core::option::Option<
             unsafe extern "C" fn(
-                arg1: *mut ::std::os::raw::c_void,
+                arg1: *mut ::core::ffi::c_void,
                 arg2: *mut sqlite3,
-                arg3: *const ::std::os::raw::c_char,
-                arg4: ::std::os::raw::c_int,
-            ) -> ::std::os::raw::c_int,
+                arg3: *const ::core::ffi::c_char,
+                arg4: ::core::ffi::c_int,
+            ) -> ::core::ffi::c_int,
         >,
-        arg3: *mut ::std::os::raw::c_void,
-    ) -> *mut ::std::os::raw::c_void;
+        arg3: *mut ::core::ffi::c_void,
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn sqlite3_wal_autocheckpoint(
         db: *mut sqlite3,
-        N: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        N: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_wal_checkpoint(
         db: *mut sqlite3,
-        zDb: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zDb: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_wal_checkpoint_v2(
         db: *mut sqlite3,
-        zDb: *const ::std::os::raw::c_char,
-        eMode: ::std::os::raw::c_int,
-        pnLog: *mut ::std::os::raw::c_int,
-        pnCkpt: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        zDb: *const ::core::ffi::c_char,
+        eMode: ::core::ffi::c_int,
+        pnLog: *mut ::core::ffi::c_int,
+        pnCkpt: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_vtab_config(
         arg1: *mut sqlite3,
-        op: ::std::os::raw::c_int,
+        op: ::core::ffi::c_int,
         ...
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_vtab_on_conflict(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_vtab_on_conflict(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_vtab_nochange(arg1: *mut sqlite3_context) -> ::std::os::raw::c_int;
+    pub fn sqlite3_vtab_nochange(arg1: *mut sqlite3_context) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_vtab_collation(
         arg1: *mut sqlite3_index_info,
-        arg2: ::std::os::raw::c_int,
-    ) -> *const ::std::os::raw::c_char;
+        arg2: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn sqlite3_stmt_scanstatus(
         pStmt: *mut sqlite3_stmt,
-        idx: ::std::os::raw::c_int,
-        iScanStatusOp: ::std::os::raw::c_int,
-        pOut: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        idx: ::core::ffi::c_int,
+        iScanStatusOp: ::core::ffi::c_int,
+        pOut: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_stmt_scanstatus_reset(arg1: *mut sqlite3_stmt);
 }
 extern "C" {
-    pub fn sqlite3_db_cacheflush(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_db_cacheflush(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn sqlite3_system_errno(arg1: *mut sqlite3) -> ::std::os::raw::c_int;
+    pub fn sqlite3_system_errno(arg1: *mut sqlite3) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_snapshot {
-    pub hidden: [::std::os::raw::c_uchar; 48usize],
+    pub hidden: [::core::ffi::c_uchar; 48usize],
 }
 #[test]
 fn bindgen_test_layout_sqlite3_snapshot() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_snapshot>(),
+        ::core::mem::size_of::<sqlite3_snapshot>(),
         48usize,
         concat!("Size of: ", stringify!(sqlite3_snapshot))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_snapshot>(),
+        ::core::mem::align_of::<sqlite3_snapshot>(),
         1usize,
         concat!("Alignment of ", stringify!(sqlite3_snapshot))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_snapshot>())).hidden as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_snapshot>())).hidden as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4317,16 +4299,16 @@ fn bindgen_test_layout_sqlite3_snapshot() {
 extern "C" {
     pub fn sqlite3_snapshot_get(
         db: *mut sqlite3,
-        zSchema: *const ::std::os::raw::c_char,
+        zSchema: *const ::core::ffi::c_char,
         ppSnapshot: *mut *mut sqlite3_snapshot,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_snapshot_open(
         db: *mut sqlite3,
-        zSchema: *const ::std::os::raw::c_char,
+        zSchema: *const ::core::ffi::c_char,
         pSnapshot: *mut sqlite3_snapshot,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_snapshot_free(arg1: *mut sqlite3_snapshot);
@@ -4335,71 +4317,73 @@ extern "C" {
     pub fn sqlite3_snapshot_cmp(
         p1: *mut sqlite3_snapshot,
         p2: *mut sqlite3_snapshot,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_snapshot_recover(
         db: *mut sqlite3,
-        zDb: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        zDb: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn sqlite3_serialize(
         db: *mut sqlite3,
-        zSchema: *const ::std::os::raw::c_char,
+        zSchema: *const ::core::ffi::c_char,
         piSize: *mut sqlite3_int64,
-        mFlags: ::std::os::raw::c_uint,
-    ) -> *mut ::std::os::raw::c_uchar;
+        mFlags: ::core::ffi::c_uint,
+    ) -> *mut ::core::ffi::c_uchar;
 }
 extern "C" {
     pub fn sqlite3_deserialize(
         db: *mut sqlite3,
-        zSchema: *const ::std::os::raw::c_char,
-        pData: *mut ::std::os::raw::c_uchar,
+        zSchema: *const ::core::ffi::c_char,
+        pData: *mut ::core::ffi::c_uchar,
         szDb: sqlite3_int64,
         szBuf: sqlite3_int64,
-        mFlags: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
+        mFlags: ::core::ffi::c_uint,
+    ) -> ::core::ffi::c_int;
 }
 pub type sqlite3_rtree_dbl = f64;
 extern "C" {
     pub fn sqlite3_rtree_geometry_callback(
         db: *mut sqlite3,
-        zGeom: *const ::std::os::raw::c_char,
-        xGeom: ::std::option::Option<
+        zGeom: *const ::core::ffi::c_char,
+        xGeom: ::core::option::Option<
             unsafe extern "C" fn(
                 arg1: *mut sqlite3_rtree_geometry,
-                arg2: ::std::os::raw::c_int,
+                arg2: ::core::ffi::c_int,
                 arg3: *mut sqlite3_rtree_dbl,
-                arg4: *mut ::std::os::raw::c_int,
-            ) -> ::std::os::raw::c_int,
+                arg4: *mut ::core::ffi::c_int,
+            ) -> ::core::ffi::c_int,
         >,
-        pContext: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        pContext: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_rtree_geometry {
-    pub pContext: *mut ::std::os::raw::c_void,
-    pub nParam: ::std::os::raw::c_int,
+    pub pContext: *mut ::core::ffi::c_void,
+    pub nParam: ::core::ffi::c_int,
     pub aParam: *mut sqlite3_rtree_dbl,
-    pub pUser: *mut ::std::os::raw::c_void,
-    pub xDelUser: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+    pub pUser: *mut ::core::ffi::c_void,
+    pub xDelUser: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_rtree_geometry() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_rtree_geometry>(),
+        ::core::mem::size_of::<sqlite3_rtree_geometry>(),
         40usize,
         concat!("Size of: ", stringify!(sqlite3_rtree_geometry))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_rtree_geometry>(),
+        ::core::mem::align_of::<sqlite3_rtree_geometry>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_rtree_geometry))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_geometry>())).pContext as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_geometry>())).pContext as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4409,7 +4393,7 @@ fn bindgen_test_layout_sqlite3_rtree_geometry() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_geometry>())).nParam as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_rtree_geometry>())).nParam as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4419,7 +4403,7 @@ fn bindgen_test_layout_sqlite3_rtree_geometry() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_geometry>())).aParam as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_rtree_geometry>())).aParam as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4429,7 +4413,7 @@ fn bindgen_test_layout_sqlite3_rtree_geometry() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_geometry>())).pUser as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_rtree_geometry>())).pUser as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4439,7 +4423,9 @@ fn bindgen_test_layout_sqlite3_rtree_geometry() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_geometry>())).xDelUser as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_geometry>())).xDelUser as *const _ as usize
+        },
         32usize,
         concat!(
             "Offset of field: ",
@@ -4452,49 +4438,49 @@ fn bindgen_test_layout_sqlite3_rtree_geometry() {
 extern "C" {
     pub fn sqlite3_rtree_query_callback(
         db: *mut sqlite3,
-        zQueryFunc: *const ::std::os::raw::c_char,
-        xQueryFunc: ::std::option::Option<
-            unsafe extern "C" fn(arg1: *mut sqlite3_rtree_query_info) -> ::std::os::raw::c_int,
+        zQueryFunc: *const ::core::ffi::c_char,
+        xQueryFunc: ::core::option::Option<
+            unsafe extern "C" fn(arg1: *mut sqlite3_rtree_query_info) -> ::core::ffi::c_int,
         >,
-        pContext: *mut ::std::os::raw::c_void,
-        xDestructor: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-    ) -> ::std::os::raw::c_int;
+        pContext: *mut ::core::ffi::c_void,
+        xDestructor: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_rtree_query_info {
-    pub pContext: *mut ::std::os::raw::c_void,
-    pub nParam: ::std::os::raw::c_int,
+    pub pContext: *mut ::core::ffi::c_void,
+    pub nParam: ::core::ffi::c_int,
     pub aParam: *mut sqlite3_rtree_dbl,
-    pub pUser: *mut ::std::os::raw::c_void,
-    pub xDelUser: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+    pub pUser: *mut ::core::ffi::c_void,
+    pub xDelUser: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     pub aCoord: *mut sqlite3_rtree_dbl,
-    pub anQueue: *mut ::std::os::raw::c_uint,
-    pub nCoord: ::std::os::raw::c_int,
-    pub iLevel: ::std::os::raw::c_int,
-    pub mxLevel: ::std::os::raw::c_int,
+    pub anQueue: *mut ::core::ffi::c_uint,
+    pub nCoord: ::core::ffi::c_int,
+    pub iLevel: ::core::ffi::c_int,
+    pub mxLevel: ::core::ffi::c_int,
     pub iRowid: sqlite3_int64,
     pub rParentScore: sqlite3_rtree_dbl,
-    pub eParentWithin: ::std::os::raw::c_int,
-    pub eWithin: ::std::os::raw::c_int,
+    pub eParentWithin: ::core::ffi::c_int,
+    pub eWithin: ::core::ffi::c_int,
     pub rScore: sqlite3_rtree_dbl,
     pub apSqlParam: *mut *mut sqlite3_value,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_rtree_query_info() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_rtree_query_info>(),
+        ::core::mem::size_of::<sqlite3_rtree_query_info>(),
         112usize,
         concat!("Size of: ", stringify!(sqlite3_rtree_query_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_rtree_query_info>(),
+        ::core::mem::align_of::<sqlite3_rtree_query_info>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_rtree_query_info))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).pContext as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).pContext as *const _ as usize
         },
         0usize,
         concat!(
@@ -4505,7 +4491,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).nParam as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).nParam as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4515,7 +4503,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).aParam as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).aParam as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4525,7 +4515,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).pUser as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).pUser as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4536,7 +4526,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).xDelUser as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).xDelUser as *const _ as usize
         },
         32usize,
         concat!(
@@ -4547,7 +4537,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).aCoord as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).aCoord as *const _ as usize
+        },
         40usize,
         concat!(
             "Offset of field: ",
@@ -4558,7 +4550,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).anQueue as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).anQueue as *const _ as usize
         },
         48usize,
         concat!(
@@ -4569,7 +4561,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).nCoord as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).nCoord as *const _ as usize
+        },
         56usize,
         concat!(
             "Offset of field: ",
@@ -4579,7 +4573,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).iLevel as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).iLevel as *const _ as usize
+        },
         60usize,
         concat!(
             "Offset of field: ",
@@ -4590,7 +4586,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).mxLevel as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).mxLevel as *const _ as usize
         },
         64usize,
         concat!(
@@ -4601,7 +4597,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).iRowid as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).iRowid as *const _ as usize
+        },
         72usize,
         concat!(
             "Offset of field: ",
@@ -4612,7 +4610,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).rParentScore as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).rParentScore as *const _ as usize
         },
         80usize,
         concat!(
@@ -4624,7 +4622,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).eParentWithin as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).eParentWithin as *const _ as usize
         },
         88usize,
         concat!(
@@ -4636,7 +4634,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).eWithin as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).eWithin as *const _ as usize
         },
         92usize,
         concat!(
@@ -4647,7 +4645,9 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).rScore as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).rScore as *const _ as usize
+        },
         96usize,
         concat!(
             "Offset of field: ",
@@ -4658,7 +4658,7 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_rtree_query_info>())).apSqlParam as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_rtree_query_info>())).apSqlParam as *const _ as usize
         },
         104usize,
         concat!(
@@ -4674,35 +4674,35 @@ fn bindgen_test_layout_sqlite3_rtree_query_info() {
 pub struct Fts5Context {
     _unused: [u8; 0],
 }
-pub type fts5_extension_function = ::std::option::Option<
+pub type fts5_extension_function = ::core::option::Option<
     unsafe extern "C" fn(
         pApi: *const Fts5ExtensionApi,
         pFts: *mut Fts5Context,
         pCtx: *mut sqlite3_context,
-        nVal: ::std::os::raw::c_int,
+        nVal: ::core::ffi::c_int,
         apVal: *mut *mut sqlite3_value,
     ),
 >;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Fts5PhraseIter {
-    pub a: *const ::std::os::raw::c_uchar,
-    pub b: *const ::std::os::raw::c_uchar,
+    pub a: *const ::core::ffi::c_uchar,
+    pub b: *const ::core::ffi::c_uchar,
 }
 #[test]
 fn bindgen_test_layout_Fts5PhraseIter() {
     assert_eq!(
-        ::std::mem::size_of::<Fts5PhraseIter>(),
+        ::core::mem::size_of::<Fts5PhraseIter>(),
         16usize,
         concat!("Size of: ", stringify!(Fts5PhraseIter))
     );
     assert_eq!(
-        ::std::mem::align_of::<Fts5PhraseIter>(),
+        ::core::mem::align_of::<Fts5PhraseIter>(),
         8usize,
         concat!("Alignment of ", stringify!(Fts5PhraseIter))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5PhraseIter>())).a as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5PhraseIter>())).a as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4712,7 +4712,7 @@ fn bindgen_test_layout_Fts5PhraseIter() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5PhraseIter>())).b as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5PhraseIter>())).b as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4725,159 +4725,157 @@ fn bindgen_test_layout_Fts5PhraseIter() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Fts5ExtensionApi {
-    pub iVersion: ::std::os::raw::c_int,
-    pub xUserData: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut Fts5Context) -> *mut ::std::os::raw::c_void,
+    pub iVersion: ::core::ffi::c_int,
+    pub xUserData: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut Fts5Context) -> *mut ::core::ffi::c_void,
     >,
-    pub xColumnCount: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut Fts5Context) -> ::std::os::raw::c_int,
-    >,
-    pub xRowCount: ::std::option::Option<
+    pub xColumnCount:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut Fts5Context) -> ::core::ffi::c_int>,
+    pub xRowCount: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
             pnRow: *mut sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xColumnTotalSize: ::std::option::Option<
+    pub xColumnTotalSize: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iCol: ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
             pnToken: *mut sqlite3_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xTokenize: ::std::option::Option<
+    pub xTokenize: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            pText: *const ::std::os::raw::c_char,
-            nText: ::std::os::raw::c_int,
-            pCtx: *mut ::std::os::raw::c_void,
-            xToken: ::std::option::Option<
+            pText: *const ::core::ffi::c_char,
+            nText: ::core::ffi::c_int,
+            pCtx: *mut ::core::ffi::c_void,
+            xToken: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_char,
-                    arg4: ::std::os::raw::c_int,
-                    arg5: ::std::os::raw::c_int,
-                    arg6: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_char,
+                    arg4: ::core::ffi::c_int,
+                    arg5: ::core::ffi::c_int,
+                    arg6: ::core::ffi::c_int,
+                ) -> ::core::ffi::c_int,
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xPhraseCount: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut Fts5Context) -> ::std::os::raw::c_int,
-    >,
-    pub xPhraseSize: ::std::option::Option<
+    pub xPhraseCount:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut Fts5Context) -> ::core::ffi::c_int>,
+    pub xPhraseSize: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iPhrase: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iPhrase: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xInstCount: ::std::option::Option<
+    pub xInstCount: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            pnInst: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            pnInst: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xInst: ::std::option::Option<
+    pub xInst: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iIdx: ::std::os::raw::c_int,
-            piPhrase: *mut ::std::os::raw::c_int,
-            piCol: *mut ::std::os::raw::c_int,
-            piOff: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iIdx: ::core::ffi::c_int,
+            piPhrase: *mut ::core::ffi::c_int,
+            piCol: *mut ::core::ffi::c_int,
+            piOff: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
     pub xRowid:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut Fts5Context) -> sqlite3_int64>,
-    pub xColumnText: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut Fts5Context) -> sqlite3_int64>,
+    pub xColumnText: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iCol: ::std::os::raw::c_int,
-            pz: *mut *const ::std::os::raw::c_char,
-            pn: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
+            pz: *mut *const ::core::ffi::c_char,
+            pn: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xColumnSize: ::std::option::Option<
+    pub xColumnSize: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iCol: ::std::os::raw::c_int,
-            pnToken: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
+            pnToken: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xQueryPhrase: ::std::option::Option<
+    pub xQueryPhrase: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iPhrase: ::std::os::raw::c_int,
-            pUserData: *mut ::std::os::raw::c_void,
-            arg2: ::std::option::Option<
+            iPhrase: ::core::ffi::c_int,
+            pUserData: *mut ::core::ffi::c_void,
+            arg2: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *const Fts5ExtensionApi,
                     arg2: *mut Fts5Context,
-                    arg3: *mut ::std::os::raw::c_void,
-                ) -> ::std::os::raw::c_int,
+                    arg3: *mut ::core::ffi::c_void,
+                ) -> ::core::ffi::c_int,
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xSetAuxdata: ::std::option::Option<
+    pub xSetAuxdata: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            pAux: *mut ::std::os::raw::c_void,
-            xDelete: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            pAux: *mut ::core::ffi::c_void,
+            xDelete: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xGetAuxdata: ::std::option::Option<
+    pub xGetAuxdata: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            bClear: ::std::os::raw::c_int,
-        ) -> *mut ::std::os::raw::c_void,
+            bClear: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub xPhraseFirst: ::std::option::Option<
+    pub xPhraseFirst: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iPhrase: ::std::os::raw::c_int,
+            iPhrase: ::core::ffi::c_int,
             arg2: *mut Fts5PhraseIter,
-            arg3: *mut ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg3: *mut ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xPhraseNext: ::std::option::Option<
+    pub xPhraseNext: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
             arg2: *mut Fts5PhraseIter,
-            piCol: *mut ::std::os::raw::c_int,
-            piOff: *mut ::std::os::raw::c_int,
+            piCol: *mut ::core::ffi::c_int,
+            piOff: *mut ::core::ffi::c_int,
         ),
     >,
-    pub xPhraseFirstColumn: ::std::option::Option<
+    pub xPhraseFirstColumn: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
-            iPhrase: ::std::os::raw::c_int,
+            iPhrase: ::core::ffi::c_int,
             arg2: *mut Fts5PhraseIter,
-            arg3: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg3: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xPhraseNextColumn: ::std::option::Option<
+    pub xPhraseNextColumn: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Context,
             arg2: *mut Fts5PhraseIter,
-            piCol: *mut ::std::os::raw::c_int,
+            piCol: *mut ::core::ffi::c_int,
         ),
     >,
 }
 #[test]
 fn bindgen_test_layout_Fts5ExtensionApi() {
     assert_eq!(
-        ::std::mem::size_of::<Fts5ExtensionApi>(),
+        ::core::mem::size_of::<Fts5ExtensionApi>(),
         160usize,
         concat!("Size of: ", stringify!(Fts5ExtensionApi))
     );
     assert_eq!(
-        ::std::mem::align_of::<Fts5ExtensionApi>(),
+        ::core::mem::align_of::<Fts5ExtensionApi>(),
         8usize,
         concat!("Alignment of ", stringify!(Fts5ExtensionApi))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).iVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).iVersion as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4887,7 +4885,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xUserData as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xUserData as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4897,7 +4895,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xColumnCount as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xColumnCount as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4907,7 +4905,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xRowCount as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xRowCount as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4918,7 +4916,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<Fts5ExtensionApi>())).xColumnTotalSize as *const _ as usize
+            &(*(::core::ptr::null::<Fts5ExtensionApi>())).xColumnTotalSize as *const _ as usize
         },
         32usize,
         concat!(
@@ -4929,7 +4927,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xTokenize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xTokenize as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -4939,7 +4937,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xPhraseCount as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xPhraseCount as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -4949,7 +4947,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xPhraseSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xPhraseSize as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -4959,7 +4957,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xInstCount as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xInstCount as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -4969,7 +4967,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xInst as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xInst as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -4979,7 +4977,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xRowid as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xRowid as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -4989,7 +4987,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xColumnText as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xColumnText as *const _ as usize },
         88usize,
         concat!(
             "Offset of field: ",
@@ -4999,7 +4997,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xColumnSize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xColumnSize as *const _ as usize },
         96usize,
         concat!(
             "Offset of field: ",
@@ -5009,7 +5007,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xQueryPhrase as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xQueryPhrase as *const _ as usize },
         104usize,
         concat!(
             "Offset of field: ",
@@ -5019,7 +5017,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xSetAuxdata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xSetAuxdata as *const _ as usize },
         112usize,
         concat!(
             "Offset of field: ",
@@ -5029,7 +5027,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xGetAuxdata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xGetAuxdata as *const _ as usize },
         120usize,
         concat!(
             "Offset of field: ",
@@ -5039,7 +5037,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xPhraseFirst as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xPhraseFirst as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -5049,7 +5047,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<Fts5ExtensionApi>())).xPhraseNext as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<Fts5ExtensionApi>())).xPhraseNext as *const _ as usize },
         136usize,
         concat!(
             "Offset of field: ",
@@ -5060,7 +5058,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<Fts5ExtensionApi>())).xPhraseFirstColumn as *const _ as usize
+            &(*(::core::ptr::null::<Fts5ExtensionApi>())).xPhraseFirstColumn as *const _ as usize
         },
         144usize,
         concat!(
@@ -5072,7 +5070,7 @@ fn bindgen_test_layout_Fts5ExtensionApi() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<Fts5ExtensionApi>())).xPhraseNextColumn as *const _ as usize
+            &(*(::core::ptr::null::<Fts5ExtensionApi>())).xPhraseNextColumn as *const _ as usize
         },
         152usize,
         concat!(
@@ -5091,49 +5089,49 @@ pub struct Fts5Tokenizer {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fts5_tokenizer {
-    pub xCreate: ::std::option::Option<
+    pub xCreate: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            azArg: *mut *const ::std::os::raw::c_char,
-            nArg: ::std::os::raw::c_int,
+            arg1: *mut ::core::ffi::c_void,
+            azArg: *mut *const ::core::ffi::c_char,
+            nArg: ::core::ffi::c_int,
             ppOut: *mut *mut Fts5Tokenizer,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xDelete: ::std::option::Option<unsafe extern "C" fn(arg1: *mut Fts5Tokenizer)>,
-    pub xTokenize: ::std::option::Option<
+    pub xDelete: ::core::option::Option<unsafe extern "C" fn(arg1: *mut Fts5Tokenizer)>,
+    pub xTokenize: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut Fts5Tokenizer,
-            pCtx: *mut ::std::os::raw::c_void,
-            flags: ::std::os::raw::c_int,
-            pText: *const ::std::os::raw::c_char,
-            nText: ::std::os::raw::c_int,
-            xToken: ::std::option::Option<
+            pCtx: *mut ::core::ffi::c_void,
+            flags: ::core::ffi::c_int,
+            pText: *const ::core::ffi::c_char,
+            nText: ::core::ffi::c_int,
+            xToken: ::core::option::Option<
                 unsafe extern "C" fn(
-                    pCtx: *mut ::std::os::raw::c_void,
-                    tflags: ::std::os::raw::c_int,
-                    pToken: *const ::std::os::raw::c_char,
-                    nToken: ::std::os::raw::c_int,
-                    iStart: ::std::os::raw::c_int,
-                    iEnd: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
+                    pCtx: *mut ::core::ffi::c_void,
+                    tflags: ::core::ffi::c_int,
+                    pToken: *const ::core::ffi::c_char,
+                    nToken: ::core::ffi::c_int,
+                    iStart: ::core::ffi::c_int,
+                    iEnd: ::core::ffi::c_int,
+                ) -> ::core::ffi::c_int,
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
 }
 #[test]
 fn bindgen_test_layout_fts5_tokenizer() {
     assert_eq!(
-        ::std::mem::size_of::<fts5_tokenizer>(),
+        ::core::mem::size_of::<fts5_tokenizer>(),
         24usize,
         concat!("Size of: ", stringify!(fts5_tokenizer))
     );
     assert_eq!(
-        ::std::mem::align_of::<fts5_tokenizer>(),
+        ::core::mem::align_of::<fts5_tokenizer>(),
         8usize,
         concat!("Alignment of ", stringify!(fts5_tokenizer))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_tokenizer>())).xCreate as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_tokenizer>())).xCreate as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5143,7 +5141,7 @@ fn bindgen_test_layout_fts5_tokenizer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_tokenizer>())).xDelete as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_tokenizer>())).xDelete as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5153,7 +5151,7 @@ fn bindgen_test_layout_fts5_tokenizer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_tokenizer>())).xTokenize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_tokenizer>())).xTokenize as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -5166,48 +5164,48 @@ fn bindgen_test_layout_fts5_tokenizer() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fts5_api {
-    pub iVersion: ::std::os::raw::c_int,
-    pub xCreateTokenizer: ::std::option::Option<
+    pub iVersion: ::core::ffi::c_int,
+    pub xCreateTokenizer: ::core::option::Option<
         unsafe extern "C" fn(
             pApi: *mut fts5_api,
-            zName: *const ::std::os::raw::c_char,
-            pContext: *mut ::std::os::raw::c_void,
+            zName: *const ::core::ffi::c_char,
+            pContext: *mut ::core::ffi::c_void,
             pTokenizer: *mut fts5_tokenizer,
-            xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xFindTokenizer: ::std::option::Option<
+    pub xFindTokenizer: ::core::option::Option<
         unsafe extern "C" fn(
             pApi: *mut fts5_api,
-            zName: *const ::std::os::raw::c_char,
-            ppContext: *mut *mut ::std::os::raw::c_void,
+            zName: *const ::core::ffi::c_char,
+            ppContext: *mut *mut ::core::ffi::c_void,
             pTokenizer: *mut fts5_tokenizer,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub xCreateFunction: ::std::option::Option<
+    pub xCreateFunction: ::core::option::Option<
         unsafe extern "C" fn(
             pApi: *mut fts5_api,
-            zName: *const ::std::os::raw::c_char,
-            pContext: *mut ::std::os::raw::c_void,
+            zName: *const ::core::ffi::c_char,
+            pContext: *mut ::core::ffi::c_void,
             xFunction: fts5_extension_function,
-            xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
 }
 #[test]
 fn bindgen_test_layout_fts5_api() {
     assert_eq!(
-        ::std::mem::size_of::<fts5_api>(),
+        ::core::mem::size_of::<fts5_api>(),
         32usize,
         concat!("Size of: ", stringify!(fts5_api))
     );
     assert_eq!(
-        ::std::mem::align_of::<fts5_api>(),
+        ::core::mem::align_of::<fts5_api>(),
         8usize,
         concat!("Alignment of ", stringify!(fts5_api))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_api>())).iVersion as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_api>())).iVersion as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5217,7 +5215,7 @@ fn bindgen_test_layout_fts5_api() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_api>())).xCreateTokenizer as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_api>())).xCreateTokenizer as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5227,7 +5225,7 @@ fn bindgen_test_layout_fts5_api() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_api>())).xFindTokenizer as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_api>())).xFindTokenizer as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -5237,7 +5235,7 @@ fn bindgen_test_layout_fts5_api() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fts5_api>())).xCreateFunction as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fts5_api>())).xCreateFunction as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -5250,1438 +5248,1405 @@ fn bindgen_test_layout_fts5_api() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct sqlite3_api_routines {
-    pub aggregate_context: ::std::option::Option<
+    pub aggregate_context: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            nBytes: ::std::os::raw::c_int,
-        ) -> *mut ::std::os::raw::c_void,
+            nBytes: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub aggregate_count: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context) -> ::std::os::raw::c_int,
+    pub aggregate_count: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context) -> ::core::ffi::c_int,
     >,
-    pub bind_blob: ::std::option::Option<
+    pub bind_blob: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: *const ::std::os::raw::c_void,
-            n: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *const ::core::ffi::c_void,
+            n: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_double: ::std::option::Option<
+    pub bind_double: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
             arg3: f64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_int: ::std::option::Option<
+    pub bind_int: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_int64: ::std::option::Option<
+    pub bind_int64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
             arg3: sqlite_int64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_null: ::std::option::Option<
+    pub bind_null: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_parameter_count: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
-    >,
-    pub bind_parameter_index: ::std::option::Option<
+    pub bind_parameter_count:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub bind_parameter_index: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            zName: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            zName: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_parameter_name: ::std::option::Option<
+    pub bind_parameter_name: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub bind_text: ::std::option::Option<
+    pub bind_text: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: *const ::std::os::raw::c_char,
-            n: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *const ::core::ffi::c_char,
+            n: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_text16: ::std::option::Option<
+    pub bind_text16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: *const ::std::os::raw::c_void,
-            arg4: ::std::os::raw::c_int,
-            arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *const ::core::ffi::c_void,
+            arg4: ::core::ffi::c_int,
+            arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_value: ::std::option::Option<
+    pub bind_value: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
             arg3: *const sqlite3_value,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub busy_handler: ::std::option::Option<
+    pub busy_handler: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
+            arg2: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                ) -> ::core::ffi::c_int,
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub busy_timeout: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3,
-            ms: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+    pub busy_timeout: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3, ms: ::core::ffi::c_int) -> ::core::ffi::c_int,
     >,
     pub changes:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
     pub close:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub collation_needed: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub collation_needed: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *mut ::std::os::raw::c_void,
-            arg3: ::std::option::Option<
+            arg2: *mut ::core::ffi::c_void,
+            arg3: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
+                    arg1: *mut ::core::ffi::c_void,
                     arg2: *mut sqlite3,
-                    eTextRep: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_char,
+                    eTextRep: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_char,
                 ),
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub collation_needed16: ::std::option::Option<
+    pub collation_needed16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *mut ::std::os::raw::c_void,
-            arg3: ::std::option::Option<
+            arg2: *mut ::core::ffi::c_void,
+            arg3: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
+                    arg1: *mut ::core::ffi::c_void,
                     arg2: *mut sqlite3,
-                    eTextRep: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_void,
+                    eTextRep: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_void,
                 ),
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub column_blob: ::std::option::Option<
+    pub column_blob: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            iCol: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_bytes: ::std::option::Option<
+    pub column_bytes: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub column_bytes16: ::std::option::Option<
+    pub column_bytes16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub column_count: ::std::option::Option<
-        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
+    pub column_count: ::core::option::Option<
+        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int,
     >,
-    pub column_database_name: ::std::option::Option<
+    pub column_database_name: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub column_database_name16: ::std::option::Option<
+    pub column_database_name16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_decltype: ::std::option::Option<
+    pub column_decltype: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            i: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            i: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub column_decltype16: ::std::option::Option<
+    pub column_decltype16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_double: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt, iCol: ::std::os::raw::c_int) -> f64,
+    pub column_double: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_stmt, iCol: ::core::ffi::c_int) -> f64,
     >,
-    pub column_int: ::std::option::Option<
+    pub column_int: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub column_int64: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt, iCol: ::std::os::raw::c_int) -> sqlite_int64,
+    pub column_int64: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_stmt, iCol: ::core::ffi::c_int) -> sqlite_int64,
     >,
-    pub column_name: ::std::option::Option<
+    pub column_name: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub column_name16: ::std::option::Option<
+    pub column_name16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_origin_name: ::std::option::Option<
+    pub column_origin_name: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub column_origin_name16: ::std::option::Option<
+    pub column_origin_name16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_table_name: ::std::option::Option<
+    pub column_table_name: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub column_table_name16: ::std::option::Option<
+    pub column_table_name16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_text: ::std::option::Option<
+    pub column_text: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_uchar,
+            iCol: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_uchar,
     >,
-    pub column_text16: ::std::option::Option<
+    pub column_text16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_void,
+            iCol: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_void,
     >,
-    pub column_type: ::std::option::Option<
+    pub column_type: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub column_value: ::std::option::Option<
+    pub column_value: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            iCol: ::std::os::raw::c_int,
+            iCol: ::core::ffi::c_int,
         ) -> *mut sqlite3_value,
     >,
-    pub commit_hook: ::std::option::Option<
+    pub commit_hook: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
-                unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+            arg2: ::core::option::Option<
+                unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub complete: ::std::option::Option<
-        unsafe extern "C" fn(sql: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int,
+    pub complete: ::core::option::Option<
+        unsafe extern "C" fn(sql: *const ::core::ffi::c_char) -> ::core::ffi::c_int,
     >,
-    pub complete16: ::std::option::Option<
-        unsafe extern "C" fn(sql: *const ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+    pub complete16: ::core::option::Option<
+        unsafe extern "C" fn(sql: *const ::core::ffi::c_void) -> ::core::ffi::c_int,
     >,
-    pub create_collation: ::std::option::Option<
+    pub create_collation: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_void,
-            arg5: ::std::option::Option<
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_void,
+            arg5: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_void,
-                    arg4: ::std::os::raw::c_int,
-                    arg5: *const ::std::os::raw::c_void,
-                ) -> ::std::os::raw::c_int,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_void,
+                    arg4: ::core::ffi::c_int,
+                    arg5: *const ::core::ffi::c_void,
+                ) -> ::core::ffi::c_int,
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub create_collation16: ::std::option::Option<
+    pub create_collation16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_void,
-            arg5: ::std::option::Option<
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_void,
+            arg5: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_void,
-                    arg4: ::std::os::raw::c_int,
-                    arg5: *const ::std::os::raw::c_void,
-                ) -> ::std::os::raw::c_int,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_void,
+                    arg4: ::core::ffi::c_int,
+                    arg5: *const ::core::ffi::c_void,
+                ) -> ::core::ffi::c_int,
             >,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub create_function: ::std::option::Option<
+    pub create_function: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-            arg5: *mut ::std::os::raw::c_void,
-            xFunc: ::std::option::Option<
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+            arg5: *mut ::core::ffi::c_void,
+            xFunc: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xStep: ::std::option::Option<
+            xStep: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-        ) -> ::std::os::raw::c_int,
+            xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub create_function16: ::std::option::Option<
+    pub create_function16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-            arg5: *mut ::std::os::raw::c_void,
-            xFunc: ::std::option::Option<
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+            arg5: *mut ::core::ffi::c_void,
+            xFunc: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xStep: ::std::option::Option<
+            xStep: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-        ) -> ::std::os::raw::c_int,
+            xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub create_module: ::std::option::Option<
+    pub create_module: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
             arg3: *const sqlite3_module,
-            arg4: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg4: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub data_count: ::std::option::Option<
-        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
+    pub data_count: ::core::option::Option<
+        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int,
     >,
     pub db_handle:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *mut sqlite3>,
-    pub declare_vtab: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *mut sqlite3>,
+    pub declare_vtab: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub enable_shared_cache: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+    pub enable_shared_cache: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int,
     >,
     pub errcode:
-        ::std::option::Option<unsafe extern "C" fn(db: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub errmsg: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3) -> *const ::std::os::raw::c_char,
+        ::core::option::Option<unsafe extern "C" fn(db: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub errmsg: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3) -> *const ::core::ffi::c_char,
     >,
-    pub errmsg16: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3) -> *const ::std::os::raw::c_void,
+    pub errmsg16: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3) -> *const ::core::ffi::c_void,
     >,
-    pub exec: ::std::option::Option<
+    pub exec: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
             arg3: sqlite3_callback,
-            arg4: *mut ::std::os::raw::c_void,
-            arg5: *mut *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg4: *mut ::core::ffi::c_void,
+            arg5: *mut *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub expired: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
+    pub expired:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub finalize: ::core::option::Option<
+        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int,
     >,
-    pub finalize: ::std::option::Option<
-        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
-    >,
-    pub free: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+    pub free: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
     pub free_table:
-        ::std::option::Option<unsafe extern "C" fn(result: *mut *mut ::std::os::raw::c_char)>,
+        ::core::option::Option<unsafe extern "C" fn(result: *mut *mut ::core::ffi::c_char)>,
     pub get_autocommit:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub get_auxdata: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub get_auxdata: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: ::std::os::raw::c_int,
-        ) -> *mut ::std::os::raw::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub get_table: ::std::option::Option<
+    pub get_table: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: *mut *mut *mut ::std::os::raw::c_char,
-            arg4: *mut ::std::os::raw::c_int,
-            arg5: *mut ::std::os::raw::c_int,
-            arg6: *mut *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: *mut *mut *mut ::core::ffi::c_char,
+            arg4: *mut ::core::ffi::c_int,
+            arg5: *mut ::core::ffi::c_int,
+            arg6: *mut *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub global_recover: ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>,
-    pub interruptx: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3)>,
+    pub global_recover: ::core::option::Option<unsafe extern "C" fn() -> ::core::ffi::c_int>,
+    pub interruptx: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3)>,
     pub last_insert_rowid:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> sqlite_int64>,
-    pub libversion: ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
-    pub libversion_number: ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>,
-    pub malloc: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_void,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> sqlite_int64>,
+    pub libversion: ::core::option::Option<unsafe extern "C" fn() -> *const ::core::ffi::c_char>,
+    pub libversion_number: ::core::option::Option<unsafe extern "C" fn() -> ::core::ffi::c_int>,
+    pub malloc: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> *mut ::core::ffi::c_void,
     >,
-    pub mprintf: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            ...
-        ) -> *mut ::std::os::raw::c_char,
+    pub mprintf: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char,
     >,
-    pub open: ::std::option::Option<
+    pub open: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
             arg2: *mut *mut sqlite3,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub open16: ::std::option::Option<
+    pub open16: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_void,
+            arg1: *const ::core::ffi::c_void,
             arg2: *mut *mut sqlite3,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub prepare: ::std::option::Option<
+    pub prepare: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
             arg4: *mut *mut sqlite3_stmt,
-            arg5: *mut *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg5: *mut *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub prepare16: ::std::option::Option<
+    pub prepare16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
             arg4: *mut *mut sqlite3_stmt,
-            arg5: *mut *const ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg5: *mut *const ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub profile: ::std::option::Option<
+    pub profile: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
+            arg2: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: *const ::std::os::raw::c_char,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: *const ::core::ffi::c_char,
                     arg3: sqlite_uint64,
                 ),
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub progress_handler: ::std::option::Option<
+    pub progress_handler: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_int,
-            arg3: ::std::option::Option<
-                unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: ::core::option::Option<
+                unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> ::core::ffi::c_int,
             >,
-            arg4: *mut ::std::os::raw::c_void,
+            arg4: *mut ::core::ffi::c_void,
         ),
     >,
-    pub realloc: ::std::option::Option<
+    pub realloc: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
-            arg2: ::std::os::raw::c_int,
-        ) -> *mut ::std::os::raw::c_void,
+            arg1: *mut ::core::ffi::c_void,
+            arg2: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub reset: ::std::option::Option<
-        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
+    pub reset: ::core::option::Option<
+        unsafe extern "C" fn(pStmt: *mut sqlite3_stmt) -> ::core::ffi::c_int,
     >,
-    pub result_blob: ::std::option::Option<
+    pub result_blob: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
     pub result_double:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: f64)>,
-    pub result_error: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: f64)>,
+    pub result_error: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
         ),
     >,
-    pub result_error16: ::std::option::Option<
+    pub result_error16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
         ),
     >,
-    pub result_int: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_int),
+    pub result_int: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_int),
     >,
-    pub result_int64:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: sqlite_int64)>,
-    pub result_null: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-    pub result_text: ::std::option::Option<
+    pub result_int64: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: sqlite_int64),
+    >,
+    pub result_null: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+    pub result_text: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub result_text16: ::std::option::Option<
+    pub result_text16: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub result_text16be: ::std::option::Option<
+    pub result_text16be: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub result_text16le: ::std::option::Option<
+    pub result_text16le: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub result_value: ::std::option::Option<
+    pub result_value: ::core::option::Option<
         unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: *mut sqlite3_value),
     >,
-    pub rollback_hook: ::std::option::Option<
+    pub rollback_hook: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            arg2: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub set_authorizer: ::std::option::Option<
+    pub set_authorizer: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
+            arg2: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_char,
-                    arg4: *const ::std::os::raw::c_char,
-                    arg5: *const ::std::os::raw::c_char,
-                    arg6: *const ::std::os::raw::c_char,
-                ) -> ::std::os::raw::c_int,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_char,
+                    arg4: *const ::core::ffi::c_char,
+                    arg5: *const ::core::ffi::c_char,
+                    arg6: *const ::core::ffi::c_char,
+                ) -> ::core::ffi::c_int,
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub set_auxdata: ::std::option::Option<
+    pub set_auxdata: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: ::std::os::raw::c_int,
-            arg3: *mut ::std::os::raw::c_void,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: ::core::ffi::c_int,
+            arg3: *mut ::core::ffi::c_void,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub xsnprintf: ::std::option::Option<
+    pub xsnprintf: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut ::std::os::raw::c_char,
-            arg3: *const ::std::os::raw::c_char,
+            arg1: ::core::ffi::c_int,
+            arg2: *mut ::core::ffi::c_char,
+            arg3: *const ::core::ffi::c_char,
             ...
-        ) -> *mut ::std::os::raw::c_char,
+        ) -> *mut ::core::ffi::c_char,
     >,
-    pub step: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
-    >,
-    pub table_column_metadata: ::std::option::Option<
+    pub step:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub table_column_metadata: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: *const ::std::os::raw::c_char,
-            arg4: *const ::std::os::raw::c_char,
-            arg5: *mut *const ::std::os::raw::c_char,
-            arg6: *mut *const ::std::os::raw::c_char,
-            arg7: *mut ::std::os::raw::c_int,
-            arg8: *mut ::std::os::raw::c_int,
-            arg9: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: *const ::core::ffi::c_char,
+            arg4: *const ::core::ffi::c_char,
+            arg5: *mut *const ::core::ffi::c_char,
+            arg6: *mut *const ::core::ffi::c_char,
+            arg7: *mut ::core::ffi::c_int,
+            arg8: *mut ::core::ffi::c_int,
+            arg9: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub thread_cleanup: ::std::option::Option<unsafe extern "C" fn()>,
+    pub thread_cleanup: ::core::option::Option<unsafe extern "C" fn()>,
     pub total_changes:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub trace: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub trace: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            xTrace: ::std::option::Option<
+            xTrace: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: *const ::std::os::raw::c_char,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: *const ::core::ffi::c_char,
                 ),
             >,
-            arg2: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            arg2: *mut ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub transfer_bindings: ::std::option::Option<
+    pub transfer_bindings: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
             arg2: *mut sqlite3_stmt,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub update_hook: ::std::option::Option<
+    pub update_hook: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
+            arg2: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_char,
-                    arg4: *const ::std::os::raw::c_char,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_char,
+                    arg4: *const ::core::ffi::c_char,
                     arg5: sqlite_int64,
                 ),
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub user_data: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context) -> *mut ::std::os::raw::c_void,
+    pub user_data: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context) -> *mut ::core::ffi::c_void,
     >,
-    pub value_blob: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void,
+    pub value_blob: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void,
     >,
-    pub value_bytes: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
+    pub value_bytes: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
-    pub value_bytes16: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
+    pub value_bytes16: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
-    pub value_double: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_value) -> f64>,
-    pub value_int: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
+    pub value_double: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_value) -> f64>,
+    pub value_int: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
     pub value_int64:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_value) -> sqlite_int64>,
-    pub value_numeric_type: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_value) -> sqlite_int64>,
+    pub value_numeric_type: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
-    pub value_text: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_uchar,
+    pub value_text: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_uchar,
     >,
-    pub value_text16: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void,
+    pub value_text16: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void,
     >,
-    pub value_text16be: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void,
+    pub value_text16be: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void,
     >,
-    pub value_text16le: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::std::os::raw::c_void,
+    pub value_text16le: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> *const ::core::ffi::c_void,
     >,
-    pub value_type: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
+    pub value_type: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
-    pub vmprintf: ::std::option::Option<
+    pub vmprintf: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
             arg2: *mut __va_list_tag,
-        ) -> *mut ::std::os::raw::c_char,
+        ) -> *mut ::core::ffi::c_char,
     >,
-    pub overload_function: ::std::option::Option<
+    pub overload_function: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            zFuncName: *const ::std::os::raw::c_char,
-            nArg: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            zFuncName: *const ::core::ffi::c_char,
+            nArg: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub prepare_v2: ::std::option::Option<
+    pub prepare_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
             arg4: *mut *mut sqlite3_stmt,
-            arg5: *mut *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg5: *mut *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub prepare16_v2: ::std::option::Option<
+    pub prepare16_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
             arg4: *mut *mut sqlite3_stmt,
-            arg5: *mut *const ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg5: *mut *const ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub clear_bindings: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
-    >,
-    pub create_module_v2: ::std::option::Option<
+    pub clear_bindings:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub create_module_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
             arg3: *const sqlite3_module,
-            arg4: *mut ::std::os::raw::c_void,
-            xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            arg4: *mut ::core::ffi::c_void,
+            xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_zeroblob: ::std::option::Option<
+    pub bind_zeroblob: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub blob_bytes: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_blob) -> ::std::os::raw::c_int,
-    >,
-    pub blob_close: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_blob) -> ::std::os::raw::c_int,
-    >,
-    pub blob_open: ::std::option::Option<
+    pub blob_bytes:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_blob) -> ::core::ffi::c_int>,
+    pub blob_close:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_blob) -> ::core::ffi::c_int>,
+    pub blob_open: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: *const ::std::os::raw::c_char,
-            arg4: *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
+            arg3: *const ::core::ffi::c_char,
+            arg4: *const ::core::ffi::c_char,
             arg5: sqlite3_int64,
-            arg6: ::std::os::raw::c_int,
+            arg6: ::core::ffi::c_int,
             arg7: *mut *mut sqlite3_blob,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub blob_read: ::std::option::Option<
+    pub blob_read: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_blob,
-            arg2: *mut ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: *mut ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub blob_write: ::std::option::Option<
+    pub blob_write: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_blob,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub create_collation_v2: ::std::option::Option<
+    pub create_collation_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_void,
-            arg5: ::std::option::Option<
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_void,
+            arg5: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                    arg3: *const ::std::os::raw::c_void,
-                    arg4: ::std::os::raw::c_int,
-                    arg5: *const ::std::os::raw::c_void,
-                ) -> ::std::os::raw::c_int,
+                    arg1: *mut ::core::ffi::c_void,
+                    arg2: ::core::ffi::c_int,
+                    arg3: *const ::core::ffi::c_void,
+                    arg4: ::core::ffi::c_int,
+                    arg5: *const ::core::ffi::c_void,
+                ) -> ::core::ffi::c_int,
             >,
-            arg6: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            arg6: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub file_control: ::std::option::Option<
+    pub file_control: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
     pub memory_highwater:
-        ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> sqlite3_int64>,
-    pub memory_used: ::std::option::Option<unsafe extern "C" fn() -> sqlite3_int64>,
-    pub mutex_alloc: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> *mut sqlite3_mutex,
+        ::core::option::Option<unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> sqlite3_int64>,
+    pub memory_used: ::core::option::Option<unsafe extern "C" fn() -> sqlite3_int64>,
+    pub mutex_alloc: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> *mut sqlite3_mutex,
     >,
-    pub mutex_enter: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
-    pub mutex_free: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
-    pub mutex_leave: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
-    pub mutex_try: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::std::os::raw::c_int,
+    pub mutex_enter: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
+    pub mutex_free: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
+    pub mutex_leave: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_mutex)>,
+    pub mutex_try: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_mutex) -> ::core::ffi::c_int,
     >,
-    pub open_v2: ::std::option::Option<
+    pub open_v2: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
             arg2: *mut *mut sqlite3,
-            arg3: ::std::os::raw::c_int,
-            arg4: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg3: ::core::ffi::c_int,
+            arg4: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub release_memory: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+    pub release_memory: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int,
     >,
-    pub result_error_nomem: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+    pub result_error_nomem:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
     pub result_error_toobig:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-    pub sleep: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+    pub sleep: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> ::core::ffi::c_int,
     >,
-    pub soft_heap_limit: ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>,
-    pub vfs_find: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> *mut sqlite3_vfs,
+    pub soft_heap_limit: ::core::option::Option<unsafe extern "C" fn(arg1: ::core::ffi::c_int)>,
+    pub vfs_find: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> *mut sqlite3_vfs,
     >,
-    pub vfs_register: ::std::option::Option<
+    pub vfs_register: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_vfs,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub vfs_unregister: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_vfs) -> ::std::os::raw::c_int,
+    pub vfs_unregister:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_vfs) -> ::core::ffi::c_int>,
+    pub xthreadsafe: ::core::option::Option<unsafe extern "C" fn() -> ::core::ffi::c_int>,
+    pub result_zeroblob: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_int),
     >,
-    pub xthreadsafe: ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>,
-    pub result_zeroblob: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_int),
+    pub result_error_code: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_int),
     >,
-    pub result_error_code: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_int),
+    pub test_control: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int, ...) -> ::core::ffi::c_int,
     >,
-    pub test_control: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int, ...) -> ::std::os::raw::c_int,
-    >,
-    pub randomness: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int, arg2: *mut ::std::os::raw::c_void),
+    pub randomness: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int, arg2: *mut ::core::ffi::c_void),
     >,
     pub context_db_handle:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context) -> *mut sqlite3>,
-    pub extended_result_codes: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context) -> *mut sqlite3>,
+    pub extended_result_codes: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3, arg2: ::core::ffi::c_int) -> ::core::ffi::c_int,
+    >,
+    pub limit: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub limit: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_int,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub next_stmt: ::std::option::Option<
+    pub next_stmt: ::core::option::Option<
         unsafe extern "C" fn(arg1: *mut sqlite3, arg2: *mut sqlite3_stmt) -> *mut sqlite3_stmt,
     >,
-    pub sql: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *const ::std::os::raw::c_char,
+    pub sql: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *const ::core::ffi::c_char,
     >,
-    pub status: ::std::option::Option<
+    pub status: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut ::std::os::raw::c_int,
-            arg3: *mut ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
+            arg2: *mut ::core::ffi::c_int,
+            arg3: *mut ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub backup_finish: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_backup) -> ::std::os::raw::c_int,
+    pub backup_finish: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_backup) -> ::core::ffi::c_int,
     >,
-    pub backup_init: ::std::option::Option<
+    pub backup_init: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
             arg3: *mut sqlite3,
-            arg4: *const ::std::os::raw::c_char,
+            arg4: *const ::core::ffi::c_char,
         ) -> *mut sqlite3_backup,
     >,
-    pub backup_pagecount: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_backup) -> ::std::os::raw::c_int,
+    pub backup_pagecount: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_backup) -> ::core::ffi::c_int,
     >,
-    pub backup_remaining: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_backup) -> ::std::os::raw::c_int,
+    pub backup_remaining: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_backup) -> ::core::ffi::c_int,
     >,
-    pub backup_step: ::std::option::Option<
+    pub backup_step: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_backup,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub compileoption_get: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char,
+    pub compileoption_get: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> *const ::core::ffi::c_char,
     >,
-    pub compileoption_used: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int,
+    pub compileoption_used: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> ::core::ffi::c_int,
     >,
-    pub create_function_v2: ::std::option::Option<
+    pub create_function_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-            arg5: *mut ::std::os::raw::c_void,
-            xFunc: ::std::option::Option<
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+            arg5: *mut ::core::ffi::c_void,
+            xFunc: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xStep: ::std::option::Option<
+            xStep: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-            xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+            xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub db_config: ::std::option::Option<
+    pub db_config: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
             ...
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
     pub db_mutex:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> *mut sqlite3_mutex>,
-    pub db_status: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> *mut sqlite3_mutex>,
+    pub db_status: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_int,
-            arg3: *mut ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_int,
-            arg5: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *mut ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_int,
+            arg5: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
     pub extended_errcode:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub log: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int, arg2: *const ::std::os::raw::c_char, ...),
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub log: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int, arg2: *const ::core::ffi::c_char, ...),
     >,
     pub soft_heap_limit64:
-        ::std::option::Option<unsafe extern "C" fn(arg1: sqlite3_int64) -> sqlite3_int64>,
-    pub sourceid: ::std::option::Option<unsafe extern "C" fn() -> *const ::std::os::raw::c_char>,
-    pub stmt_status: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: sqlite3_int64) -> sqlite3_int64>,
+    pub sourceid: ::core::option::Option<unsafe extern "C" fn() -> *const ::core::ffi::c_char>,
+    pub stmt_status: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub strnicmp: ::std::option::Option<
+    pub strnicmp: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub unlock_notify: ::std::option::Option<
+    pub unlock_notify: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
-                unsafe extern "C" fn(
-                    arg1: *mut *mut ::std::os::raw::c_void,
-                    arg2: ::std::os::raw::c_int,
-                ),
+            arg2: ::core::option::Option<
+                unsafe extern "C" fn(arg1: *mut *mut ::core::ffi::c_void, arg2: ::core::ffi::c_int),
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub wal_autocheckpoint: ::std::option::Option<
+    pub wal_autocheckpoint: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3, arg2: ::core::ffi::c_int) -> ::core::ffi::c_int,
+    >,
+    pub wal_checkpoint: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub wal_checkpoint: ::std::option::Option<
+    pub wal_hook: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub wal_hook: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3,
-            arg2: ::std::option::Option<
+            arg2: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: *mut ::std::os::raw::c_void,
+                    arg1: *mut ::core::ffi::c_void,
                     arg2: *mut sqlite3,
-                    arg3: *const ::std::os::raw::c_char,
-                    arg4: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
+                    arg3: *const ::core::ffi::c_char,
+                    arg4: ::core::ffi::c_int,
+                ) -> ::core::ffi::c_int,
             >,
-            arg3: *mut ::std::os::raw::c_void,
-        ) -> *mut ::std::os::raw::c_void,
+            arg3: *mut ::core::ffi::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub blob_reopen: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_blob, arg2: sqlite3_int64) -> ::std::os::raw::c_int,
+    pub blob_reopen: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_blob, arg2: sqlite3_int64) -> ::core::ffi::c_int,
     >,
-    pub vtab_config: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3,
-            op: ::std::os::raw::c_int,
-            ...
-        ) -> ::std::os::raw::c_int,
+    pub vtab_config: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3, op: ::core::ffi::c_int, ...) -> ::core::ffi::c_int,
     >,
     pub vtab_on_conflict:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
     pub close_v2:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub db_filename: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub db_filename: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub db_readonly: ::std::option::Option<
+    pub db_readonly: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
     pub db_release_memory:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub errstr: ::std::option::Option<
-        unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> *const ::std::os::raw::c_char,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub errstr: ::core::option::Option<
+        unsafe extern "C" fn(arg1: ::core::ffi::c_int) -> *const ::core::ffi::c_char,
     >,
-    pub stmt_busy: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
-    >,
-    pub stmt_readonly: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
-    >,
-    pub stricmp: ::std::option::Option<
+    pub stmt_busy:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub stmt_readonly:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub stricmp: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub uri_boolean: ::std::option::Option<
+    pub uri_boolean: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub uri_int64: ::std::option::Option<
+    pub uri_int64: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
             arg3: sqlite3_int64,
         ) -> sqlite3_int64,
     >,
-    pub uri_parameter: ::std::option::Option<
+    pub uri_parameter: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> *const ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub xvsnprintf: ::std::option::Option<
+    pub xvsnprintf: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut ::std::os::raw::c_char,
-            arg3: *const ::std::os::raw::c_char,
+            arg1: ::core::ffi::c_int,
+            arg2: *mut ::core::ffi::c_char,
+            arg3: *const ::core::ffi::c_char,
             arg4: *mut __va_list_tag,
-        ) -> *mut ::std::os::raw::c_char,
+        ) -> *mut ::core::ffi::c_char,
     >,
-    pub wal_checkpoint_v2: ::std::option::Option<
+    pub wal_checkpoint_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: *mut ::std::os::raw::c_int,
-            arg5: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: *mut ::core::ffi::c_int,
+            arg5: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub auto_extension: ::std::option::Option<
+    pub auto_extension: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::option::Option<unsafe extern "C" fn()>,
-        ) -> ::std::os::raw::c_int,
+            arg1: ::core::option::Option<unsafe extern "C" fn()>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_blob64: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: *const ::std::os::raw::c_void,
-            arg4: sqlite3_uint64,
-            arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
-    >,
-    pub bind_text64: ::std::option::Option<
+    pub bind_blob64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+            arg3: *const ::core::ffi::c_void,
             arg4: sqlite3_uint64,
-            arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-            arg6: ::std::os::raw::c_uchar,
-        ) -> ::std::os::raw::c_int,
+            arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub cancel_auto_extension: ::std::option::Option<
+    pub bind_text64: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::option::Option<unsafe extern "C" fn()>,
-        ) -> ::std::os::raw::c_int,
+            arg1: *mut sqlite3_stmt,
+            arg2: ::core::ffi::c_int,
+            arg3: *const ::core::ffi::c_char,
+            arg4: sqlite3_uint64,
+            arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+            arg6: ::core::ffi::c_uchar,
+        ) -> ::core::ffi::c_int,
     >,
-    pub load_extension: ::std::option::Option<
+    pub cancel_auto_extension: ::core::option::Option<
+        unsafe extern "C" fn(
+            arg1: ::core::option::Option<unsafe extern "C" fn()>,
+        ) -> ::core::ffi::c_int,
+    >,
+    pub load_extension: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: *const ::std::os::raw::c_char,
-            arg4: *mut *mut ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+            arg3: *const ::core::ffi::c_char,
+            arg4: *mut *mut ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub malloc64: ::std::option::Option<
-        unsafe extern "C" fn(arg1: sqlite3_uint64) -> *mut ::std::os::raw::c_void,
+    pub malloc64: ::core::option::Option<
+        unsafe extern "C" fn(arg1: sqlite3_uint64) -> *mut ::core::ffi::c_void,
     >,
-    pub msize: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void) -> sqlite3_uint64,
+    pub msize: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void) -> sqlite3_uint64,
     >,
-    pub realloc64: ::std::option::Option<
+    pub realloc64: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *mut ::std::os::raw::c_void,
+            arg1: *mut ::core::ffi::c_void,
             arg2: sqlite3_uint64,
-        ) -> *mut ::std::os::raw::c_void,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub reset_auto_extension: ::std::option::Option<unsafe extern "C" fn()>,
-    pub result_blob64: ::std::option::Option<
+    pub reset_auto_extension: ::core::option::Option<unsafe extern "C" fn()>,
+    pub result_blob64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_void,
+            arg2: *const ::core::ffi::c_void,
             arg3: sqlite3_uint64,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub result_text64: ::std::option::Option<
+    pub result_text64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *const ::std::os::raw::c_char,
+            arg2: *const ::core::ffi::c_char,
             arg3: sqlite3_uint64,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-            arg5: ::std::os::raw::c_uchar,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+            arg5: ::core::ffi::c_uchar,
         ),
     >,
-    pub strglob: ::std::option::Option<
+    pub strglob: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub value_dup: ::std::option::Option<
+    pub value_dup: ::core::option::Option<
         unsafe extern "C" fn(arg1: *const sqlite3_value) -> *mut sqlite3_value,
     >,
-    pub value_free: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_value)>,
-    pub result_zeroblob64: ::std::option::Option<
+    pub value_free: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_value)>,
+    pub result_zeroblob64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
             arg2: sqlite3_uint64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_zeroblob64: ::std::option::Option<
+    pub bind_zeroblob64: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
             arg3: sqlite3_uint64,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub value_subtype: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_uint,
+    pub value_subtype: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_uint,
     >,
-    pub result_subtype: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::std::os::raw::c_uint),
+    pub result_subtype: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context, arg2: ::core::ffi::c_uint),
     >,
-    pub status64: ::std::option::Option<
+    pub status64: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
             arg2: *mut sqlite3_int64,
             arg3: *mut sqlite3_int64,
-            arg4: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg4: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub strlike: ::std::option::Option<
+    pub strlike: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_uint,
-        ) -> ::std::os::raw::c_int,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_uint,
+        ) -> ::core::ffi::c_int,
     >,
     pub db_cacheflush:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
     pub system_errno:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::std::os::raw::c_int>,
-    pub trace_v2: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> ::core::ffi::c_int>,
+    pub trace_v2: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: ::std::os::raw::c_uint,
-            arg3: ::std::option::Option<
+            arg2: ::core::ffi::c_uint,
+            arg3: ::core::option::Option<
                 unsafe extern "C" fn(
-                    arg1: ::std::os::raw::c_uint,
-                    arg2: *mut ::std::os::raw::c_void,
-                    arg3: *mut ::std::os::raw::c_void,
-                    arg4: *mut ::std::os::raw::c_void,
-                ) -> ::std::os::raw::c_int,
+                    arg1: ::core::ffi::c_uint,
+                    arg2: *mut ::core::ffi::c_void,
+                    arg3: *mut ::core::ffi::c_void,
+                    arg4: *mut ::core::ffi::c_void,
+                ) -> ::core::ffi::c_int,
             >,
-            arg4: *mut ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg4: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub expanded_sql: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *mut ::std::os::raw::c_char,
+    pub expanded_sql: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *mut ::core::ffi::c_char,
     >,
     pub set_last_insert_rowid:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3, arg2: sqlite3_int64)>,
-    pub prepare_v3: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3, arg2: sqlite3_int64)>,
+    pub prepare_v3: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_uint,
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_uint,
             arg5: *mut *mut sqlite3_stmt,
-            arg6: *mut *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg6: *mut *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub prepare16_v3: ::std::option::Option<
+    pub prepare16_v3: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_void,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_uint,
+            arg2: *const ::core::ffi::c_void,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_uint,
             arg5: *mut *mut sqlite3_stmt,
-            arg6: *mut *const ::std::os::raw::c_void,
-        ) -> ::std::os::raw::c_int,
+            arg6: *mut *const ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int,
     >,
-    pub bind_pointer: ::std::option::Option<
+    pub bind_pointer: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_stmt,
-            arg2: ::std::os::raw::c_int,
-            arg3: *mut ::std::os::raw::c_void,
-            arg4: *const ::std::os::raw::c_char,
-            arg5: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            arg2: ::core::ffi::c_int,
+            arg3: *mut ::core::ffi::c_void,
+            arg4: *const ::core::ffi::c_char,
+            arg5: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub result_pointer: ::std::option::Option<
+    pub result_pointer: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_context,
-            arg2: *mut ::std::os::raw::c_void,
-            arg3: *const ::std::os::raw::c_char,
-            arg4: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
+            arg2: *mut ::core::ffi::c_void,
+            arg3: *const ::core::ffi::c_char,
+            arg4: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
         ),
     >,
-    pub value_pointer: ::std::option::Option<
+    pub value_pointer: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_value,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> *mut ::std::os::raw::c_void,
+            arg2: *const ::core::ffi::c_char,
+        ) -> *mut ::core::ffi::c_void,
     >,
-    pub vtab_nochange: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_context) -> ::std::os::raw::c_int,
+    pub vtab_nochange: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_context) -> ::core::ffi::c_int,
     >,
-    pub value_nochange: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
+    pub value_nochange: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
-    pub vtab_collation: ::std::option::Option<
+    pub vtab_collation: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_index_info,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub keyword_count: ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>,
-    pub keyword_name: ::std::option::Option<
+    pub keyword_count: ::core::option::Option<unsafe extern "C" fn() -> ::core::ffi::c_int>,
+    pub keyword_name: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut *const ::std::os::raw::c_char,
-            arg3: *mut ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: ::core::ffi::c_int,
+            arg2: *mut *const ::core::ffi::c_char,
+            arg3: *mut ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub keyword_check: ::std::option::Option<
+    pub keyword_check: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: ::std::os::raw::c_int,
-        ) -> ::std::os::raw::c_int,
+            arg1: *const ::core::ffi::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> ::core::ffi::c_int,
     >,
     pub str_new:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> *mut sqlite3_str>,
-    pub str_finish: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_str) -> *mut ::std::os::raw::c_char,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> *mut sqlite3_str>,
+    pub str_finish: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_str) -> *mut ::core::ffi::c_char,
     >,
-    pub str_appendf: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_str, zFormat: *const ::std::os::raw::c_char, ...),
+    pub str_appendf: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_str, zFormat: *const ::core::ffi::c_char, ...),
     >,
-    pub str_vappendf: ::std::option::Option<
+    pub str_vappendf: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_str,
-            zFormat: *const ::std::os::raw::c_char,
+            zFormat: *const ::core::ffi::c_char,
             arg2: *mut __va_list_tag,
         ),
     >,
-    pub str_append: ::std::option::Option<
+    pub str_append: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3_str,
-            zIn: *const ::std::os::raw::c_char,
-            N: ::std::os::raw::c_int,
+            zIn: *const ::core::ffi::c_char,
+            N: ::core::ffi::c_int,
         ),
     >,
-    pub str_appendall: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_str, zIn: *const ::std::os::raw::c_char),
+    pub str_appendall: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_str, zIn: *const ::core::ffi::c_char),
     >,
-    pub str_appendchar: ::std::option::Option<
-        unsafe extern "C" fn(
-            arg1: *mut sqlite3_str,
-            N: ::std::os::raw::c_int,
-            C: ::std::os::raw::c_char,
-        ),
+    pub str_appendchar: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_str, N: ::core::ffi::c_int, C: ::core::ffi::c_char),
     >,
-    pub str_reset: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_str)>,
-    pub str_errcode: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_str) -> ::std::os::raw::c_int,
+    pub str_reset: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_str)>,
+    pub str_errcode:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_str) -> ::core::ffi::c_int>,
+    pub str_length:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_str) -> ::core::ffi::c_int>,
+    pub str_value: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_str) -> *mut ::core::ffi::c_char,
     >,
-    pub str_length: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_str) -> ::std::os::raw::c_int,
-    >,
-    pub str_value: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_str) -> *mut ::std::os::raw::c_char,
-    >,
-    pub create_window_function: ::std::option::Option<
+    pub create_window_function: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: ::std::os::raw::c_int,
-            arg4: ::std::os::raw::c_int,
-            arg5: *mut ::std::os::raw::c_void,
-            xStep: ::std::option::Option<
+            arg2: *const ::core::ffi::c_char,
+            arg3: ::core::ffi::c_int,
+            arg4: ::core::ffi::c_int,
+            arg5: *mut ::core::ffi::c_void,
+            xStep: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xFinal: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-            xValue: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
-            xInv: ::std::option::Option<
+            xFinal: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+            xValue: ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_context)>,
+            xInv: ::core::option::Option<
                 unsafe extern "C" fn(
                     arg1: *mut sqlite3_context,
-                    arg2: ::std::os::raw::c_int,
+                    arg2: ::core::ffi::c_int,
                     arg3: *mut *mut sqlite3_value,
                 ),
             >,
-            xDestroy: ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>,
-        ) -> ::std::os::raw::c_int,
+            xDestroy: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_void)>,
+        ) -> ::core::ffi::c_int,
     >,
-    pub normalized_sql: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *const ::std::os::raw::c_char,
+    pub normalized_sql: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> *const ::core::ffi::c_char,
     >,
-    pub stmt_isexplain: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::std::os::raw::c_int,
+    pub stmt_isexplain:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3_stmt) -> ::core::ffi::c_int>,
+    pub value_frombind: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::core::ffi::c_int,
     >,
-    pub value_frombind: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *mut sqlite3_value) -> ::std::os::raw::c_int,
-    >,
-    pub drop_modules: ::std::option::Option<
+    pub drop_modules: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *mut *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *mut *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
     pub hard_heap_limit64:
-        ::std::option::Option<unsafe extern "C" fn(arg1: sqlite3_int64) -> sqlite3_int64>,
-    pub uri_key: ::std::option::Option<
+        ::core::option::Option<unsafe extern "C" fn(arg1: sqlite3_int64) -> sqlite3_int64>,
+    pub uri_key: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: ::std::os::raw::c_int,
-        ) -> *const ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
+            arg2: ::core::ffi::c_int,
+        ) -> *const ::core::ffi::c_char,
     >,
-    pub filename_database: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> *const ::std::os::raw::c_char,
+    pub filename_database: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char,
     >,
-    pub filename_journal: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> *const ::std::os::raw::c_char,
+    pub filename_journal: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char,
     >,
-    pub filename_wal: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> *const ::std::os::raw::c_char,
+    pub filename_wal: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char,
     >,
-    pub create_filename: ::std::option::Option<
+    pub create_filename: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: *const ::std::os::raw::c_char,
-            arg2: *const ::std::os::raw::c_char,
-            arg3: *const ::std::os::raw::c_char,
-            arg4: ::std::os::raw::c_int,
-            arg5: *mut *const ::std::os::raw::c_char,
-        ) -> *mut ::std::os::raw::c_char,
+            arg1: *const ::core::ffi::c_char,
+            arg2: *const ::core::ffi::c_char,
+            arg3: *const ::core::ffi::c_char,
+            arg4: ::core::ffi::c_int,
+            arg5: *mut *const ::core::ffi::c_char,
+        ) -> *mut ::core::ffi::c_char,
     >,
-    pub free_filename:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_char)>,
-    pub database_file_object: ::std::option::Option<
-        unsafe extern "C" fn(arg1: *const ::std::os::raw::c_char) -> *mut sqlite3_file,
+    pub free_filename: ::core::option::Option<unsafe extern "C" fn(arg1: *mut ::core::ffi::c_char)>,
+    pub database_file_object: ::core::option::Option<
+        unsafe extern "C" fn(arg1: *const ::core::ffi::c_char) -> *mut sqlite3_file,
     >,
-    pub txn_state: ::std::option::Option<
+    pub txn_state: ::core::option::Option<
         unsafe extern "C" fn(
             arg1: *mut sqlite3,
-            arg2: *const ::std::os::raw::c_char,
-        ) -> ::std::os::raw::c_int,
+            arg2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int,
     >,
-    pub changes64: ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> sqlite3_int64>,
+    pub changes64:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> sqlite3_int64>,
     pub total_changes64:
-        ::std::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> sqlite3_int64>,
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut sqlite3) -> sqlite3_int64>,
 }
 #[test]
 fn bindgen_test_layout_sqlite3_api_routines() {
     assert_eq!(
-        ::std::mem::size_of::<sqlite3_api_routines>(),
+        ::core::mem::size_of::<sqlite3_api_routines>(),
         2040usize,
         concat!("Size of: ", stringify!(sqlite3_api_routines))
     );
     assert_eq!(
-        ::std::mem::align_of::<sqlite3_api_routines>(),
+        ::core::mem::align_of::<sqlite3_api_routines>(),
         8usize,
         concat!("Alignment of ", stringify!(sqlite3_api_routines))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).aggregate_context as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).aggregate_context as *const _ as usize
         },
         0usize,
         concat!(
@@ -6693,7 +6658,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).aggregate_count as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).aggregate_count as *const _ as usize
         },
         8usize,
         concat!(
@@ -6704,7 +6669,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_blob as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_blob as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6715,7 +6680,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_double as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_double as *const _ as usize
         },
         24usize,
         concat!(
@@ -6726,7 +6691,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_int as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_int as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -6736,7 +6701,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_int64 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_int64 as *const _ as usize
+        },
         40usize,
         concat!(
             "Offset of field: ",
@@ -6746,7 +6713,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_null as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_null as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -6757,7 +6724,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_parameter_count as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_parameter_count as *const _
                 as usize
         },
         56usize,
@@ -6770,7 +6737,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_parameter_index as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_parameter_index as *const _
                 as usize
         },
         64usize,
@@ -6783,7 +6750,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_parameter_name as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_parameter_name as *const _
                 as usize
         },
         72usize,
@@ -6795,7 +6762,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_text as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_text as *const _ as usize },
         80usize,
         concat!(
             "Offset of field: ",
@@ -6806,7 +6773,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_text16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_text16 as *const _ as usize
         },
         88usize,
         concat!(
@@ -6817,7 +6784,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_value as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_value as *const _ as usize
+        },
         96usize,
         concat!(
             "Offset of field: ",
@@ -6828,7 +6797,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).busy_handler as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).busy_handler as *const _ as usize
         },
         104usize,
         concat!(
@@ -6840,7 +6809,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).busy_timeout as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).busy_timeout as *const _ as usize
         },
         112usize,
         concat!(
@@ -6851,7 +6820,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).changes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).changes as *const _ as usize },
         120usize,
         concat!(
             "Offset of field: ",
@@ -6861,7 +6830,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).close as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).close as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -6872,7 +6841,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).collation_needed as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).collation_needed as *const _ as usize
         },
         136usize,
         concat!(
@@ -6884,7 +6853,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).collation_needed16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).collation_needed16 as *const _
+                as usize
         },
         144usize,
         concat!(
@@ -6896,7 +6866,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_blob as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_blob as *const _ as usize
         },
         152usize,
         concat!(
@@ -6908,7 +6878,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_bytes as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_bytes as *const _ as usize
         },
         160usize,
         concat!(
@@ -6920,7 +6890,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_bytes16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_bytes16 as *const _ as usize
         },
         168usize,
         concat!(
@@ -6932,7 +6902,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_count as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_count as *const _ as usize
         },
         176usize,
         concat!(
@@ -6944,7 +6914,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_database_name as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_database_name as *const _
                 as usize
         },
         184usize,
@@ -6957,7 +6927,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_database_name16 as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_database_name16 as *const _
                 as usize
         },
         192usize,
@@ -6970,7 +6940,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_decltype as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_decltype as *const _ as usize
         },
         200usize,
         concat!(
@@ -6982,7 +6952,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_decltype16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_decltype16 as *const _ as usize
         },
         208usize,
         concat!(
@@ -6994,7 +6964,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_double as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_double as *const _ as usize
         },
         216usize,
         concat!(
@@ -7005,7 +6975,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).column_int as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_int as *const _ as usize
+        },
         224usize,
         concat!(
             "Offset of field: ",
@@ -7016,7 +6988,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_int64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_int64 as *const _ as usize
         },
         232usize,
         concat!(
@@ -7028,7 +7000,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_name as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_name as *const _ as usize
         },
         240usize,
         concat!(
@@ -7040,7 +7012,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_name16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_name16 as *const _ as usize
         },
         248usize,
         concat!(
@@ -7052,7 +7024,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_origin_name as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_origin_name as *const _
+                as usize
         },
         256usize,
         concat!(
@@ -7064,7 +7037,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_origin_name16 as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_origin_name16 as *const _
                 as usize
         },
         264usize,
@@ -7077,7 +7050,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_table_name as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_table_name as *const _ as usize
         },
         272usize,
         concat!(
@@ -7089,7 +7062,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_table_name16 as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_table_name16 as *const _
                 as usize
         },
         280usize,
@@ -7102,7 +7075,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_text as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_text as *const _ as usize
         },
         288usize,
         concat!(
@@ -7114,7 +7087,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_text16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_text16 as *const _ as usize
         },
         296usize,
         concat!(
@@ -7126,7 +7099,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_type as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_type as *const _ as usize
         },
         304usize,
         concat!(
@@ -7138,7 +7111,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).column_value as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).column_value as *const _ as usize
         },
         312usize,
         concat!(
@@ -7150,7 +7123,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).commit_hook as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).commit_hook as *const _ as usize
         },
         320usize,
         concat!(
@@ -7161,7 +7134,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).complete as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).complete as *const _ as usize },
         328usize,
         concat!(
             "Offset of field: ",
@@ -7171,7 +7144,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).complete16 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).complete16 as *const _ as usize
+        },
         336usize,
         concat!(
             "Offset of field: ",
@@ -7182,7 +7157,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_collation as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_collation as *const _ as usize
         },
         344usize,
         concat!(
@@ -7194,7 +7169,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_collation16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_collation16 as *const _
+                as usize
         },
         352usize,
         concat!(
@@ -7206,7 +7182,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_function as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_function as *const _ as usize
         },
         360usize,
         concat!(
@@ -7218,7 +7194,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_function16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_function16 as *const _ as usize
         },
         368usize,
         concat!(
@@ -7230,7 +7206,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_module as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_module as *const _ as usize
         },
         376usize,
         concat!(
@@ -7241,7 +7217,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).data_count as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).data_count as *const _ as usize
+        },
         384usize,
         concat!(
             "Offset of field: ",
@@ -7251,7 +7229,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).db_handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).db_handle as *const _ as usize },
         392usize,
         concat!(
             "Offset of field: ",
@@ -7262,7 +7240,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).declare_vtab as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).declare_vtab as *const _ as usize
         },
         400usize,
         concat!(
@@ -7274,7 +7252,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).enable_shared_cache as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).enable_shared_cache as *const _
                 as usize
         },
         408usize,
@@ -7286,7 +7264,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).errcode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).errcode as *const _ as usize },
         416usize,
         concat!(
             "Offset of field: ",
@@ -7296,7 +7274,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).errmsg as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).errmsg as *const _ as usize },
         424usize,
         concat!(
             "Offset of field: ",
@@ -7306,7 +7284,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).errmsg16 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).errmsg16 as *const _ as usize },
         432usize,
         concat!(
             "Offset of field: ",
@@ -7316,7 +7294,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).exec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).exec as *const _ as usize },
         440usize,
         concat!(
             "Offset of field: ",
@@ -7326,7 +7304,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).expired as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).expired as *const _ as usize },
         448usize,
         concat!(
             "Offset of field: ",
@@ -7336,7 +7314,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).finalize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).finalize as *const _ as usize },
         456usize,
         concat!(
             "Offset of field: ",
@@ -7346,7 +7324,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).free as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).free as *const _ as usize },
         464usize,
         concat!(
             "Offset of field: ",
@@ -7356,7 +7334,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).free_table as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).free_table as *const _ as usize
+        },
         472usize,
         concat!(
             "Offset of field: ",
@@ -7367,7 +7347,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).get_autocommit as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).get_autocommit as *const _ as usize
         },
         480usize,
         concat!(
@@ -7379,7 +7359,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).get_auxdata as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).get_auxdata as *const _ as usize
         },
         488usize,
         concat!(
@@ -7390,7 +7370,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).get_table as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).get_table as *const _ as usize },
         496usize,
         concat!(
             "Offset of field: ",
@@ -7401,7 +7381,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).global_recover as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).global_recover as *const _ as usize
         },
         504usize,
         concat!(
@@ -7412,7 +7392,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).interruptx as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).interruptx as *const _ as usize
+        },
         512usize,
         concat!(
             "Offset of field: ",
@@ -7423,7 +7405,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).last_insert_rowid as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).last_insert_rowid as *const _ as usize
         },
         520usize,
         concat!(
@@ -7434,7 +7416,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).libversion as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).libversion as *const _ as usize
+        },
         528usize,
         concat!(
             "Offset of field: ",
@@ -7445,7 +7429,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).libversion_number as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).libversion_number as *const _ as usize
         },
         536usize,
         concat!(
@@ -7456,7 +7440,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).malloc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).malloc as *const _ as usize },
         544usize,
         concat!(
             "Offset of field: ",
@@ -7466,7 +7450,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).mprintf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).mprintf as *const _ as usize },
         552usize,
         concat!(
             "Offset of field: ",
@@ -7476,7 +7460,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).open as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).open as *const _ as usize },
         560usize,
         concat!(
             "Offset of field: ",
@@ -7486,7 +7470,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).open16 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).open16 as *const _ as usize },
         568usize,
         concat!(
             "Offset of field: ",
@@ -7496,7 +7480,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).prepare as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).prepare as *const _ as usize },
         576usize,
         concat!(
             "Offset of field: ",
@@ -7506,7 +7490,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).prepare16 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).prepare16 as *const _ as usize },
         584usize,
         concat!(
             "Offset of field: ",
@@ -7516,7 +7500,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).profile as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).profile as *const _ as usize },
         592usize,
         concat!(
             "Offset of field: ",
@@ -7527,7 +7511,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).progress_handler as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).progress_handler as *const _ as usize
         },
         600usize,
         concat!(
@@ -7538,7 +7522,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).realloc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).realloc as *const _ as usize },
         608usize,
         concat!(
             "Offset of field: ",
@@ -7548,7 +7532,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).reset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).reset as *const _ as usize },
         616usize,
         concat!(
             "Offset of field: ",
@@ -7559,7 +7543,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_blob as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_blob as *const _ as usize
         },
         624usize,
         concat!(
@@ -7571,7 +7555,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_double as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_double as *const _ as usize
         },
         632usize,
         concat!(
@@ -7583,7 +7567,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_error as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_error as *const _ as usize
         },
         640usize,
         concat!(
@@ -7595,7 +7579,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_error16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_error16 as *const _ as usize
         },
         648usize,
         concat!(
@@ -7606,7 +7590,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).result_int as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_int as *const _ as usize
+        },
         656usize,
         concat!(
             "Offset of field: ",
@@ -7617,7 +7603,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_int64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_int64 as *const _ as usize
         },
         664usize,
         concat!(
@@ -7629,7 +7615,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_null as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_null as *const _ as usize
         },
         672usize,
         concat!(
@@ -7641,7 +7627,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_text as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_text as *const _ as usize
         },
         680usize,
         concat!(
@@ -7653,7 +7639,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_text16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_text16 as *const _ as usize
         },
         688usize,
         concat!(
@@ -7665,7 +7651,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_text16be as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_text16be as *const _ as usize
         },
         696usize,
         concat!(
@@ -7677,7 +7663,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_text16le as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_text16le as *const _ as usize
         },
         704usize,
         concat!(
@@ -7689,7 +7675,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_value as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_value as *const _ as usize
         },
         712usize,
         concat!(
@@ -7701,7 +7687,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).rollback_hook as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).rollback_hook as *const _ as usize
         },
         720usize,
         concat!(
@@ -7713,7 +7699,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).set_authorizer as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).set_authorizer as *const _ as usize
         },
         728usize,
         concat!(
@@ -7725,7 +7711,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).set_auxdata as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).set_auxdata as *const _ as usize
         },
         736usize,
         concat!(
@@ -7736,7 +7722,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).xsnprintf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).xsnprintf as *const _ as usize },
         744usize,
         concat!(
             "Offset of field: ",
@@ -7746,7 +7732,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).step as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).step as *const _ as usize },
         752usize,
         concat!(
             "Offset of field: ",
@@ -7757,7 +7743,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).table_column_metadata as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).table_column_metadata as *const _
                 as usize
         },
         760usize,
@@ -7770,7 +7756,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).thread_cleanup as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).thread_cleanup as *const _ as usize
         },
         768usize,
         concat!(
@@ -7782,7 +7768,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).total_changes as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).total_changes as *const _ as usize
         },
         776usize,
         concat!(
@@ -7793,7 +7779,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).trace as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).trace as *const _ as usize },
         784usize,
         concat!(
             "Offset of field: ",
@@ -7804,7 +7790,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).transfer_bindings as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).transfer_bindings as *const _ as usize
         },
         792usize,
         concat!(
@@ -7816,7 +7802,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).update_hook as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).update_hook as *const _ as usize
         },
         800usize,
         concat!(
@@ -7827,7 +7813,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).user_data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).user_data as *const _ as usize },
         808usize,
         concat!(
             "Offset of field: ",
@@ -7837,7 +7823,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).value_blob as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_blob as *const _ as usize
+        },
         816usize,
         concat!(
             "Offset of field: ",
@@ -7848,7 +7836,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_bytes as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_bytes as *const _ as usize
         },
         824usize,
         concat!(
@@ -7860,7 +7848,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_bytes16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_bytes16 as *const _ as usize
         },
         832usize,
         concat!(
@@ -7872,7 +7860,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_double as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_double as *const _ as usize
         },
         840usize,
         concat!(
@@ -7883,7 +7871,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).value_int as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).value_int as *const _ as usize },
         848usize,
         concat!(
             "Offset of field: ",
@@ -7894,7 +7882,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_int64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_int64 as *const _ as usize
         },
         856usize,
         concat!(
@@ -7906,7 +7894,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_numeric_type as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_numeric_type as *const _
+                as usize
         },
         864usize,
         concat!(
@@ -7917,7 +7906,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).value_text as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_text as *const _ as usize
+        },
         872usize,
         concat!(
             "Offset of field: ",
@@ -7928,7 +7919,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_text16 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_text16 as *const _ as usize
         },
         880usize,
         concat!(
@@ -7940,7 +7931,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_text16be as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_text16be as *const _ as usize
         },
         888usize,
         concat!(
@@ -7952,7 +7943,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_text16le as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_text16le as *const _ as usize
         },
         896usize,
         concat!(
@@ -7963,7 +7954,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).value_type as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_type as *const _ as usize
+        },
         904usize,
         concat!(
             "Offset of field: ",
@@ -7973,7 +7966,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).vmprintf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).vmprintf as *const _ as usize },
         912usize,
         concat!(
             "Offset of field: ",
@@ -7984,7 +7977,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).overload_function as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).overload_function as *const _ as usize
         },
         920usize,
         concat!(
@@ -7995,7 +7988,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).prepare_v2 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).prepare_v2 as *const _ as usize
+        },
         928usize,
         concat!(
             "Offset of field: ",
@@ -8006,7 +8001,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).prepare16_v2 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).prepare16_v2 as *const _ as usize
         },
         936usize,
         concat!(
@@ -8018,7 +8013,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).clear_bindings as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).clear_bindings as *const _ as usize
         },
         944usize,
         concat!(
@@ -8030,7 +8025,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_module_v2 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_module_v2 as *const _ as usize
         },
         952usize,
         concat!(
@@ -8042,7 +8037,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_zeroblob as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_zeroblob as *const _ as usize
         },
         960usize,
         concat!(
@@ -8053,7 +8048,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).blob_bytes as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).blob_bytes as *const _ as usize
+        },
         968usize,
         concat!(
             "Offset of field: ",
@@ -8063,7 +8060,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).blob_close as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).blob_close as *const _ as usize
+        },
         976usize,
         concat!(
             "Offset of field: ",
@@ -8073,7 +8072,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).blob_open as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).blob_open as *const _ as usize },
         984usize,
         concat!(
             "Offset of field: ",
@@ -8083,7 +8082,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).blob_read as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).blob_read as *const _ as usize },
         992usize,
         concat!(
             "Offset of field: ",
@@ -8093,7 +8092,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).blob_write as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).blob_write as *const _ as usize
+        },
         1000usize,
         concat!(
             "Offset of field: ",
@@ -8104,7 +8105,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_collation_v2 as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_collation_v2 as *const _
                 as usize
         },
         1008usize,
@@ -8117,7 +8118,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).file_control as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).file_control as *const _ as usize
         },
         1016usize,
         concat!(
@@ -8129,7 +8130,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).memory_highwater as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).memory_highwater as *const _ as usize
         },
         1024usize,
         concat!(
@@ -8141,7 +8142,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).memory_used as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).memory_used as *const _ as usize
         },
         1032usize,
         concat!(
@@ -8153,7 +8154,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).mutex_alloc as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).mutex_alloc as *const _ as usize
         },
         1040usize,
         concat!(
@@ -8165,7 +8166,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).mutex_enter as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).mutex_enter as *const _ as usize
         },
         1048usize,
         concat!(
@@ -8176,7 +8177,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).mutex_free as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).mutex_free as *const _ as usize
+        },
         1056usize,
         concat!(
             "Offset of field: ",
@@ -8187,7 +8190,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).mutex_leave as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).mutex_leave as *const _ as usize
         },
         1064usize,
         concat!(
@@ -8198,7 +8201,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).mutex_try as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).mutex_try as *const _ as usize },
         1072usize,
         concat!(
             "Offset of field: ",
@@ -8208,7 +8211,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).open_v2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).open_v2 as *const _ as usize },
         1080usize,
         concat!(
             "Offset of field: ",
@@ -8219,7 +8222,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).release_memory as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).release_memory as *const _ as usize
         },
         1088usize,
         concat!(
@@ -8231,7 +8234,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_error_nomem as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_error_nomem as *const _
+                as usize
         },
         1096usize,
         concat!(
@@ -8243,7 +8247,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_error_toobig as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_error_toobig as *const _
                 as usize
         },
         1104usize,
@@ -8255,7 +8259,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).sleep as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).sleep as *const _ as usize },
         1112usize,
         concat!(
             "Offset of field: ",
@@ -8266,7 +8270,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).soft_heap_limit as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).soft_heap_limit as *const _ as usize
         },
         1120usize,
         concat!(
@@ -8277,7 +8281,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).vfs_find as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).vfs_find as *const _ as usize },
         1128usize,
         concat!(
             "Offset of field: ",
@@ -8288,7 +8292,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).vfs_register as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).vfs_register as *const _ as usize
         },
         1136usize,
         concat!(
@@ -8300,7 +8304,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).vfs_unregister as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).vfs_unregister as *const _ as usize
         },
         1144usize,
         concat!(
@@ -8312,7 +8316,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).xthreadsafe as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).xthreadsafe as *const _ as usize
         },
         1152usize,
         concat!(
@@ -8324,7 +8328,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_zeroblob as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_zeroblob as *const _ as usize
         },
         1160usize,
         concat!(
@@ -8336,7 +8340,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_error_code as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_error_code as *const _ as usize
         },
         1168usize,
         concat!(
@@ -8348,7 +8352,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).test_control as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).test_control as *const _ as usize
         },
         1176usize,
         concat!(
@@ -8359,7 +8363,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).randomness as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).randomness as *const _ as usize
+        },
         1184usize,
         concat!(
             "Offset of field: ",
@@ -8370,7 +8376,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).context_db_handle as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).context_db_handle as *const _ as usize
         },
         1192usize,
         concat!(
@@ -8382,7 +8388,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).extended_result_codes as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).extended_result_codes as *const _
                 as usize
         },
         1200usize,
@@ -8394,7 +8400,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).limit as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).limit as *const _ as usize },
         1208usize,
         concat!(
             "Offset of field: ",
@@ -8404,7 +8410,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).next_stmt as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).next_stmt as *const _ as usize },
         1216usize,
         concat!(
             "Offset of field: ",
@@ -8414,7 +8420,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).sql as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).sql as *const _ as usize },
         1224usize,
         concat!(
             "Offset of field: ",
@@ -8424,7 +8430,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).status as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).status as *const _ as usize },
         1232usize,
         concat!(
             "Offset of field: ",
@@ -8435,7 +8441,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).backup_finish as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).backup_finish as *const _ as usize
         },
         1240usize,
         concat!(
@@ -8447,7 +8453,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).backup_init as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).backup_init as *const _ as usize
         },
         1248usize,
         concat!(
@@ -8459,7 +8465,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).backup_pagecount as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).backup_pagecount as *const _ as usize
         },
         1256usize,
         concat!(
@@ -8471,7 +8477,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).backup_remaining as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).backup_remaining as *const _ as usize
         },
         1264usize,
         concat!(
@@ -8483,7 +8489,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).backup_step as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).backup_step as *const _ as usize
         },
         1272usize,
         concat!(
@@ -8495,7 +8501,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).compileoption_get as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).compileoption_get as *const _ as usize
         },
         1280usize,
         concat!(
@@ -8507,7 +8513,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).compileoption_used as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).compileoption_used as *const _
+                as usize
         },
         1288usize,
         concat!(
@@ -8519,7 +8526,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_function_v2 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_function_v2 as *const _
+                as usize
         },
         1296usize,
         concat!(
@@ -8530,7 +8538,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).db_config as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).db_config as *const _ as usize },
         1304usize,
         concat!(
             "Offset of field: ",
@@ -8540,7 +8548,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).db_mutex as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).db_mutex as *const _ as usize },
         1312usize,
         concat!(
             "Offset of field: ",
@@ -8550,7 +8558,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).db_status as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).db_status as *const _ as usize },
         1320usize,
         concat!(
             "Offset of field: ",
@@ -8561,7 +8569,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).extended_errcode as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).extended_errcode as *const _ as usize
         },
         1328usize,
         concat!(
@@ -8572,7 +8580,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).log as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).log as *const _ as usize },
         1336usize,
         concat!(
             "Offset of field: ",
@@ -8583,7 +8591,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).soft_heap_limit64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).soft_heap_limit64 as *const _ as usize
         },
         1344usize,
         concat!(
@@ -8594,7 +8602,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).sourceid as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).sourceid as *const _ as usize },
         1352usize,
         concat!(
             "Offset of field: ",
@@ -8605,7 +8613,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).stmt_status as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).stmt_status as *const _ as usize
         },
         1360usize,
         concat!(
@@ -8616,7 +8624,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).strnicmp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).strnicmp as *const _ as usize },
         1368usize,
         concat!(
             "Offset of field: ",
@@ -8627,7 +8635,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).unlock_notify as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).unlock_notify as *const _ as usize
         },
         1376usize,
         concat!(
@@ -8639,7 +8647,8 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).wal_autocheckpoint as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).wal_autocheckpoint as *const _
+                as usize
         },
         1384usize,
         concat!(
@@ -8651,7 +8660,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).wal_checkpoint as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).wal_checkpoint as *const _ as usize
         },
         1392usize,
         concat!(
@@ -8662,7 +8671,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).wal_hook as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).wal_hook as *const _ as usize },
         1400usize,
         concat!(
             "Offset of field: ",
@@ -8673,7 +8682,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).blob_reopen as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).blob_reopen as *const _ as usize
         },
         1408usize,
         concat!(
@@ -8685,7 +8694,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).vtab_config as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).vtab_config as *const _ as usize
         },
         1416usize,
         concat!(
@@ -8697,7 +8706,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).vtab_on_conflict as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).vtab_on_conflict as *const _ as usize
         },
         1424usize,
         concat!(
@@ -8708,7 +8717,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).close_v2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).close_v2 as *const _ as usize },
         1432usize,
         concat!(
             "Offset of field: ",
@@ -8719,7 +8728,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).db_filename as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).db_filename as *const _ as usize
         },
         1440usize,
         concat!(
@@ -8731,7 +8740,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).db_readonly as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).db_readonly as *const _ as usize
         },
         1448usize,
         concat!(
@@ -8743,7 +8752,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).db_release_memory as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).db_release_memory as *const _ as usize
         },
         1456usize,
         concat!(
@@ -8754,7 +8763,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).errstr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).errstr as *const _ as usize },
         1464usize,
         concat!(
             "Offset of field: ",
@@ -8764,7 +8773,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).stmt_busy as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).stmt_busy as *const _ as usize },
         1472usize,
         concat!(
             "Offset of field: ",
@@ -8775,7 +8784,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).stmt_readonly as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).stmt_readonly as *const _ as usize
         },
         1480usize,
         concat!(
@@ -8786,7 +8795,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).stricmp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).stricmp as *const _ as usize },
         1488usize,
         concat!(
             "Offset of field: ",
@@ -8797,7 +8806,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).uri_boolean as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).uri_boolean as *const _ as usize
         },
         1496usize,
         concat!(
@@ -8808,7 +8817,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).uri_int64 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).uri_int64 as *const _ as usize },
         1504usize,
         concat!(
             "Offset of field: ",
@@ -8819,7 +8828,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).uri_parameter as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).uri_parameter as *const _ as usize
         },
         1512usize,
         concat!(
@@ -8830,7 +8839,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).xvsnprintf as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).xvsnprintf as *const _ as usize
+        },
         1520usize,
         concat!(
             "Offset of field: ",
@@ -8841,7 +8852,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).wal_checkpoint_v2 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).wal_checkpoint_v2 as *const _ as usize
         },
         1528usize,
         concat!(
@@ -8853,7 +8864,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).auto_extension as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).auto_extension as *const _ as usize
         },
         1536usize,
         concat!(
@@ -8865,7 +8876,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_blob64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_blob64 as *const _ as usize
         },
         1544usize,
         concat!(
@@ -8877,7 +8888,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_text64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_text64 as *const _ as usize
         },
         1552usize,
         concat!(
@@ -8889,7 +8900,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).cancel_auto_extension as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).cancel_auto_extension as *const _
                 as usize
         },
         1560usize,
@@ -8902,7 +8913,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).load_extension as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).load_extension as *const _ as usize
         },
         1568usize,
         concat!(
@@ -8913,7 +8924,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).malloc64 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).malloc64 as *const _ as usize },
         1576usize,
         concat!(
             "Offset of field: ",
@@ -8923,7 +8934,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).msize as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).msize as *const _ as usize },
         1584usize,
         concat!(
             "Offset of field: ",
@@ -8933,7 +8944,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).realloc64 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).realloc64 as *const _ as usize },
         1592usize,
         concat!(
             "Offset of field: ",
@@ -8944,7 +8955,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).reset_auto_extension as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).reset_auto_extension as *const _
                 as usize
         },
         1600usize,
@@ -8957,7 +8968,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_blob64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_blob64 as *const _ as usize
         },
         1608usize,
         concat!(
@@ -8969,7 +8980,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_text64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_text64 as *const _ as usize
         },
         1616usize,
         concat!(
@@ -8980,7 +8991,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).strglob as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).strglob as *const _ as usize },
         1624usize,
         concat!(
             "Offset of field: ",
@@ -8990,7 +9001,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).value_dup as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).value_dup as *const _ as usize },
         1632usize,
         concat!(
             "Offset of field: ",
@@ -9000,7 +9011,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).value_free as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_free as *const _ as usize
+        },
         1640usize,
         concat!(
             "Offset of field: ",
@@ -9011,7 +9024,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_zeroblob64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_zeroblob64 as *const _ as usize
         },
         1648usize,
         concat!(
@@ -9023,7 +9036,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_zeroblob64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_zeroblob64 as *const _ as usize
         },
         1656usize,
         concat!(
@@ -9035,7 +9048,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_subtype as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_subtype as *const _ as usize
         },
         1664usize,
         concat!(
@@ -9047,7 +9060,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_subtype as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_subtype as *const _ as usize
         },
         1672usize,
         concat!(
@@ -9058,7 +9071,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).status64 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).status64 as *const _ as usize },
         1680usize,
         concat!(
             "Offset of field: ",
@@ -9068,7 +9081,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).strlike as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).strlike as *const _ as usize },
         1688usize,
         concat!(
             "Offset of field: ",
@@ -9079,7 +9092,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).db_cacheflush as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).db_cacheflush as *const _ as usize
         },
         1696usize,
         concat!(
@@ -9091,7 +9104,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).system_errno as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).system_errno as *const _ as usize
         },
         1704usize,
         concat!(
@@ -9102,7 +9115,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).trace_v2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).trace_v2 as *const _ as usize },
         1712usize,
         concat!(
             "Offset of field: ",
@@ -9113,7 +9126,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).expanded_sql as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).expanded_sql as *const _ as usize
         },
         1720usize,
         concat!(
@@ -9125,7 +9138,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).set_last_insert_rowid as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).set_last_insert_rowid as *const _
                 as usize
         },
         1728usize,
@@ -9137,7 +9150,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).prepare_v3 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).prepare_v3 as *const _ as usize
+        },
         1736usize,
         concat!(
             "Offset of field: ",
@@ -9148,7 +9163,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).prepare16_v3 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).prepare16_v3 as *const _ as usize
         },
         1744usize,
         concat!(
@@ -9160,7 +9175,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).bind_pointer as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).bind_pointer as *const _ as usize
         },
         1752usize,
         concat!(
@@ -9172,7 +9187,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).result_pointer as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).result_pointer as *const _ as usize
         },
         1760usize,
         concat!(
@@ -9184,7 +9199,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_pointer as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_pointer as *const _ as usize
         },
         1768usize,
         concat!(
@@ -9196,7 +9211,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).vtab_nochange as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).vtab_nochange as *const _ as usize
         },
         1776usize,
         concat!(
@@ -9208,7 +9223,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_nochange as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_nochange as *const _ as usize
         },
         1784usize,
         concat!(
@@ -9220,7 +9235,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).vtab_collation as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).vtab_collation as *const _ as usize
         },
         1792usize,
         concat!(
@@ -9232,7 +9247,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).keyword_count as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).keyword_count as *const _ as usize
         },
         1800usize,
         concat!(
@@ -9244,7 +9259,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).keyword_name as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).keyword_name as *const _ as usize
         },
         1808usize,
         concat!(
@@ -9256,7 +9271,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).keyword_check as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).keyword_check as *const _ as usize
         },
         1816usize,
         concat!(
@@ -9267,7 +9282,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).str_new as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).str_new as *const _ as usize },
         1824usize,
         concat!(
             "Offset of field: ",
@@ -9277,7 +9292,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).str_finish as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_finish as *const _ as usize
+        },
         1832usize,
         concat!(
             "Offset of field: ",
@@ -9288,7 +9305,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).str_appendf as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_appendf as *const _ as usize
         },
         1840usize,
         concat!(
@@ -9300,7 +9317,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).str_vappendf as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_vappendf as *const _ as usize
         },
         1848usize,
         concat!(
@@ -9311,7 +9328,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).str_append as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_append as *const _ as usize
+        },
         1856usize,
         concat!(
             "Offset of field: ",
@@ -9322,7 +9341,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).str_appendall as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_appendall as *const _ as usize
         },
         1864usize,
         concat!(
@@ -9334,7 +9353,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).str_appendchar as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_appendchar as *const _ as usize
         },
         1872usize,
         concat!(
@@ -9345,7 +9364,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).str_reset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).str_reset as *const _ as usize },
         1880usize,
         concat!(
             "Offset of field: ",
@@ -9356,7 +9375,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).str_errcode as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_errcode as *const _ as usize
         },
         1888usize,
         concat!(
@@ -9367,7 +9386,9 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).str_length as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).str_length as *const _ as usize
+        },
         1896usize,
         concat!(
             "Offset of field: ",
@@ -9377,7 +9398,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).str_value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).str_value as *const _ as usize },
         1904usize,
         concat!(
             "Offset of field: ",
@@ -9388,7 +9409,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_window_function as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_window_function as *const _
                 as usize
         },
         1912usize,
@@ -9401,7 +9422,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).normalized_sql as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).normalized_sql as *const _ as usize
         },
         1920usize,
         concat!(
@@ -9413,7 +9434,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).stmt_isexplain as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).stmt_isexplain as *const _ as usize
         },
         1928usize,
         concat!(
@@ -9425,7 +9446,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).value_frombind as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).value_frombind as *const _ as usize
         },
         1936usize,
         concat!(
@@ -9437,7 +9458,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).drop_modules as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).drop_modules as *const _ as usize
         },
         1944usize,
         concat!(
@@ -9449,7 +9470,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).hard_heap_limit64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).hard_heap_limit64 as *const _ as usize
         },
         1952usize,
         concat!(
@@ -9460,7 +9481,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).uri_key as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).uri_key as *const _ as usize },
         1960usize,
         concat!(
             "Offset of field: ",
@@ -9471,7 +9492,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).filename_database as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).filename_database as *const _ as usize
         },
         1968usize,
         concat!(
@@ -9483,7 +9504,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).filename_journal as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).filename_journal as *const _ as usize
         },
         1976usize,
         concat!(
@@ -9495,7 +9516,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).filename_wal as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).filename_wal as *const _ as usize
         },
         1984usize,
         concat!(
@@ -9507,7 +9528,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).create_filename as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).create_filename as *const _ as usize
         },
         1992usize,
         concat!(
@@ -9519,7 +9540,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).free_filename as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).free_filename as *const _ as usize
         },
         2000usize,
         concat!(
@@ -9531,7 +9552,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).database_file_object as *const _
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).database_file_object as *const _
                 as usize
         },
         2008usize,
@@ -9543,7 +9564,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).txn_state as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).txn_state as *const _ as usize },
         2016usize,
         concat!(
             "Offset of field: ",
@@ -9553,7 +9574,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<sqlite3_api_routines>())).changes64 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<sqlite3_api_routines>())).changes64 as *const _ as usize },
         2024usize,
         concat!(
             "Offset of field: ",
@@ -9564,7 +9585,7 @@ fn bindgen_test_layout_sqlite3_api_routines() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<sqlite3_api_routines>())).total_changes64 as *const _ as usize
+            &(*(::core::ptr::null::<sqlite3_api_routines>())).total_changes64 as *const _ as usize
         },
         2032usize,
         concat!(
@@ -9575,36 +9596,36 @@ fn bindgen_test_layout_sqlite3_api_routines() {
         )
     );
 }
-pub type sqlite3_loadext_entry = ::std::option::Option<
+pub type sqlite3_loadext_entry = ::core::option::Option<
     unsafe extern "C" fn(
         db: *mut sqlite3,
-        pzErrMsg: *mut *mut ::std::os::raw::c_char,
+        pzErrMsg: *mut *mut ::core::ffi::c_char,
         pThunk: *const sqlite3_api_routines,
-    ) -> ::std::os::raw::c_int,
+    ) -> ::core::ffi::c_int,
 >;
 pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __va_list_tag {
-    pub gp_offset: ::std::os::raw::c_uint,
-    pub fp_offset: ::std::os::raw::c_uint,
-    pub overflow_arg_area: *mut ::std::os::raw::c_void,
-    pub reg_save_area: *mut ::std::os::raw::c_void,
+    pub gp_offset: ::core::ffi::c_uint,
+    pub fp_offset: ::core::ffi::c_uint,
+    pub overflow_arg_area: *mut ::core::ffi::c_void,
+    pub reg_save_area: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout___va_list_tag() {
     assert_eq!(
-        ::std::mem::size_of::<__va_list_tag>(),
+        ::core::mem::size_of::<__va_list_tag>(),
         24usize,
         concat!("Size of: ", stringify!(__va_list_tag))
     );
     assert_eq!(
-        ::std::mem::align_of::<__va_list_tag>(),
+        ::core::mem::align_of::<__va_list_tag>(),
         8usize,
         concat!("Alignment of ", stringify!(__va_list_tag))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).gp_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__va_list_tag>())).gp_offset as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9614,7 +9635,7 @@ fn bindgen_test_layout___va_list_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).fp_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__va_list_tag>())).fp_offset as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9624,7 +9645,9 @@ fn bindgen_test_layout___va_list_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).overflow_arg_area as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__va_list_tag>())).overflow_arg_area as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9634,7 +9657,7 @@ fn bindgen_test_layout___va_list_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).reg_save_area as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__va_list_tag>())).reg_save_area as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",

@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use super::sqlite3ext::{
-    sqlite3, sqlite3_context, sqlite3_index_info, sqlite3_int64, sqlite3_module, sqlite3_value,
-    sqlite3_vfs, sqlite3_vtab, sqlite3_vtab_cursor, SQLITE_ERROR, SQLITE_OK,
+use alloc::{boxed::Box, format, string::String};
+
+use crate::{
+    sqlite3ext::{
+        sqlite3, sqlite3_context, sqlite3_index_info, sqlite3_int64, sqlite3_module, sqlite3_value,
+        sqlite3_vfs, sqlite3_vtab, sqlite3_vtab_cursor, SQLITE_ERROR, SQLITE_OK,
+    },
+    statcnt, FileType, StatField,
 };
-use crate::{FileType, StatField};
 
 #[repr(C)]
 struct VfsStatCursor {
@@ -19,19 +23,15 @@ pub struct VTab {
     _unused: [u8; 0],
 }
 
-impl Drop for VTab {
-    fn drop(&mut self) {}
-}
-
 #[no_mangle]
 pub unsafe extern "C" fn VtabConnect(
     db: *mut sqlite3,
-    _pAux: *mut ::std::os::raw::c_void,
-    _argc: ::std::os::raw::c_int,
-    _argv: *const *const ::std::os::raw::c_char,
+    _pAux: *mut ::core::ffi::c_void,
+    _argc: ::core::ffi::c_int,
+    _argv: *const *const ::core::ffi::c_char,
     ppVTab: *mut *mut sqlite3_vtab,
-    _pzErr: *mut *mut ::std::os::raw::c_char,
-) -> ::std::os::raw::c_int {
+    _pzErr: *mut *mut ::core::ffi::c_char,
+) -> ::core::ffi::c_int {
     let rc = unsafe {
         ((*crate::API).declare_vtab.unwrap())(
             db,
@@ -40,9 +40,9 @@ pub unsafe extern "C" fn VtabConnect(
     };
     if rc == SQLITE_OK as _ {
         let pNew: Box<sqlite3_vtab> = Box::new(sqlite3_vtab {
-            pModule: std::ptr::null_mut(),
+            pModule: core::ptr::null_mut(),
             nRef: 0,
-            zErrMsg: std::ptr::null_mut(),
+            zErrMsg: core::ptr::null_mut(),
         });
         unsafe { *ppVTab = Box::into_raw(pNew) };
     }
@@ -52,12 +52,12 @@ pub unsafe extern "C" fn VtabConnect(
 unsafe extern "C" fn VtabBestIndex(
     _pVTab: *mut sqlite3_vtab,
     _arg1: *mut sqlite3_index_info,
-) -> ::std::os::raw::c_int {
+) -> ::core::ffi::c_int {
     SQLITE_OK as _
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn VtabDisconnect(pVTab: *mut sqlite3_vtab) -> ::std::os::raw::c_int {
+pub unsafe extern "C" fn VtabDisconnect(pVTab: *mut sqlite3_vtab) -> ::core::ffi::c_int {
     debug_assert!(!pVTab.is_null());
     let _pNew: Box<sqlite3_vtab> = unsafe { Box::from_raw(pVTab) };
     SQLITE_OK as _
@@ -66,7 +66,7 @@ pub unsafe extern "C" fn VtabDisconnect(pVTab: *mut sqlite3_vtab) -> ::std::os::
 extern "C" fn VtabOpen(
     pVTab: *mut sqlite3_vtab,
     ppCursor: *mut *mut sqlite3_vtab_cursor,
-) -> ::std::os::raw::c_int {
+) -> ::core::ffi::c_int {
     let cursor: Box<VfsStatCursor> = Box::new(VfsStatCursor {
         base: sqlite3_vtab_cursor { pVtab: pVTab },
         filetype: FileType::Main,
@@ -76,7 +76,7 @@ extern "C" fn VtabOpen(
     SQLITE_OK as _
 }
 
-extern "C" fn VtabClose(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
+extern "C" fn VtabClose(arg1: *mut sqlite3_vtab_cursor) -> ::core::ffi::c_int {
     debug_assert!(!arg1.is_null());
     let _cur: Box<VfsStatCursor> = unsafe { Box::from_raw(arg1 as *mut VfsStatCursor) };
     SQLITE_OK as _
@@ -87,12 +87,12 @@ extern "C" fn VtabClose(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int
 #[no_mangle]
 pub unsafe extern "C" fn VtabFilter(
     arg1: *mut sqlite3_vtab_cursor,
-    _idxNum: ::std::os::raw::c_int,
-    _idxStr: *const ::std::os::raw::c_char,
-    _argc: ::std::os::raw::c_int,
+    _idxNum: ::core::ffi::c_int,
+    _idxStr: *const ::core::ffi::c_char,
+    _argc: ::core::ffi::c_int,
     _argv: *mut *mut sqlite3_value,
-) -> ::std::os::raw::c_int {
-    let mut ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
+) -> ::core::ffi::c_int {
+    let mut ptr = core::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &mut VfsStatCursor = unsafe { ptr.as_mut() };
     cur.filetype = FileType::Main;
     cur.field = StatField::BytesIn;
@@ -100,8 +100,8 @@ pub unsafe extern "C" fn VtabFilter(
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn VtabNext(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
-    let mut ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
+pub unsafe extern "C" fn VtabNext(arg1: *mut sqlite3_vtab_cursor) -> ::core::ffi::c_int {
+    let mut ptr = core::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &mut VfsStatCursor = unsafe { ptr.as_mut() };
     match cur.field {
         StatField::BytesIn => {
@@ -177,8 +177,8 @@ pub unsafe extern "C" fn VtabNext(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn VtabEof(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int {
-    let mut ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
+pub unsafe extern "C" fn VtabEof(arg1: *mut sqlite3_vtab_cursor) -> ::core::ffi::c_int {
+    let mut ptr = core::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &mut VfsStatCursor = unsafe { ptr.as_mut() };
     match (cur.filetype, cur.field) {
         (FileType::Any, StatField::CurrentTime) => true as _,
@@ -190,9 +190,9 @@ pub unsafe extern "C" fn VtabEof(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::r
 pub unsafe extern "C" fn VtabColumn(
     arg1: *mut sqlite3_vtab_cursor,
     ctx: *mut sqlite3_context,
-    column: ::std::os::raw::c_int,
-) -> ::std::os::raw::c_int {
-    let ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
+    column: ::core::ffi::c_int,
+) -> ::core::ffi::c_int {
+    let ptr = core::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &VfsStatCursor = unsafe { ptr.as_ref() };
     match column {
         0 => {
@@ -246,9 +246,9 @@ pub unsafe extern "C" fn VtabColumn(
             let vfs: *mut sqlite3_vfs =
                 unsafe { ((*crate::API).vfs_find.unwrap())(crate::vfs::VFS_NAME.as_ptr() as _) };
             debug_assert!(!vfs.is_null());
-            let vfs = std::ptr::NonNull::new(vfs).unwrap();
-            let vfs_ptr: std::ptr::NonNull<crate::vfs::Vfs> =
-                std::ptr::NonNull::new(unsafe { vfs.as_ref() }.pAppData as *mut crate::vfs::Vfs)
+            let vfs = core::ptr::NonNull::new(vfs).unwrap();
+            let vfs_ptr: core::ptr::NonNull<crate::vfs::Vfs> =
+                core::ptr::NonNull::new(unsafe { vfs.as_ref() }.pAppData as *mut crate::vfs::Vfs)
                     .expect("pAppData of stat vfs is null");
             let vfs_ = unsafe { vfs_ptr.as_ref() };
             unsafe {
@@ -283,8 +283,8 @@ pub unsafe extern "C" fn VtabColumn(
 pub unsafe extern "C" fn VtabRowid(
     arg1: *mut sqlite3_vtab_cursor,
     pRowid: *mut sqlite3_int64,
-) -> ::std::os::raw::c_int {
-    let ptr = std::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
+) -> ::core::ffi::c_int {
+    let ptr = core::ptr::NonNull::new(arg1 as *mut VfsStatCursor).unwrap();
     let cur: &VfsStatCursor = unsafe { ptr.as_ref() };
     let ftype_idx = cur.filetype as i64;
     let field_idx = cur.field as i64;
@@ -297,10 +297,10 @@ pub unsafe extern "C" fn VtabRowid(
 #[no_mangle]
 pub unsafe extern "C" fn VtabUpdate(
     _arg1: *mut sqlite3_vtab,
-    _arg2: ::std::os::raw::c_int,
+    _arg2: ::core::ffi::c_int,
     _arg3: *mut *mut sqlite3_value,
     _arg4: *mut sqlite3_int64,
-) -> ::std::os::raw::c_int {
+) -> ::core::ffi::c_int {
     SQLITE_ERROR as _
 }
 
@@ -339,7 +339,7 @@ impl VTab {
                 db,
                 Self::VTAB_NAME.as_ptr() as _,
                 &Self::VTAB_MODULE,
-                std::ptr::null_mut(),
+                core::ptr::null_mut(),
             )
         };
         if ret != SQLITE_OK as _ {
