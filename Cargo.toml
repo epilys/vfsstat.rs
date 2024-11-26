@@ -3,6 +3,7 @@ name = "vfsstat_rs"
 version = "0.1.0"
 edition = "2021"
 authors = ["Manos Pitsidianakis <manos@pitsidianak.is>"]
+publish = false
 
 [lib]
 crate-type = ["cdylib", "staticlib"]
@@ -16,4 +17,3 @@ escargot = { version = "0.5" }
 rusqlite = { version = "0.30.0", features = ["bundled", "load_extension", "modern_sqlite", "uuid", "rusqlite-macros"] }
 tempfile = { version = "3.8" }
 uuid = { version = "1.6", features = ["v4", "fast-rng"] }
-
