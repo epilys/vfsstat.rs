@@ -14,6 +14,8 @@ cargo build --release
 
 Output will be located at `target/release/libvfsstat_rs.so`
 
+*Note*: The crate includes trace and debug logs using the `log` crate but does not provide a `log` backend, so logs will not show up anywhere unless you set up a backend such as `env_logger` yourself.
+
 ## Use
 
 Assuming `libvfsstat_rs.so` is in current directory,

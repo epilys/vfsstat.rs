@@ -10,11 +10,4 @@ rust-version = "1.71.1"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-env_logger = { version = "0.11.1", default-features = false }
 log = { version = "0.4" }
-
-[dev-dependencies]
-escargot = { version = "0.5" }
-rusqlite = { version = "0.30.0", features = ["bundled", "load_extension", "modern_sqlite", "uuid", "rusqlite-macros"] }
-tempfile = { version = "3.8" }
-uuid = { version = "1.6", features = ["v4", "fast-rng"] }

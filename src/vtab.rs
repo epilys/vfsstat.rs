@@ -1,4 +1,5 @@
-#![allow(non_snake_case)]
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use super::sqlite3ext::{
     sqlite3, sqlite3_context, sqlite3_index_info, sqlite3_int64, sqlite3_module, sqlite3_value,
     sqlite3_vfs, sqlite3_vtab, sqlite3_vtab_cursor, SQLITE_ERROR, SQLITE_OK,
@@ -7,46 +8,20 @@ use crate::{FileType, StatField};
 
 #[repr(C)]
 struct VfsStatCursor {
-    base: sqlite3_vtab_cursor, /* Base class.  Must be first */
+    /// Base class.  Must be first
+    base: sqlite3_vtab_cursor,
     filetype: FileType,
     field: StatField,
 }
 
 #[repr(C)]
-pub struct VTab {}
+pub struct VTab {
+    _unused: [u8; 0],
+}
 
 impl Drop for VTab {
     fn drop(&mut self) {}
 }
-
-pub const VTAB_NAME: &[u8] = b"vtabstat\0";
-
-pub const VTAB_MODULE: sqlite3_module = sqlite3_module {
-    iVersion: 0,
-    xCreate: None,
-    xConnect: Some(VtabConnect),
-    xBestIndex: Some(VtabBestIndex),
-    xDisconnect: Some(VtabDisconnect),
-    xDestroy: None,
-    xOpen: Some(VtabOpen),
-    xClose: Some(VtabClose),
-    xFilter: Some(VtabFilter),
-    xNext: Some(VtabNext),
-    xEof: Some(VtabEof),
-    xColumn: Some(VtabColumn),
-    xRowid: Some(VtabRowid),
-    xUpdate: Some(VtabUpdate),
-    xBegin: None,
-    xSync: None,
-    xCommit: None,
-    xRollback: None,
-    xFindFunction: None,
-    xRename: None,
-    xSavepoint: None,
-    xRelease: None,
-    xRollbackTo: None,
-    xShadowName: None,
-};
 
 #[no_mangle]
 pub unsafe extern "C" fn VtabConnect(
@@ -107,10 +82,8 @@ extern "C" fn VtabClose(arg1: *mut sqlite3_vtab_cursor) -> ::std::os::raw::c_int
     SQLITE_OK as _
 }
 
-/*
- * Only a full table scan is supported.  So xFilter simply rewinds to
- * the beginning.
- */
+/// Only a full table scan is supported.  So xFilter simply rewinds to the
+/// beginning.
 #[no_mangle]
 pub unsafe extern "C" fn VtabFilter(
     arg1: *mut sqlite3_vtab_cursor,
@@ -332,12 +305,40 @@ pub unsafe extern "C" fn VtabUpdate(
 }
 
 impl VTab {
-    pub unsafe fn new(db: *mut sqlite3) -> Result<(), String> {
+    const VTAB_NAME: &'static [u8] = b"vtabstat\0";
+    const VTAB_MODULE: sqlite3_module = sqlite3_module {
+        iVersion: 0,
+        xCreate: None,
+        xConnect: Some(VtabConnect),
+        xBestIndex: Some(VtabBestIndex),
+        xDisconnect: Some(VtabDisconnect),
+        xDestroy: None,
+        xOpen: Some(VtabOpen),
+        xClose: Some(VtabClose),
+        xFilter: Some(VtabFilter),
+        xNext: Some(VtabNext),
+        xEof: Some(VtabEof),
+        xColumn: Some(VtabColumn),
+        xRowid: Some(VtabRowid),
+        xUpdate: Some(VtabUpdate),
+        xBegin: None,
+        xSync: None,
+        xCommit: None,
+        xRollback: None,
+        xFindFunction: None,
+        xRename: None,
+        xSavepoint: None,
+        xRelease: None,
+        xRollbackTo: None,
+        xShadowName: None,
+    };
+
+    pub unsafe fn create(db: *mut sqlite3) -> Result<(), String> {
         let ret = unsafe {
             ((*crate::API).create_module.unwrap())(
                 db,
-                VTAB_NAME.as_ptr() as _,
-                &VTAB_MODULE,
+                Self::VTAB_NAME.as_ptr() as _,
+                &Self::VTAB_MODULE,
                 std::ptr::null_mut(),
             )
         };

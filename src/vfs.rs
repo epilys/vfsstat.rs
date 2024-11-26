@@ -1,4 +1,5 @@
-#![allow(non_snake_case)]
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use std::{convert::TryInto, pin::Pin};
 
 use log::debug;

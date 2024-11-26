@@ -1,7 +1,12 @@
-#![allow(non_snake_case)]
-#![allow(dead_code)]
-#![allow(non_camel_case_types)]
-#![allow(non_upper_case_globals)]
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+#![allow(
+    non_snake_case,
+    dead_code,
+    non_camel_case_types,
+    non_upper_case_globals,
+    clippy::type_complexity
+)]
 pub(crate) mod sqlite3ext;
 use std::{convert::TryInto, ffi::CString};
 
@@ -10,21 +15,28 @@ use sqlite3ext::{
     sqlite3, sqlite3_api_routines, SQLITE_ERROR, SQLITE_OK, SQLITE_OK_LOAD_PERMANENTLY,
 };
 
-/*
- * File types
- */
+/// File types
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub enum FileType {
-    Main = 0,          /* Main database file */
-    Journal = 1,       /* Rollback journal */
-    Wal = 2,           /* Write-ahead log file */
-    MasterJournal = 3, /* Master journal */
-    SubJournal = 4,    /* Subjournal */
-    TempDb = 5,        /* TEMP database */
-    TempJournal = 6,   /* Journal for TEMP database */
-    Transient = 7,     /* Transient database */
-    Any = 8,           /* Unspecified file type */
+    /// Main database file
+    Main = 0,
+    /// Rollback journal
+    Journal = 1,
+    /// Write-ahead log file
+    Wal = 2,
+    /// Master journal
+    MasterJournal = 3,
+    /// Subjournal
+    SubJournal = 4,
+    /// TEMP database
+    TempDb = 5,
+    /// Journal for TEMP database
+    TempJournal = 6,
+    /// Transient database
+    Transient = 7,
+    /// Unspecified file type
+    Any = 8,
 }
 
 /*
@@ -51,33 +63,55 @@ pub struct Stats {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub enum StatField {
-    BytesIn = 0,      /* Bytes read in */
-    BytesOut = 1,     /* Bytes written out */
-    Read = 2,         /* Read requests */
-    Write = 3,        /* Write requests */
-    Sync = 4,         /* Syncs */
-    Open = 5,         /* File opens */
-    Lock = 6,         /* Lock requests */
-    Access = 7,       /* xAccess calls.  filetype==ANY only */
-    Delete = 8,       /* xDelete calls.  filetype==ANY only */
-    FullPath = 9,     /* xFullPathname calls.  ANY only */
-    Random = 10,      /* xRandomness calls.    ANY only */
-    Sleep = 11,       /* xSleep calls.         ANY only */
-    CurrentTime = 12, /* xCurrentTime calls.   ANY only */
+    /// Bytes read in
+    BytesIn = 0,
+    /// Bytes written out
+    BytesOut = 1,
+    /// Read requests
+    Read = 2,
+    /// Write requests
+    Write = 3,
+    /// Syncs
+    Sync = 4,
+    /// File opens
+    Open = 5,
+    /// Lock requests
+    Lock = 6,
+    /// xAccess calls.  filetype==ANY only
+    Access = 7,
+    /// xDelete calls.  filetype==ANY only
+    Delete = 8,
+    /// xFullPathname calls.  ANY only
+    FullPath = 9,
+    /// xRandomness calls.    ANY only
+    Random = 10,
+    /// xSleep calls.         ANY only
+    Sleep = 11,
+    /// xCurrentTime calls.   ANY only
+    CurrentTime = 12,
 }
 
 #[repr(C)]
 #[derive(Debug, Default)]
 pub struct FileStats {
-    main: Stats,           /* Main database file */
-    journal: Stats,        /* Rollback journal */
-    wal: Stats,            /* Write-ahead log file */
-    master_journal: Stats, /* Master journal */
-    sub_journal: Stats,    /* Subjournal */
-    temp_db: Stats,        /* TEMP database */
-    temp_journal: Stats,   /* Journal for TEMP database */
-    transient: Stats,      /* Transient database */
-    any: Stats,            /* Unspecified file type */
+    /// Main database file
+    main: Stats,
+    /// Rollback journal
+    journal: Stats,
+    /// Write-ahead log file
+    wal: Stats,
+    /// Master journal
+    master_journal: Stats,
+    /// Subjournal
+    sub_journal: Stats,
+    /// TEMP database
+    temp_db: Stats,
+    /// Journal for TEMP database
+    temp_journal: Stats,
+    /// Transient database
+    transient: Stats,
+    /// Unspecified file type
+    any: Stats,
 }
 
 macro_rules! statcnt {
@@ -136,7 +170,7 @@ pub unsafe extern "C" fn vtab_register(
     pzErrMsg: *mut *mut ::std::os::raw::c_char,
     _pApi: *mut sqlite3_api_routines,
 ) -> ::std::os::raw::c_int {
-    if let Err(err) = vtab::VTab::new(db) {
+    if let Err(err) = vtab::VTab::create(db) {
         debug!("vtab::new() returned: {}", &err);
         if let Some(ptr) = err_to_sqlite3_str(err) {
             *pzErrMsg = ptr;
@@ -152,19 +186,15 @@ pub unsafe extern "C" fn sqlite3_vfsstatrs_init(
     pzErrMsg: *mut *mut ::std::os::raw::c_char,
     pApi: *mut sqlite3_api_routines,
 ) -> ::std::os::raw::c_int {
-    use log::LevelFilter;
-    #[cfg(debug_assertions)]
-    let log_level = LevelFilter::Trace;
-    #[cfg(not(debug_assertions))]
-    let log_level = LevelFilter::Error;
-    //LevelFilter::Error;
-    //LevelFilter::Warn;
-    //LevelFilter::Info;
-    //LevelFilter::Debug;
-    let _ = env_logger::builder()
-        .format_timestamp_nanos()
-        .filter_level(log_level)
-        .try_init();
+    // use log::LevelFilter;
+    // #[cfg(debug_assertions)]
+    // let log_level = LevelFilter::Trace;
+    // #[cfg(not(debug_assertions))]
+    // let log_level = LevelFilter::Error;
+    // let _ = env_logger::builder()
+    //     .format_timestamp_nanos()
+    //     .filter_level(log_level)
+    //     .try_init();
 
     trace!("sqlite3_vfsstat_rs_init");
     API = pApi;
@@ -184,9 +214,10 @@ pub unsafe extern "C" fn sqlite3_vfsstatrs_init(
     if ret != SQLITE_OK as _ {
         return ret;
     } else {
-        let ret = ((*pApi).auto_extension.unwrap())(Some(std::mem::transmute(
-            vtab_register as *const (),
-        )));
+        let ret = ((*pApi).auto_extension.unwrap())(Some(std::mem::transmute::<
+            *const (),
+            unsafe extern "C" fn(),
+        >(vtab_register as *const ())));
         if ret != SQLITE_OK as _ {
             return ret;
         }
