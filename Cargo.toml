@@ -4,12 +4,13 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Manos Pitsidianakis <manos@pitsidianak.is>"]
 publish = false
+rust-version = "1.71.1"
 
 [lib]
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-env_logger = { version = "0.11.1" }
+env_logger = { version = "0.11.1", default-features = false }
 log = { version = "0.4" }
 
 [dev-dependencies]
